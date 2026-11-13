@@ -110,7 +110,7 @@ test("P07-TOOL-07 the release verdicts stay separate and never say production re
 test("P07-TOOL-08 the threat model rows carry their test names", () => {
   const rows = parseThreats("| ID | x | y | Tests |\n|---|---|---|---|\n| T-01 | Tampering | control | tests: a_b, `c::d` |\n| T-02 | x | y | tests: |");
   assert.deepEqual(rows.map((r) => [r.id, r.tests]), [["T-01", ["a_b", "c::d"]], ["T-02", []]]);
-  const real = parseThreats(readFileSync(join(ROOT, "docs", "phases", "PHASE-07", "PHASE-07-THREAT-MODEL.md"), "utf8"));
+  const real = parseThreats(readFileSync(join(ROOT, "docs", "security", "THREAT-MODEL.md"), "utf8"));
   assert.ok(real.length >= 15, `only ${real.length} threats`);
   assert.ok(real.every((r) => r.tests.length > 0), "a threat has no test");
 });

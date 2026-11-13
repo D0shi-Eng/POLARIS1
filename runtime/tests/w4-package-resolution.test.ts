@@ -359,7 +359,7 @@ test("REG-PKG-005: the dependency is declared, lockfile-pinned and materialised 
 });
 
 test("REG-PKG-005: the runner repairs a foreign dependency tree instead of trusting that one exists", () => {
-  const runner = readFileSync(RUNNER, "utf8");
+  const runner = readFileSync(RUNNER, "utf8").replace(/\r\n/g, "\n"); // نسخة جديدة قد تُخرَج بـCRLF
   assert.equal(runner.includes("dependencies present, no install"), false, "the runner accepts a node_modules directory on sight again");
   assert.match(runner, /Test-DeclaredDependenciesPresent/);
   assert.match(runner, /Remove-NodeModules/);
@@ -376,7 +376,7 @@ test("REG-PKG-005: the runner repairs a foreign dependency tree instead of trust
 // ── REG-PKG-006 ─────────────────────────────────────────────────────────────
 
 test("REG-PKG-006: the Windows runner proves package resolution before it runs any native probe", () => {
-  const runner = readFileSync(RUNNER, "utf8");
+  const runner = readFileSync(RUNNER, "utf8").replace(/\r\n/g, "\n"); // نسخة جديدة قد تُخرَج بـCRLF
   assert.match(runner, /check-package-graph\.mjs/, "the runner never invokes the package resolution gate");
 
   const contractsInstallAt = runner.indexOf("$lockState += Initialize-Package -PackageName 'contracts'");
@@ -413,7 +413,7 @@ test("REG-PKG-006: the Windows runner proves package resolution before it runs a
 test("REG-PKG-006: the runner reads the gate's exit code, never its output", () => {
   // العيب D2 حرفيًا: مخرجات الأمر الأصلي كانت تعود مع رمز الخروج في مصفوفة،
   // فصار كل تشغيل ناجح فشلًا. المخرجات تذهب إلى المضيف، والمُعاد عدد صحيح.
-  const runner = readFileSync(RUNNER, "utf8");
+  const runner = readFileSync(RUNNER, "utf8").replace(/\r\n/g, "\n"); // نسخة جديدة قد تُخرَج بـCRLF
   const body = runner.slice(runner.indexOf("function Invoke-PackageResolutionGate"));
   const definition = body.slice(0, body.indexOf("\n}\n") + 3);
 
@@ -480,7 +480,7 @@ test("REG-PKG-011: rerunning the gate is idempotent and changes nothing on disk"
 test("REG-PKG-011: the runner stamps the tree it installs and refuses one stamped by another host", () => {
   // إعادة التشغيل على نفس المضيف لا تُعيد التثبيت؛ وإعادة التشغيل بعد نظام آخر
   // تُعيده. الملكيّة تُقاس بختم مكتوب، لا تُستنتج من فشل اجتياز رابط.
-  const runner = readFileSync(RUNNER, "utf8");
+  const runner = readFileSync(RUNNER, "utf8").replace(/\r\n/g, "\n"); // نسخة جديدة قد تُخرَج بـCRLF
   assert.match(runner, /\.polaris-host\.json/);
   assert.match(runner, /function Write-HostStamp/);
   assert.match(runner, /function Test-HostStamp/);

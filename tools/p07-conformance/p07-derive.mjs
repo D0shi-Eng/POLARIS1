@@ -83,7 +83,7 @@ export function loadInputs(root) {
     security: readJson(join(raw, "security.local.json")),
     bytes: readJson(join(raw, "evidence-bytes.local.json")),
     gates: Object.fromEntries(["00", "01", "02", "03", "04", "05", "06"].map((p) => [p, readJson(join(root, "evidence", `phase-${p}-final-gate.json`))])),
-    threats: parseThreats(read(root, "docs/phases/PHASE-07/PHASE-07-THREAT-MODEL.md")),
+    threats: parseThreats(read(root, "docs/security/THREAT-MODEL.md")),
     tauriRelease: JSON.parse(read(root, "desktop/host/app/tauri.release.conf.json") ?? "{}"),
     productVersion: conf.version ?? null,
     fixtureVersion: "0.0.9",

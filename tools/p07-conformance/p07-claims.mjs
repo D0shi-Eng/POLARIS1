@@ -359,7 +359,7 @@ export const P07_CLAIMS = Object.freeze([
     condition: "the threat model maps every threat to a control and to tests that ran and passed in this run",
     evaluate(inputs) {
       const rows = inputs.threats ?? [];
-      if (rows.length === 0) return [measure("threat model", "NOT_TESTED", "docs/phases/PHASE-07/PHASE-07-THREAT-MODEL.md has no threat rows")];
+      if (rows.length === 0) return [measure("threat model", "NOT_TESTED", "docs/security/THREAT-MODEL.md has no threat rows")];
       return rows.map((row) => {
         const results = row.tests.map((name) => {
           const hit = (inputs.groups ?? []).flatMap((g) => g.tests ?? []).filter((t) => t.name === name || t.name.endsWith(`::${name}`));
