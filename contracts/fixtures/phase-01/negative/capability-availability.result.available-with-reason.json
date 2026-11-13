@@ -1,0 +1,18 @@
+{
+  "capabilities": [
+    {
+      "capability_id": "polaris.desktop.missions",
+      "availability": {
+        "state": "UNAVAILABLE",
+        "reason": "PHASE_NOT_IMPLEMENTED"
+      }
+    },
+    {
+      "capability_id": "polaris.desktop.settings",
+      "availability": {
+        "state": "AVAILABLE",
+        "reason": "POLICY_DISABLED"
+      }
+    }
+  ]
+}

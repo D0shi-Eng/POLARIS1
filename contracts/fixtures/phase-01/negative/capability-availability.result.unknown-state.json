@@ -1,0 +1,17 @@
+{
+  "capabilities": [
+    {
+      "capability_id": "polaris.desktop.missions",
+      "availability": {
+        "state": "DEGRADED",
+        "reason": "POLICY_DISABLED"
+      }
+    },
+    {
+      "capability_id": "polaris.desktop.settings",
+      "availability": {
+        "state": "AVAILABLE"
+      }
+    }
+  ]
+}

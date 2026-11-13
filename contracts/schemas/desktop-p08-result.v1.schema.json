@@ -1,0 +1,2236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase08ResultPayloadV1",
+  "description": "The closed set of result payloads the Phase-08 operations return. No result carries a credential value, a token or its vault reference, or an absolute path of the user's computer.",
+  "$comment": "ما يعبر: معرّفات وحالات ومسارات نسبية داخل المساحة ومقتطفات محدودة. لا سرّ ولا مسار مطلق.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/WorkspaceListResultV1"
+    },
+    {
+      "$ref": "#/$defs/WorkspacePreviewResultV1"
+    },
+    {
+      "$ref": "#/$defs/WorkspaceExportResultV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentStageResultV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentDiscardResultV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentListResultV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentBindResultV1"
+    },
+    {
+      "$ref": "#/$defs/ArtifactListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ArtifactGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionStatusResultV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionRunsResultV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionRuntimePrepareResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionModelSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleSaveResultV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleEnableResultV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleDeleteResultV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleRunNowResultV1"
+    },
+    {
+      "$ref": "#/$defs/OauthListResultV1"
+    },
+    {
+      "$ref": "#/$defs/OauthConnectResultV1"
+    },
+    {
+      "$ref": "#/$defs/OauthDisconnectResultV1"
+    },
+    {
+      "$ref": "#/$defs/VoiceTranscribeResultV1"
+    },
+    {
+      "$ref": "#/$defs/ShareListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ShareSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/PublishListResultV1"
+    },
+    {
+      "$ref": "#/$defs/PublishProposeResultV1"
+    },
+    {
+      "$ref": "#/$defs/PublishDecideResultV1"
+    },
+    {
+      "$ref": "#/$defs/SkillPackageListResultV1"
+    },
+    {
+      "$ref": "#/$defs/SkillPackageImportResultV1"
+    },
+    {
+      "$ref": "#/$defs/DeviceExportResultV1"
+    },
+    {
+      "$ref": "#/$defs/DeviceImportResultV1"
+    },
+    {
+      "$ref": "#/$defs/IntegrationSettingsSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationBeginResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationContinueResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationIndexResultV1"
+    },
+    {
+      "$ref": "#/$defs/AgentCatalogResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionSpecialistSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationUpdateResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationDeleteResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProjectDeleteResultV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryRememberResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationSearchResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCatalogResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCustomDeleteResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionTraceResultV1"
+    },
+    {
+      "$ref": "#/$defs/McpAcceptRedefinitionResultV1"
+    },
+    {
+      "$ref": "#/$defs/WebSearchStatusResultV1"
+    },
+    {
+      "$ref": "#/$defs/WebSearchTestResultV1"
+    },
+    {
+      "$ref": "#/$defs/MemorySemanticStatusResultV1"
+    },
+    {
+      "$ref": "#/$defs/MemorySemanticTestResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionRatingResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionNoteResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalGrantsResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalGrantRevokeResultV1"
+    },
+    {
+      "$ref": "#/$defs/GitHubStatusResultV1"
+    }
+  ],
+  "$defs": {
+    "WebSearchStatusResultV1": {
+      "title": "WebSearchStatusResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "ready",
+        "searxng_endpoint_configured",
+        "brave_key_configured",
+        "secure_store_available"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "NONE",
+            "SEARXNG",
+            "BRAVE"
+          ]
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "searxng_endpoint_configured": {
+          "type": "boolean"
+        },
+        "brave_key_configured": {
+          "type": "boolean"
+        },
+        "secure_store_available": {
+          "type": "boolean"
+        }
+      },
+      "description": "The chosen web search provider and whether it has what it needs. A key is reported as present or absent, never shown."
+    },
+    "MemorySemanticStatusResultV1": {
+      "title": "MemorySemanticStatusResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "endpoint", "model", "min_similarity", "query_prefix", "document_prefix", "active", "retrievals", "failures"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "endpoint": { "anyOf": [{ "type": "string", "maxLength": 300 }, { "type": "null" }] },
+        "model": { "anyOf": [{ "type": "string", "maxLength": 200 }, { "type": "null" }] },
+        "min_similarity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "query_prefix": { "type": "string", "maxLength": 40 },
+        "document_prefix": { "type": "string", "maxLength": 40 },
+        "active": { "type": "boolean", "description": "The host ranks memory by similarity now; a saved setting alone is not enough." },
+        "retrievals": { "type": "integer", "minimum": 0, "description": "Retrievals ranked with similarity since this host started." },
+        "failures": { "type": "integer", "minimum": 0, "description": "Retrievals that fell back to lexical ranking because embedding failed." }
+      }
+    },
+    "MemorySemanticTestResultV1": {
+      "title": "MemorySemanticTestResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcome", "dimensions", "duration_ms"],
+      "properties": {
+        "outcome": { "enum": ["OK", "NOT_CONFIGURED", "UNREACHABLE", "MALFORMED_RESPONSE", "REFUSED"] },
+        "dimensions": { "anyOf": [{ "type": "integer", "minimum": 1, "maximum": 8192 }, { "type": "null" }] },
+        "duration_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "WebSearchTestResultV1": {
+      "title": "WebSearchTestResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "outcome",
+        "results",
+        "duration_ms"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "NONE",
+            "SEARXNG",
+            "BRAVE"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "OK",
+            "NOT_CONFIGURED",
+            "AUTH_FAILED",
+            "RATE_LIMITED",
+            "UNREACHABLE",
+            "REFUSED",
+            "MALFORMED",
+            "TIMEOUT"
+          ]
+        },
+        "results": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "description": "The outcome of one real test search, measured on the host."
+    },
+    "MissionRatingResultV1": {
+      "title": "MissionRatingResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "rating",
+        "rated_at"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "rating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "rated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "The stored rating."
+    },
+    "TurnNoteV1": {
+      "title": "TurnNoteV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "note_id",
+        "mission_id",
+        "seq",
+        "text",
+        "state",
+        "created_at"
+      ],
+      "properties": {
+        "note_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "state": {
+          "enum": [
+            "QUEUED",
+            "DELIVERED",
+            "NOT_DELIVERED"
+          ]
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "delivered_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A message the user wrote while the mission ran. DELIVERED means the agent received it as a user message at delivered_at; NOT_DELIVERED means the mission ended first."
+    },
+    "MissionNoteResultV1": {
+      "title": "MissionNoteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "note"
+      ],
+      "properties": {
+        "note": {
+          "$ref": "#/$defs/TurnNoteV1"
+        }
+      },
+      "description": "The queued note."
+    },
+    "MissionGrantV1": {
+      "title": "MissionGrantV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "tool_id",
+        "resource",
+        "effects",
+        "created_at",
+        "expires_at"
+      ],
+      "properties": {
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "tool_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "maxLength": 40
+          }
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "expires_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "One mission-scoped approval: this tool, this resource, these effects, in this mission, until expires_at. The gateway still evaluates policy on every call."
+    },
+    "ToolApprovalGrantsResultV1": {
+      "title": "ToolApprovalGrantsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "grants"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "grants": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/MissionGrantV1"
+          }
+        }
+      },
+      "description": "The mission's active grants."
+    },
+    "ToolApprovalGrantRevokeResultV1": {
+      "title": "ToolApprovalGrantRevokeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "revoked"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "revoked": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "description": "How many grants were revoked now."
+    },
+    "GitHubStatusResultV1": {
+      "title": "GitHubStatusResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connected",
+        "secure_store_available"
+      ],
+      "properties": {
+        "connected": {
+          "type": "boolean"
+        },
+        "secure_store_available": {
+          "type": "boolean"
+        },
+        "login": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "grant_kind": {
+          "enum": [
+            "FINE_GRAINED",
+            "CLASSIC",
+            "UNKNOWN"
+          ]
+        },
+        "scopes": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          }
+        },
+        "checked_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "Whether a GitHub token is stored, and the account and scopes GitHub reported when it was checked. Never the token."
+    },
+    "WorkspaceListResultV1": {
+      "title": "WorkspaceListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "entries",
+        "used_bytes"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "entries": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "is_dir",
+              "size_bytes"
+            ],
+            "properties": {
+              "path": {
+                "$ref": "./desktop-p08-domain.schema.json#/$defs/WorkspacePath"
+              },
+              "is_dir": {
+                "type": "boolean"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            }
+          }
+        },
+        "used_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "WorkspacePreviewResultV1": {
+      "title": "WorkspacePreviewResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "kind",
+        "mime_type",
+        "size_bytes",
+        "truncated"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/WorkspacePath"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "TEXT",
+            "DOCUMENT",
+            "HTML",
+            "IMAGE",
+            "BINARY"
+          ]
+        },
+        "mime_type": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 1000000
+        },
+        "data_url": {
+          "type": "string",
+          "maxLength": 8400000,
+          "pattern": "^data:image/(png|jpeg|gif|webp);base64,[A-Za-z0-9+/]*={0,2}$"
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "WorkspaceExportResultV1": {
+      "title": "WorkspaceExportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_label",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "file_label": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/FileName"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        }
+      }
+    },
+    "AttachmentStageResultV1": {
+      "title": "AttachmentStageResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment"
+      ],
+      "properties": {
+        "attachment": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/AttachmentV1"
+        }
+      }
+    },
+    "AttachmentDiscardResultV1": {
+      "title": "AttachmentDiscardResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_id",
+        "discarded"
+      ],
+      "properties": {
+        "attachment_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "discarded": {
+          "type": "boolean"
+        }
+      }
+    },
+    "AttachmentListResultV1": {
+      "title": "AttachmentListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachments"
+      ],
+      "properties": {
+        "attachments": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/AttachmentV1"
+          }
+        }
+      }
+    },
+    "AttachmentBindResultV1": {
+      "title": "AttachmentBindResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "attachments"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "attachments": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/AttachmentV1"
+          }
+        }
+      }
+    },
+    "ArtifactListResultV1": {
+      "title": "ArtifactListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifacts"
+      ],
+      "properties": {
+        "artifacts": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/ArtifactV1"
+          }
+        }
+      }
+    },
+    "ArtifactGetResultV1": {
+      "title": "ArtifactGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "publications"
+      ],
+      "properties": {
+        "artifact": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ArtifactV1"
+        },
+        "publications": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/PublicationV1"
+          }
+        }
+      }
+    },
+    "ExecutionStatusResultV1": {
+      "title": "ExecutionStatusResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "isolation",
+        "powershell",
+        "python",
+        "python_version",
+        "python_source_found",
+        "pdf_font_available",
+        "export_folder_configured",
+        "voice_configured",
+        "device_id",
+        "setting_keys",
+        "settings"
+      ],
+      "properties": {
+        "isolation": {
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1
+        },
+        "powershell": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/RuntimeStateV1"
+        },
+        "python": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/RuntimeStateV1"
+        },
+        "python_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 40
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "python_source_found": {
+          "type": "boolean"
+        },
+        "pdf_font_available": {
+          "type": "boolean"
+        },
+        "export_folder_configured": {
+          "type": "boolean"
+        },
+        "voice_configured": {
+          "type": "boolean"
+        },
+        "device_id": {
+          "type": "string",
+          "maxLength": 36
+        },
+        "setting_keys": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/IntegrationSettingKey"
+          }
+        },
+        "settings": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/IntegrationSettingsV1"
+        }
+      }
+    },
+    "ExecutionRunsResultV1": {
+      "title": "ExecutionRunsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "runs"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "runs": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/ExecutionRunV1"
+          }
+        }
+      }
+    },
+    "ExecutionRuntimePrepareResultV1": {
+      "title": "ExecutionRuntimePrepareResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime",
+        "available",
+        "version",
+        "files",
+        "bytes",
+        "reused"
+      ],
+      "properties": {
+        "runtime": {
+          "const": "PYTHON"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "files": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "reused": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MissionModelSetResultV1": {
+      "title": "MissionModelSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "model_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p08-domain.schema.json#/$defs/ModelId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ScheduleListResultV1": {
+      "title": "ScheduleListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedules"
+      ],
+      "properties": {
+        "schedules": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/ScheduleV1"
+          }
+        }
+      }
+    },
+    "ScheduleSaveResultV1": {
+      "title": "ScheduleSaveResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule"
+      ],
+      "properties": {
+        "schedule": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ScheduleV1"
+        }
+      }
+    },
+    "ScheduleEnableResultV1": {
+      "title": "ScheduleEnableResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule"
+      ],
+      "properties": {
+        "schedule": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ScheduleV1"
+        }
+      }
+    },
+    "ScheduleDeleteResultV1": {
+      "title": "ScheduleDeleteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "deleted"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "deleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ScheduleRunNowResultV1": {
+      "title": "ScheduleRunNowResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "started"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "started": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OauthListResultV1": {
+      "title": "OauthListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "providers",
+        "connections"
+      ],
+      "properties": {
+        "providers": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "provider_id",
+              "display_name",
+              "default_scopes"
+            ],
+            "properties": {
+              "provider_id": {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              "display_name": {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              "default_scopes": {
+                "type": "array",
+                "maxItems": 32,
+                "items": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              }
+            }
+          }
+        },
+        "connections": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/OAuthConnectionV1"
+          }
+        }
+      }
+    },
+    "OauthConnectResultV1": {
+      "title": "OauthConnectResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connection_id",
+        "consent_url",
+        "redirect_uri",
+        "opened_in_browser"
+      ],
+      "properties": {
+        "connection_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "consent_url": {
+          "type": "string",
+          "maxLength": 4000,
+          "pattern": "^https://"
+        },
+        "redirect_uri": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^http://127\\.0\\.0\\.1:[0-9]{1,5}/"
+        },
+        "opened_in_browser": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OauthDisconnectResultV1": {
+      "title": "OauthDisconnectResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connection_id",
+        "revoked"
+      ],
+      "properties": {
+        "connection_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "revoked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VoiceTranscribeResultV1": {
+      "title": "VoiceTranscribeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "seconds"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600
+        }
+      }
+    },
+    "ShareListResultV1": {
+      "title": "ShareListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grants"
+      ],
+      "properties": {
+        "grants": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/ShareGrantV1"
+          }
+        }
+      }
+    },
+    "ShareSetResultV1": {
+      "title": "ShareSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grants"
+      ],
+      "properties": {
+        "grants": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/ShareGrantV1"
+          }
+        }
+      }
+    },
+    "PublishListResultV1": {
+      "title": "PublishListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publishers",
+        "publications"
+      ],
+      "properties": {
+        "publishers": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "publisher_id",
+              "leaves_device"
+            ],
+            "properties": {
+              "publisher_id": {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              "leaves_device": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "publications": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/PublicationV1"
+          }
+        }
+      }
+    },
+    "PublishProposeResultV1": {
+      "title": "PublishProposeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication"
+      ],
+      "properties": {
+        "publication": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/PublicationV1"
+        }
+      }
+    },
+    "PublishDecideResultV1": {
+      "title": "PublishDecideResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication"
+      ],
+      "properties": {
+        "publication": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/PublicationV1"
+        }
+      }
+    },
+    "SkillPackageListResultV1": {
+      "title": "SkillPackageListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packages"
+      ],
+      "properties": {
+        "packages": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p08-domain.schema.json#/$defs/SkillPackageV1"
+          }
+        }
+      }
+    },
+    "SkillPackageImportResultV1": {
+      "title": "SkillPackageImportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package"
+      ],
+      "properties": {
+        "package": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/SkillPackageV1"
+        }
+      }
+    },
+    "DeviceExportResultV1": {
+      "title": "DeviceExportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_label",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "file_label": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/FileName"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        }
+      }
+    },
+    "DeviceImportResultV1": {
+      "title": "DeviceImportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "import_folder",
+        "files",
+        "source_device_id",
+        "source_mission_id"
+      ],
+      "properties": {
+        "import_folder": {
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1
+        },
+        "files": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "source_device_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 36
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_mission_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 36
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "IntegrationSettingsSetResultV1": {
+      "title": "IntegrationSettingsSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "settings"
+      ],
+      "properties": {
+        "settings": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/IntegrationSettingsV1"
+        }
+      }
+    },
+    "ConversationTurnV1": {
+      "title": "ConversationTurnV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "seq",
+        "message",
+        "created_at",
+        "state",
+        "completion_proof_status"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        },
+        "completion_proof_status": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/CompletionProofStatus"
+        },
+        "started_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "completed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "answer": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "failure_reason": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "model_id": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ModelId"
+        },
+        "specialist_id": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/SpecialistId"
+        },
+        "rating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "notes": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/TurnNoteV1"
+          }
+        }
+      },
+      "description": "One user message and the mission that answered it. The message is shown as the user wrote it; answer is model output, displayed as data."
+    },
+    "ConversationEntryV1": {
+      "title": "ConversationEntryV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "mission_id",
+        "kind",
+        "text",
+        "created_at"
+      ],
+      "properties": {
+        "entry_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "kind": {
+          "enum": [
+            "PLAN",
+            "STEP",
+            "ACTION",
+            "NOTE",
+            "SUGGESTION"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "One line of a mission's live narration: the agent's words to the user (PLAN, NOTE), a step title (STEP), or a tool call with the status the gateway measured (ACTION)."
+    },
+    "ConversationV1": {
+      "title": "ConversationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "title",
+        "turns",
+        "entries",
+        "thinking"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "turns": {
+          "type": "array",
+          "maxItems": 10001,
+          "items": {
+            "$ref": "#/$defs/ConversationTurnV1"
+          }
+        },
+        "entries": {
+          "type": "array",
+          "maxItems": 4000000,
+          "items": {
+            "$ref": "#/$defs/ConversationEntryV1"
+          }
+        },
+        "thinking": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ConversationBeginResultV1": {
+      "title": "ConversationBeginResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "mission_id"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ConversationContinueResultV1": {
+      "title": "ConversationContinueResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "mission_id",
+        "seq"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "ConversationGetResultV1": {
+      "title": "ConversationGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversation"
+      ],
+      "properties": {
+        "conversation": {
+          "$ref": "#/$defs/ConversationV1"
+        }
+      }
+    },
+    "ConversationIndexResultV1": {
+      "title": "ConversationIndexResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "follow_ups"
+      ],
+      "properties": {
+        "follow_ups": {
+          "type": "array",
+          "maxItems": 100000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mission_id",
+              "thread_id"
+            ],
+            "properties": {
+              "mission_id": {
+                "$ref": "./common/ids.schema.json#/$defs/Uuid"
+              },
+              "thread_id": {
+                "$ref": "./common/ids.schema.json#/$defs/Uuid"
+              }
+            }
+          }
+        },
+        "threads": {
+          "type": "array",
+          "maxItems": 100000,
+          "items": {
+            "$ref": "#/$defs/ConversationThreadV1"
+          }
+        }
+      },
+      "description": "Follow-up turns and the conversation each belongs to (the missions a task list shows inside their conversation instead of on their own), and the conversations the task menu changed (ADR-031)."
+    },
+    "SpecialistDomainV1": {
+      "title": "SpecialistDomainV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain_id",
+        "name_ar",
+        "name_en",
+        "count"
+      ],
+      "properties": {
+        "domain_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]{1,48}$"
+        },
+        "name_ar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "name_en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      }
+    },
+    "SpecialistV1": {
+      "title": "SpecialistV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "specialist_id",
+        "domain_id",
+        "name_ar",
+        "name_en",
+        "summary_ar",
+        "summary_en",
+        "task_types"
+      ],
+      "properties": {
+        "specialist_id": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/SpecialistId"
+        },
+        "domain_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]{1,48}$"
+        },
+        "name_ar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "name_en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "summary_ar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 220
+        },
+        "summary_en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 220
+        },
+        "task_types": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 9,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/TaskType"
+          }
+        },
+        "agent": {
+          "$ref": "#/$defs/AgentDefinitionViewV1"
+        }
+      },
+      "description": "A catalog specialist as the renderer shows it. Its working instructions stay in the host and reach only the model prompt. `agent` (remediation 2026-10-12) is the agent definition the host enforces when this specialist works: identity, version, tools, memory scope, budget and output contract."
+    },
+    "AgentDefinitionViewV1": {
+      "title": "AgentDefinitionViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id",
+        "version",
+        "tools",
+        "memory_namespace",
+        "report_path",
+        "max_turns",
+        "max_tool_calls",
+        "real_model_acceptance"
+      ],
+      "properties": {
+        "agent_id": { "type": "string", "pattern": "^agent\\.[a-z0-9-]{1,48}\\.[a-z0-9-]{1,48}$" },
+        "version": { "type": "string", "maxLength": 32 },
+        "tools": { "type": "array", "maxItems": 32, "items": { "type": "string", "maxLength": 80 } },
+        "memory_namespace": { "type": "string", "maxLength": 140 },
+        "report_path": { "type": "string", "maxLength": 200 },
+        "max_turns": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "max_tool_calls": { "type": "integer", "minimum": 1, "maximum": 200 },
+        "real_model_acceptance": {
+          "type": "string",
+          "enum": ["NOT_MEASURED"],
+          "description": "This build does not carry a real-model acceptance result for any agent; one is recorded only from a real model run the owner authorised."
+        }
+      },
+      "description": "An agent definition as the host enforces it (remediation 2026-10-12, section 6)."
+    },
+    "AgentCatalogResultV1": {
+      "title": "AgentCatalogResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domains",
+        "specialists"
+      ],
+      "properties": {
+        "domains": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/SpecialistDomainV1"
+          }
+        },
+        "specialists": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "#/$defs/SpecialistV1"
+          }
+        }
+      }
+    },
+    "MissionSpecialistSetResultV1": {
+      "title": "MissionSpecialistSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "specialist_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "specialist_id": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p08-domain.schema.json#/$defs/SpecialistId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ConversationThreadV1": {
+      "title": "ConversationThreadV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "title",
+        "pinned",
+        "favorite",
+        "archived"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "favorite": {
+          "type": "boolean"
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      },
+      "description": "A conversation as the task menu left it. A conversation without a record is not pinned, not a favourite and not archived."
+    },
+    "ConversationUpdateResultV1": {
+      "title": "ConversationUpdateResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread"
+      ],
+      "properties": {
+        "thread": {
+          "$ref": "#/$defs/ConversationThreadV1"
+        }
+      }
+    },
+    "ConversationDeleteResultV1": {
+      "title": "ConversationDeleteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "deleted",
+        "turns"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "deleted": {
+          "const": true
+        },
+        "turns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10001
+        }
+      }
+    },
+    "ProjectDeleteResultV1": {
+      "title": "ProjectDeleteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "deleted",
+        "detached_missions"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "deleted": {
+          "const": true
+        },
+        "detached_missions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        }
+      }
+    },
+    "MemoryRememberResultV1": {
+      "title": "MemoryRememberResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "memory_id",
+        "reason"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "PROMOTED",
+            "REJECTED",
+            "DUPLICATE",
+            "COALESCED"
+          ]
+        },
+        "memory_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    "ConversationSearchResultV1": {
+      "title": "ConversationSearchResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "results"
+      ],
+      "properties": {
+        "results": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "thread_id",
+              "title",
+              "snippet",
+              "updated_at"
+            ],
+            "properties": {
+              "thread_id": {
+                "$ref": "./common/ids.schema.json#/$defs/Uuid"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "project_id": {
+                "$ref": "./common/ids.schema.json#/$defs/Uuid"
+              },
+              "snippet": {
+                "type": "string",
+                "maxLength": 400
+              },
+              "updated_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            }
+          }
+        }
+      }
+    },
+    "ProviderCatalogResultV1": {
+      "title": "ProviderCatalogResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "retrieved",
+        "entries"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "retrieved": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "entries": {
+          "type": "array",
+          "maxItems": 400,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "provider_id",
+              "kind",
+              "display_name",
+              "display_name_key",
+              "locality",
+              "auth_mode",
+              "enabled",
+              "documented_models",
+              "environment_key_present"
+            ],
+            "properties": {
+              "provider_id": {
+                "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+              },
+              "kind": {
+                "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderKind"
+              },
+              "display_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+              },
+              "display_name_key": {
+                "$ref": "./desktop-settings.schema.json#/$defs/DisplayKey"
+              },
+              "locality": {
+                "$ref": "./desktop-p02-domain.schema.json#/$defs/Locality"
+              },
+              "auth_mode": {
+                "$ref": "./desktop-p02-domain.schema.json#/$defs/AuthMode"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "documented_models": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000
+              },
+              "environment_key_present": {
+                "type": "boolean"
+              },
+              "environment_variable": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+              },
+              "popular_rank": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000
+              }
+            }
+          }
+        }
+      },
+      "description": "The provider catalog (ADR-037): built-in, catalogued from a dated models.dev snapshot, and custom. No credential, and no key status read from the store."
+    },
+    "ProviderCustomDeleteResultV1": {
+      "title": "ProviderCustomDeleteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "removed"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "removed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TraceSpanV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "span_id",
+        "trace_id",
+        "name",
+        "status",
+        "started_at",
+        "semconv"
+      ],
+      "properties": {
+        "span_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}$"
+        },
+        "trace_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "parent_span_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "enum": [
+            "invoke_agent",
+            "chat",
+            "execute_tool"
+          ]
+        },
+        "agent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "task_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "provider_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 80
+        },
+        "tool_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "input_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latency_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cost_micros": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "OK",
+            "ERROR",
+            "DENIED",
+            "AWAITING_APPROVAL",
+            "CANCELLED"
+          ]
+        },
+        "gate_decision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 80
+        },
+        "started_at": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "semconv": {
+          "type": "string",
+          "maxLength": 40
+        }
+      },
+      "title": "TraceSpanV1",
+      "description": "ADR-041: one OpenTelemetry GenAI span (invoke_agent, chat, execute_tool). The field set is pinned by semconv because the specification is still Development."
+    },
+    "MissionTraceResultV1": {
+      "title": "MissionTraceResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "semconv",
+        "spans",
+        "spans_total",
+        "next_after",
+        "totals",
+        "security_events",
+        "session_events",
+        "session_chain"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "semconv": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "spans": {
+          "type": "array",
+          "maxItems": 1000,
+          "description": "PHASE-10 (CP-10-1): one page, in start order.",
+          "items": {
+            "$ref": "#/$defs/TraceSpanV1"
+          }
+        },
+        "spans_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "next_after": {
+          "description": "The `after` value of the next page; null on the last page.",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "totals": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Measured over every span of the mission, not the page. A finished model call that reported no tokens counts in unreported, never as zero.",
+          "required": ["agents", "model_calls", "tool_calls", "input_tokens", "output_tokens", "unreported", "denied"],
+          "properties": {
+            "agents": { "type": "integer", "minimum": 0 },
+            "model_calls": { "type": "integer", "minimum": 0 },
+            "tool_calls": { "type": "integer", "minimum": 0 },
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "unreported": { "type": "integer", "minimum": 0 },
+            "denied": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "security_events": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "seq",
+              "kind",
+              "detail",
+              "created_at"
+            ],
+            "properties": {
+              "seq": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "kind": {
+                "type": "string",
+                "maxLength": 40
+              },
+              "detail": {
+                "type": "string",
+                "maxLength": 300
+              },
+              "created_at": {
+                "type": "string",
+                "maxLength": 40
+              }
+            }
+          }
+        },
+        "session_events": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "session_chain": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state"
+          ],
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "INTACT",
+                "BROKEN"
+              ]
+            },
+            "events": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "at_seq": {
+              "type": "integer"
+            }
+          }
+        },
+        "otlp": {
+          "type": "object",
+          "description": "OTLP/JSON ResourceSpans, only when include_otlp was asked."
+        }
+      }
+    },
+    "McpAcceptRedefinitionResultV1": {
+      "title": "McpAcceptRedefinitionResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool_id",
+        "accepted",
+        "pending"
+      ],
+      "properties": {
+        "tool_id": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "pending": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      }
+    }
+  }
+}

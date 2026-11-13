@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisDesktopAvailability",
+  "description": "The one availability model every Phase-01 surface uses. A feature that is not built yet is a first-class state with a machine reason, never an empty screen and never free text.",
+  "$comment": "نموذج الإتاحة الوحيد. الحالة والسبب رمزان مغلقان، والنصّ المعروض تُوطّنه الواجهة من الرمز. لا سبب حرّ يحمل سلطة.",
+  "$defs": {
+    "AvailabilityState": {
+      "title": "AvailabilityState",
+      "type": "string",
+      "enum": [
+        "AVAILABLE",
+        "READ_ONLY",
+        "UNAVAILABLE",
+        "BLOCKED",
+        "ERROR"
+      ],
+      "description": "Closed availability state. AVAILABLE means usable now; READ_ONLY means observable but not actionable; UNAVAILABLE means absent by design in this phase; BLOCKED means a prerequisite is unmet; ERROR means the host could not determine it."
+    },
+    "AvailabilityReason": {
+      "title": "AvailabilityReason",
+      "type": "string",
+      "enum": [
+        "PHASE_NOT_IMPLEMENTED",
+        "PROVIDER_NOT_CONFIGURED",
+        "PLATFORM_UNSUPPORTED",
+        "POLICY_DISABLED",
+        "RUNTIME_UNAVAILABLE"
+      ],
+      "description": "Closed machine reason. The UI localises display text from state + reason; localized prose never enters the contract."
+    },
+    "Availability": {
+      "title": "Availability",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/AvailabilityState"
+        },
+        "reason": {
+          "$ref": "#/$defs/AvailabilityReason"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "المتاح لا يحمل سببًا: سبب على AVAILABLE يجعل الحقل زخرفة ويُغري الواجهة بعرضه.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "const": "AVAILABLE"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "not": {
+              "type": "object",
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        },
+        {
+          "$comment": "كل حالة غير AVAILABLE توجب سببًا مصنّفًا. «غير متاح» بلا سبب هو شاشة فارغة بلغة أخرى.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "enum": [
+                  "READ_ONLY",
+                  "UNAVAILABLE",
+                  "BLOCKED",
+                  "ERROR"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ],
+      "description": "A state, and a machine reason whenever the state is not AVAILABLE."
+    },
+    "CapabilityAvailability": {
+      "title": "CapabilityAvailability",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_id",
+        "availability"
+      ],
+      "properties": {
+        "capability_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Slug"
+        },
+        "availability": {
+          "$ref": "#/$defs/Availability"
+        }
+      },
+      "description": "Availability of one capability, as the host determined it. The renderer never computes this from a build-time constant."
+    }
+  }
+}

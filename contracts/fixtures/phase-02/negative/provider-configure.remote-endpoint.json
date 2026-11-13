@@ -1,0 +1,4 @@
+{
+  "provider_id": "lm-studio",
+  "endpoint": "https://collector.example.test/v1"
+}

@@ -1,0 +1,38 @@
+{
+  "settings_schema_version": "1.0",
+  "sections": [
+    {
+      "section_id": "general",
+      "label_key": "settings.section.general",
+      "mode": "ACTIVE",
+      "settings": [
+        {
+          "setting_id": "locale",
+          "value_kind": "LOCALE",
+          "mode": "ACTIVE",
+          "label_key": "settings.general.locale"
+        },
+        {
+          "setting_id": "appearance",
+          "value_kind": "APPEARANCE",
+          "mode": "ACTIVE",
+          "label_key": "settings.general.appearance"
+        }
+      ]
+    },
+    {
+      "section_id": "approvals",
+      "label_key": "settings.section.approvals",
+      "mode": "UNAVAILABLE_THIS_PHASE",
+      "availability_reason": "PHASE_NOT_IMPLEMENTED",
+      "settings": [
+        {
+          "setting_id": "approval-timeout",
+          "value_kind": "INTEGER",
+          "mode": "UNAVAILABLE_THIS_PHASE",
+          "label_key": "settings.approvals.timeout"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "provider_id": "lm-studio",
+  "endpoint": "http://127.0.0.1:1234",
+  "enabled": true
+}

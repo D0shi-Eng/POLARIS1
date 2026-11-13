@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopResultPayloadV1",
+  "description": "The closed set of result payloads the five Phase-01 desktop operations return. Each is a closed object carrying shell facts only.",
+  "$comment": "ResponseEnvelope لا يحمل حقل operation، فلا يستطيع المخطط وحده ربط النتيجة بعمليتها. الربط يقع على البوابة عبر request_id والسجل، وهذا حدّ مُعلن في PHASE-01-IPC-CONTRACTS.md لا ثغرة مسكوت عنها. وDesktopBootstrapResultV1 مرجع مجرّد بلا حقول مجاورة عمدًا: $ref ومعه title أو description يُفقد مُفكِّك المراجع قاعدةَ العنوان فتنكسر المراجع الداخلية للوثيقة المُشار إليها. الشرح مكانه الوثيقة لا المخطط.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/DesktopBootstrapResultV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopRuntimeStatusResultV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopCapabilityAvailabilityResultV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopSettingsDescribeResultV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopSettingsReadResultV1"
+    }
+  ],
+  "$defs": {
+    "DesktopBootstrapResultV1": {
+      "$ref": "./desktop-bootstrap.schema.json#/$defs/BootstrapSnapshot"
+    },
+    "DesktopRuntimeStatusResultV1": {
+      "title": "DesktopRuntimeStatusResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_status",
+        "observed_at"
+      ],
+      "properties": {
+        "runtime_status": {
+          "$ref": "./desktop-bootstrap.schema.json#/$defs/RuntimeStatus"
+        },
+        "observed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp",
+          "description": "When the host observed this. The shell caches status as a query result with an explicit staleness story, and cannot tell a stale answer from a fresh one without this."
+        }
+      }
+    },
+    "DesktopCapabilityAvailabilityResultV1": {
+      "title": "DesktopCapabilityAvailabilityResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capabilities"
+      ],
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "./desktop-availability.schema.json#/$defs/CapabilityAvailability"
+          },
+          "description": "One entry per capability the request named. A capability the host does not know is answered UNAVAILABLE with a reason, never omitted silently."
+        }
+      }
+    },
+    "DesktopSettingsDescribeResultV1": {
+      "title": "DesktopSettingsDescribeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "settings_schema_version",
+        "sections"
+      ],
+      "properties": {
+        "settings_schema_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "sections": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-settings.schema.json#/$defs/SettingSectionDescriptor"
+          }
+        }
+      },
+      "description": "Structure and per-setting mode. No value of any kind appears in a describe result."
+    },
+    "DesktopSettingsReadResultV1": {
+      "title": "DesktopSettingsReadResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_id",
+        "settings"
+      ],
+      "properties": {
+        "section_id": {
+          "$ref": "./desktop-settings.schema.json#/$defs/SettingSectionId"
+        },
+        "settings": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "./desktop-settings.schema.json#/$defs/ResolvedSetting"
+          }
+        }
+      },
+      "description": "Resolved, display-safe values for one section. A secret-bearing setting is reported as configured and its value is withheld."
+    }
+  }
+}

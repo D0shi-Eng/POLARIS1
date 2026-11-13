@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisContractError",
+  "description": "Typed error vocabulary. `error: string` is forbidden across every POLARIS boundary.",
+  "$comment": "لا يوجد error نصي حر. كل خطأ له رمز مصنّف.",
+  "$defs": {
+    "ErrorCode": {
+      "title": "ErrorCode",
+      "type": "string",
+      "enum": [
+        "VALIDATION_ERROR",
+        "UNSUPPORTED_VERSION",
+        "POLICY_DENIED",
+        "MALFORMED_MESSAGE",
+        "CONTRACT_VIOLATION",
+        "DEPENDENCY_UNAVAILABLE",
+        "TIMEOUT",
+        "CONFLICT",
+        "INTERNAL_ERROR"
+      ]
+    },
+    "ContractError": {
+      "title": "ContractError",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "display_message"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "display_message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "description": "Safe to show any caller at any trust tier."
+        },
+        "internal_detail": {
+          "type": "string",
+          "maxLength": 4096,
+          "description": "Withheld from TIER_2_UNTRUSTED callers."
+        },
+        "pointer": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "RFC 6901 JSON Pointer into the offending payload."
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

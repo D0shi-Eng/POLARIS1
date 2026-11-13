@@ -1,0 +1,705 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase02ResultPayloadV1",
+  "description": "The closed set of result payloads of the Phase-02 operations. No field carries a credential, a raw provider body, a stack or an internal host path beyond the user's own workspace references.",
+  "$comment": "النتائج مغلقة. ناتج النموذج بيانات ملوّثة بلا سلطة، ونتيجة المزوّد رمز مطبّع لا جسم خام.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/ProviderListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderConfigureResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCredentialResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderRefreshResultV1"
+    },
+    {
+      "$ref": "#/$defs/ModelListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ModelConfigureResultV1"
+    },
+    {
+      "$ref": "#/$defs/ModelPreferencesSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ModelInvokeResultV1"
+    },
+    {
+      "$ref": "#/$defs/ModelCancelResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProjectListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProjectGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ProjectMutationResultV1"
+    },
+    {
+      "$ref": "#/$defs/ContextSourceResultV1"
+    },
+    {
+      "$ref": "#/$defs/ContextPreviewResultV1"
+    },
+    {
+      "$ref": "#/$defs/ContextAssembleResultV1"
+    }
+  ],
+  "$defs": {
+    "ProviderListResultV1": {
+      "title": "ProviderListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "providers"
+      ],
+      "properties": {
+        "providers": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 128,
+          "items": {
+            "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderDescriptorView"
+          }
+        }
+      }
+    },
+    "ProviderConfigureResultV1": {
+      "title": "ProviderConfigureResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider"
+      ],
+      "properties": {
+        "provider": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderDescriptorView"
+        }
+      }
+    },
+    "ProviderCredentialResultV1": {
+      "title": "ProviderCredentialResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "outcome",
+        "key_status"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "outcome": {
+          "enum": [
+            "STORED",
+            "CLEARED",
+            "PROMPT_CANCELLED",
+            "STORE_UNAVAILABLE",
+            "NOT_APPLICABLE",
+            "NOTHING_TO_CLEAR"
+          ]
+        },
+        "key_status": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/CredentialState"
+        }
+      },
+      "description": "The credential outcome. The value never crosses."
+    },
+    "ProviderRefreshEntry": {
+      "title": "ProviderRefreshEntry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "health",
+        "models",
+        "duration"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "health": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderHealth"
+        },
+        "models": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelCounts"
+        },
+        "outcome": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderOutcome"
+        },
+        "duration": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/MeasuredMilliseconds"
+        }
+      }
+    },
+    "ProviderRefreshResultV1": {
+      "title": "ProviderRefreshResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "results"
+      ],
+      "properties": {
+        "results": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/$defs/ProviderRefreshEntry"
+          }
+        }
+      }
+    },
+    "ModelListResultV1": {
+      "title": "ModelListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "models",
+        "preferences"
+      ],
+      "properties": {
+        "models": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4000,
+          "items": {
+            "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelView"
+          }
+        },
+        "preferences": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelPreferences"
+        }
+      }
+    },
+    "ModelConfigureResultV1": {
+      "title": "ModelConfigureResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model"
+      ],
+      "properties": {
+        "model": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelView"
+        }
+      }
+    },
+    "ModelPreferencesSetResultV1": {
+      "title": "ModelPreferencesSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preferences"
+      ],
+      "properties": {
+        "preferences": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelPreferences"
+        }
+      }
+    },
+    "RoutingDecisionView": {
+      "title": "RoutingDecisionView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "decision",
+        "reason_codes",
+        "candidates_considered"
+      ],
+      "properties": {
+        "mode": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/RoutingMode"
+        },
+        "decision": {
+          "enum": [
+            "SELECTED",
+            "DENIED"
+          ]
+        },
+        "model_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelId"
+        },
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "locality": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/Locality"
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "MANUAL_SELECTION",
+              "PROJECT_DEFAULT",
+              "USER_DEFAULT",
+              "SOLE_ENABLED_MODEL",
+              "CAPABILITY_MATCH",
+              "NO_MODEL_CONFIGURED",
+              "MODEL_NOT_FOUND",
+              "MODEL_DISABLED",
+              "MODEL_UNAVAILABLE",
+              "MODEL_NOT_CHAT",
+              "PROVIDER_DISABLED",
+              "PROVIDER_UNHEALTHY",
+              "CAPABILITY_MISSING",
+              "CAPABILITY_UNKNOWN",
+              "NO_CANDIDATE",
+              "CONTEXT_TOO_LARGE",
+              "PROJECT_NOT_FOUND",
+              "PROJECT_ARCHIVED",
+              "SOURCE_NOT_IN_PROJECT",
+              "CANCELLED_BEFORE_START"
+            ]
+          }
+        },
+        "candidates_considered": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "const": "SELECTED"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "model_id",
+              "provider_id",
+              "locality"
+            ]
+          }
+        }
+      ]
+    },
+    "EgressDecisionView": {
+      "title": "EgressDecisionView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "reason",
+        "context_attached"
+      ],
+      "properties": {
+        "network_class": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/NetworkClass"
+        },
+        "decision": {
+          "enum": [
+            "ALLOWED",
+            "DENIED",
+            "NOT_EVALUATED"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "LOOPBACK",
+            "REMOTE_ALLOWED",
+            "ROUTING_DENIED"
+          ]
+        },
+        "context_attached": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UsageView": {
+      "title": "UsageView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_tokens",
+        "output_tokens"
+      ],
+      "properties": {
+        "input_tokens": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/FactInteger"
+        },
+        "output_tokens": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/FactInteger"
+        }
+      }
+    },
+    "InvocationTiming": {
+      "title": "InvocationTiming",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "streamed"
+      ],
+      "properties": {
+        "total": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/MeasuredMilliseconds"
+        },
+        "first_byte": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/MeasuredMilliseconds"
+        },
+        "streamed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "InvocationOutputView": {
+      "title": "InvocationOutputView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "trust_class",
+        "authority"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 256000
+        },
+        "trust_class": {
+          "const": "MODEL_GENERATED"
+        },
+        "authority": {
+          "const": "NONE"
+        }
+      },
+      "description": "Model output is tainted data with no authority."
+    },
+    "InvocationContextSummary": {
+      "title": "InvocationContextSummary",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "omitted",
+        "estimated_tokens",
+        "truncated",
+        "bundle_digest"
+      ],
+      "properties": {
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "omitted": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 512
+        },
+        "estimated_tokens": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/TokenEstimate"
+        },
+        "truncated": {
+          "type": "boolean"
+        },
+        "bundle_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        }
+      }
+    },
+    "ModelInvokeResultV1": {
+      "title": "ModelInvokeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocation_id",
+        "status",
+        "routing",
+        "egress",
+        "timing"
+      ],
+      "properties": {
+        "invocation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "status": {
+          "enum": [
+            "COMPLETED",
+            "FAILED",
+            "CANCELLED",
+            "DENIED",
+            "TIMED_OUT"
+          ]
+        },
+        "routing": {
+          "$ref": "#/$defs/RoutingDecisionView"
+        },
+        "egress": {
+          "$ref": "#/$defs/EgressDecisionView"
+        },
+        "output": {
+          "$ref": "#/$defs/InvocationOutputView"
+        },
+        "finish_reason": {
+          "enum": [
+            "STOP",
+            "LENGTH",
+            "CONTENT_FILTER",
+            "TOOL_CALL",
+            "CANCELLED",
+            "UNKNOWN"
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/UsageView"
+        },
+        "timing": {
+          "$ref": "#/$defs/InvocationTiming"
+        },
+        "context": {
+          "$ref": "#/$defs/InvocationContextSummary"
+        },
+        "error": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderOutcome"
+        },
+        "provider_request_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9._:-]+$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "const": "COMPLETED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "output",
+              "finish_reason",
+              "usage"
+            ],
+            "not": {
+              "type": "object",
+              "required": [
+                "error"
+              ]
+            }
+          },
+          "else": {
+            "type": "object",
+            "not": {
+              "type": "object",
+              "required": [
+                "output"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "FAILED",
+                  "TIMED_OUT"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "error"
+            ]
+          }
+        }
+      ]
+    },
+    "ModelCancelResultV1": {
+      "title": "ModelCancelResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocation_id",
+        "outcome"
+      ],
+      "properties": {
+        "invocation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "outcome": {
+          "enum": [
+            "CANCELLATION_REQUESTED",
+            "ALREADY_FINISHED",
+            "PRE_CANCELLED"
+          ]
+        }
+      }
+    },
+    "ProjectListResultV1": {
+      "title": "ProjectListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projects"
+      ],
+      "properties": {
+        "projects": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 1000,
+          "items": {
+            "$ref": "./desktop-p02-domain.schema.json#/$defs/ProjectView"
+          }
+        }
+      }
+    },
+    "ProjectGetResultV1": {
+      "title": "ProjectGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "sources",
+        "effective_model_origin"
+      ],
+      "properties": {
+        "project": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProjectView"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 512,
+          "items": {
+            "$ref": "./desktop-p02-domain.schema.json#/$defs/ContextSourceView"
+          }
+        },
+        "effective_model_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ModelId"
+        },
+        "effective_model_origin": {
+          "enum": [
+            "PROJECT_DEFAULT",
+            "USER_DEFAULT",
+            "NONE"
+          ]
+        }
+      }
+    },
+    "ProjectMutationResultV1": {
+      "title": "ProjectMutationResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project"
+      ],
+      "properties": {
+        "project": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProjectView"
+        }
+      }
+    },
+    "ContextSourceResultV1": {
+      "title": "ContextSourceResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ContextSourceView"
+        }
+      }
+    },
+    "ContextPreviewResultV1": {
+      "title": "ContextPreviewResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "encoding",
+        "preview_trust_class"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ContextSourceView"
+        },
+        "preview": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "preview_truncated": {
+          "type": "boolean"
+        },
+        "encoding": {
+          "enum": [
+            "UTF8",
+            "NOT_TEXT",
+            "INVALID",
+            "NONE"
+          ]
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+          }
+        },
+        "modified_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "preview_trust_class": {
+          "const": "UNTRUSTED_CONTENT"
+        }
+      },
+      "description": "Bounded metadata and a bounded text preview. The preview is untrusted content."
+    },
+    "ContextAssembleResultV1": {
+      "title": "ContextAssembleResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bundle"
+      ],
+      "properties": {
+        "bundle": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ContextBundleView"
+        }
+      }
+    }
+  }
+}

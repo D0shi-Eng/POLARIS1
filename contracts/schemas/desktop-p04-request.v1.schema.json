@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase04RequestPayloadV1",
+  "description": "The closed set of request payloads the twelve Phase-04 operations accept. No payload can name a tool that is not registered, carry a raw command, name a remote destination, or carry a credential.",
+  "$comment": "لا تنفيذ أداة من العارض، ولا نداء MCP حرّ، ولا سرّ. الموافقة تُجاب بمعرّفها لا بمحتواها.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/SkillListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/SkillGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/SkillConfigureRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolActivityListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/McpListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/McpRegisterRequestV1"
+    },
+    {
+      "$ref": "#/$defs/McpConfigureRequestV1"
+    },
+    {
+      "$ref": "#/$defs/McpRefreshRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ApprovalListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalRespondRequestV1"
+    }
+  ],
+  "$defs": {
+    "SkillListRequestV1": {
+      "title": "SkillListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Lists every skill the host knows, enabled or not. No side effect."
+    },
+    "SkillGetRequestV1": {
+      "title": "SkillGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skill_id"
+      ],
+      "properties": {
+        "skill_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillId"
+        }
+      }
+    },
+    "SkillConfigureRequestV1": {
+      "title": "SkillConfigureRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skill_id",
+        "enabled"
+      ],
+      "properties": {
+        "skill_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillId"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "description": "Enables or disables a known skill. It cannot create a skill, widen its allowed tools, or change its risk class."
+    },
+    "ToolListRequestV1": {
+      "title": "ToolListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "provider": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolProvider"
+        },
+        "skill_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillId"
+        }
+      }
+    },
+    "ToolGetRequestV1": {
+      "title": "ToolGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool_id"
+      ],
+      "properties": {
+        "tool_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolId"
+        }
+      },
+      "description": "Reads one registered tool descriptor. Reading a descriptor is not permission to invoke it, and this operation performs no invocation."
+    },
+    "ToolActivityListRequestV1": {
+      "title": "ToolActivityListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        }
+      }
+    },
+    "McpListRequestV1": {
+      "title": "McpListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "McpRegisterRequestV1": {
+      "title": "McpRegisterRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "endpoint"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+        },
+        "endpoint": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 300,
+          "pattern": "^(http://(127\\.0\\.0\\.1|localhost|\\[::1\\])(:[0-9]{1,5})?(/[A-Za-z0-9._~/-]*)?|https://[A-Za-z0-9.-]+(:[0-9]{1,5})?(/[A-Za-z0-9._~/-]*)?)$",
+          "description": "A loopback endpoint, or (Phase-06) a public https endpoint without credentials, query or fragment. The pattern is a first gate; the host resolves the endpoint again, refuses private, link-local and metadata addresses, and checks every address at connect time."
+        },
+        "transport": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpTransport"
+        },
+        "granted_effects": {
+          "type": "array",
+          "maxItems": 9,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolEffect"
+          },
+          "description": "The ceiling the user grants this server. A tool from this server can never hold an effect outside this set, whatever the server declares."
+        }
+      },
+      "description": "Registers an MCP server. Registration alone discovers nothing and grants nothing beyond this ceiling."
+    },
+    "McpConfigureRequestV1": {
+      "title": "McpConfigureRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server_id",
+        "enabled"
+      ],
+      "properties": {
+        "server_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerId"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "McpRefreshRequestV1": {
+      "title": "McpRefreshRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server_id"
+      ],
+      "properties": {
+        "server_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerId"
+        }
+      },
+      "description": "Re-discovers the tools of one server. Every discovered tool is validated again; a server that changed a tool definition has its old descriptor replaced only after the new one passes."
+    },
+    "ApprovalListRequestV1": {
+      "title": "ApprovalListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ToolApprovalRespondRequestV1": {
+      "title": "ToolApprovalRespondRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_id",
+        "decision"
+      ],
+      "properties": {
+        "approval_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "decision": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ApprovalDecision"
+        },
+        "scope": {
+          "enum": [
+            "ONCE",
+            "MISSION"
+          ],
+          "description": "ONCE (default) allows this exact call. MISSION also allows the same tool on the same resource with the same effects for the rest of this mission, until it expires or is revoked; the gateway still evaluates policy on every call, and tools with external, secret, desktop-input, process or database-write effects never accept it (ADR-042)."
+        }
+      },
+      "description": "Answers a pending approval by its identifier. The payload cannot restate the tool, the arguments or the effects: the binding was fixed when the approval was requested. scope MISSION was added additively (ADR-042)."
+    }
+  }
+}

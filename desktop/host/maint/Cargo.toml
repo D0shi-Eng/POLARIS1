@@ -1,0 +1,23 @@
+# أداة الصيانة (Phase-07): ملف تنفيذي رقيق فوق `polaris-host-core::p07::maintenance`.
+# حزمة منفصلة لأن النواة لا تكتب إلى المخرج القياسي أبدًا (فحص P02-SEC-NO-CONTENT-LOGGING)،
+# وأداة سطر الأوامر عملها أن تطبع مستندها.
+[package]
+name = "polaris-maint"
+description = "POLARIS Phase-07 maintenance tool: verify, backup, restore, upgrade, retention, policy and update checks"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "polaris-maint"
+path = "src/main.rs"
+
+[dependencies]
+polaris-host-core = { path = "../core" }
+serde_json.workspace = true
+
+[dev-dependencies]
+polaris-host-providers = { path = "../providers" }
+rusqlite = { version = "0.42", features = ["bundled"] }

@@ -1,0 +1,32 @@
+{
+  "project": {
+    "project_id": "3b1f5a2e-7c4d-4e8f-9a6b-1c2d3e4f5a60",
+    "name": "Polaris dogfood",
+    "description": "",
+    "status": "ACTIVE",
+    "language": "ar",
+    "workspace_root": "D:\\POLARIS\\docs",
+    "version": 2,
+    "created_at": "2026-09-17T10:00:00Z",
+    "updated_at": "2026-09-17T10:00:00Z",
+    "context_source_count": 1
+  },
+  "sources": [
+    {
+      "source_id": "5c6d7e8f-9a0b-4c1d-8e2f-3a4b5c6d7e8f",
+      "project_id": "3b1f5a2e-7c4d-4e8f-9a6b-1c2d3e4f5a60",
+      "source_type": "FILE",
+      "reference": "README.md",
+      "display_name": "README.md",
+      "trust_class": "USER_AUTHORIZED_RESOURCE",
+      "content_class": "DOCUMENTATION",
+      "added_at": "2026-09-17T10:00:00Z",
+      "last_seen_at": "2026-09-17T10:00:00Z",
+      "availability": "AVAILABLE",
+      "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "byte_count": 1024
+    }
+  ],
+  "effective_model_id": "lm-studio:fixture-model-7b",
+  "effective_model_origin": "USER_DEFAULT"
+}

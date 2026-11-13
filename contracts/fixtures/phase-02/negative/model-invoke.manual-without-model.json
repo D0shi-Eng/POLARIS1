@@ -1,0 +1,23 @@
+{
+  "invocation_id": "7e8f9a0b-1c2d-4e3f-8a4b-5c6d7e8f9a01",
+  "routing_mode": "MANUAL",
+  "required_capabilities": [
+    "TEXT_INPUT"
+  ],
+  "messages": [
+    {
+      "role": "USER",
+      "text": "hi"
+    },
+    {
+      "role": "ASSISTANT",
+      "text": "hello"
+    },
+    {
+      "role": "USER",
+      "text": "again"
+    }
+  ],
+  "response_format": "TEXT",
+  "temperature": 0.2
+}

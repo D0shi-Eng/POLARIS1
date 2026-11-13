@@ -1,0 +1,172 @@
+{
+  "providers": [
+    {
+      "provider_id": "lm-studio",
+      "kind": "LM_STUDIO",
+      "display_name": "LM Studio",
+      "display_name_key": "provider.name.lm-studio",
+      "endpoint_type": "OPENAI_COMPATIBLE",
+      "auth_mode": "NO_AUTH_LOCAL",
+      "locality": "LOCAL",
+      "network_class": "LOOPBACK_PROVIDER_ACCESS",
+      "endpoint": "http://127.0.0.1:1234",
+      "endpoint_configurable": true,
+      "enabled": true,
+      "configured": true,
+      "key_status": {
+        "required": false,
+        "configured": false,
+        "source": "NONE",
+        "store_available": true
+      },
+      "capabilities": {
+        "supports_streaming": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_model_listing": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_health_check": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_chat": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_embeddings": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_vision": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_input": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_output": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_tools": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_json_schema": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_system_prompt": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_reasoning_control": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        }
+      },
+      "health": {
+        "state": "HEALTHY",
+        "reason_code": "OK",
+        "checked_at": "2026-09-17T10:00:00Z",
+        "latency": {
+          "value": 12,
+          "provenance": "LOCALLY_MEASURED"
+        },
+        "installation": "DETECTED",
+        "runtime": "RUNNING"
+      },
+      "models": {
+        "discovered": 2,
+        "enabled": 1,
+        "available": 2
+      }
+    },
+    {
+      "provider_id": "openai",
+      "kind": "OPENAI",
+      "display_name": "OpenAI API",
+      "display_name_key": "provider.name.openai",
+      "endpoint_type": "OPENAI_COMPATIBLE",
+      "auth_mode": "API_KEY",
+      "locality": "REMOTE",
+      "network_class": "REMOTE_EGRESS",
+      "endpoint": "https://api.openai.com",
+      "endpoint_configurable": false,
+      "enabled": false,
+      "configured": false,
+      "key_status": {
+        "required": true,
+        "configured": false,
+        "source": "NONE",
+        "store_available": true,
+        "environment_variable": "OPENAI_API_KEY"
+      },
+      "capabilities": {
+        "supports_streaming": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_model_listing": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_health_check": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_chat": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_embeddings": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_vision": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_input": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_output": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_tools": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_json_schema": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_system_prompt": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_reasoning_control": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        }
+      },
+      "health": {
+        "state": "AUTH_REQUIRED",
+        "reason_code": "CREDENTIAL_MISSING",
+        "installation": "NOT_APPLICABLE",
+        "runtime": "NOT_APPLICABLE"
+      },
+      "models": {
+        "discovered": 0,
+        "enabled": 0,
+        "available": 0
+      }
+    }
+  ]
+}

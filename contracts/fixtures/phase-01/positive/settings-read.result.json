@@ -1,0 +1,27 @@
+{
+  "section_id": "general",
+  "settings": [
+    {
+      "setting_id": "locale",
+      "mode": "ACTIVE",
+      "value": {
+        "kind": "LOCALE",
+        "code_value": "ar"
+      }
+    },
+    {
+      "setting_id": "appearance",
+      "mode": "ACTIVE",
+      "value": {
+        "kind": "APPEARANCE",
+        "code_value": "SYSTEM"
+      }
+    },
+    {
+      "setting_id": "provider-key",
+      "mode": "READ_ONLY",
+      "availability_reason": "PROVIDER_NOT_CONFIGURED",
+      "value_withheld": true
+    }
+  ]
+}

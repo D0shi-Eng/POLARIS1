@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CapabilityInvocationV1",
+  "description": "A concrete, attributed request to execute one capability. Carries identity, causality, taint and the exact privileges being exercised.",
+  "$comment": "استدعاء واحد محدد الهوية والسببية. attempt يتغير، idempotency_key لا يتغير.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "invocation_id",
+    "correlation_id",
+    "idempotency_key",
+    "mission_id",
+    "caller_identity",
+    "capability_id",
+    "capability_version",
+    "requested_effects",
+    "arguments",
+    "attempt",
+    "execution_constraints",
+    "created_at"
+  ],
+  "properties": {
+    "contract_version": {
+      "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+    },
+    "invocation_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid",
+      "description": "Unique per attempt. Distinct from idempotency_key by design."
+    },
+    "correlation_id": {
+      "$ref": "./common/ids.schema.json#/$defs/CorrelationId"
+    },
+    "causation_id": {
+      "$ref": "./common/ids.schema.json#/$defs/CausationId",
+      "description": "The IPC message_id or model output id that produced this invocation."
+    },
+    "idempotency_key": {
+      "$ref": "./common/ids.schema.json#/$defs/IdempotencyKey",
+      "description": "Constant across every retry of the same logical operation."
+    },
+    "mission_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid"
+    },
+    "agent_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid"
+    },
+    "caller_identity": {
+      "$ref": "./common/caller-identity.schema.json#/$defs/CallerIdentity"
+    },
+    "capability_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Slug"
+    },
+    "capability_version": {
+      "$ref": "./common/ids.schema.json#/$defs/SemVer"
+    },
+    "requested_effects": {
+      "$ref": "./common/effect.schema.json#/$defs/EffectList",
+      "description": "Must be a subset of the descriptor's requested_effects. Enforced by INV-002, not by this schema."
+    },
+    "resource": {
+      "$ref": "./common/effect.schema.json#/$defs/ResourceRef",
+      "description": "Primary subject of the invocation, when it has one."
+    },
+    "arguments": {
+      "type": "object",
+      "description": "Validated against the descriptor's input_schema_ref by the runtime; opaque here."
+    },
+    "taint_labels": {
+      "type": "array",
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "./common/provenance.schema.json#/$defs/TaintLabel"
+      }
+    },
+    "provenance_refs": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "$ref": "./common/provenance.schema.json#/$defs/ProvenanceRef"
+      }
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "1 for the first try. Bounded so no retry loop is unbounded by construction."
+    },
+    "execution_constraints": {
+      "$ref": "./common/execution.schema.json#/$defs/ExecutionRequirements",
+      "description": "The confinement the runtime will actually apply, at or below what the descriptor requested."
+    },
+    "policy_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_version",
+        "policy_epoch"
+      ],
+      "properties": {
+        "policy_version": {
+          "$ref": "./common/ids.schema.json#/$defs/SemVer"
+        },
+        "policy_epoch": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "description": "Policy state this invocation was prepared against. Present without building a Config Service in W2."
+    },
+    "created_at": {
+      "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "المحاولة الأولى لا يمكن أن تحمل سببًا لإعادة المحاولة، وما بعدها يجب أن يحمله.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "attempt": {
+            "type": "integer",
+            "minimum": 2
+          }
+        },
+        "required": [
+          "attempt"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "retry_of"
+        ],
+        "properties": {
+          "retry_of": {
+            "$ref": "./common/ids.schema.json#/$defs/Uuid"
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "type": "object",
+          "required": [
+            "retry_of"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "استدعاء ينشأ عن وكيل يجب أن يعلن هوية الوكيل ووسم التلوث.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "caller_identity": {
+            "type": "object",
+            "properties": {
+              "caller_type": {
+                "const": "AGENT"
+              }
+            },
+            "required": [
+              "caller_type"
+            ]
+          }
+        },
+        "required": [
+          "caller_identity"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "agent_id",
+          "taint_labels"
+        ],
+        "properties": {
+          "taint_labels": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "$comment": "إذا كان التنفيذ بلا شبكة فلا يجوز أن يحمل الاستدعاء أثرًا شبكيًا.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "execution_constraints": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "const": "NONE"
+              }
+            },
+            "required": [
+              "network"
+            ]
+          }
+        },
+        "required": [
+          "execution_constraints"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "requested_effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "not": {
+                    "enum": [
+                      "network.fetch",
+                      "network.send",
+                      "network.publish"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

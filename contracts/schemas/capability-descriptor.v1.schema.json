@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CapabilityDescriptorV1",
+  "description": "What a capability CLAIMS it needs. This document is a privilege request submitted by an untrusted author, never a security attestation.",
+  "$comment": "هذا العقد لا يقرر الحقيقة الأمنية. requested_effects طلب صلاحيات يخضع للسياسة.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "capability_id",
+    "capability_version",
+    "display_name",
+    "source",
+    "input_schema_ref",
+    "output_schema_ref",
+    "effect_declaration_semantics",
+    "requested_effects",
+    "risk_class",
+    "execution_requirements",
+    "idempotency",
+    "platform_requirements"
+  ],
+  "properties": {
+    "contract_version": {
+      "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+    },
+    "capability_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Slug"
+    },
+    "capability_version": {
+      "$ref": "./common/ids.schema.json#/$defs/SemVer"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "publisher_id"
+      ],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "enum": [
+            "BUILT_IN",
+            "FIRST_PARTY",
+            "THIRD_PARTY",
+            "USER_LOCAL"
+          ]
+        },
+        "publisher_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Slug"
+        },
+        "uri": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    },
+    "input_schema_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "output_schema_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "effect_declaration_semantics": {
+      "type": "string",
+      "const": "REQUESTED_PRIVILEGE",
+      "description": "Machine-visible restatement of the rule: a declared effect is a request, not a guarantee. Constant so no descriptor can assert otherwise."
+    },
+    "requested_effects": {
+      "$ref": "./common/effect.schema.json#/$defs/EffectList"
+    },
+    "risk_class": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "execution_requirements": {
+      "$ref": "./common/execution.schema.json#/$defs/ExecutionRequirements"
+    },
+    "network_justification": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 1024,
+      "description": "Required whenever UNRESTRICTED network is requested. No capability receives unmediated egress implicitly."
+    },
+    "idempotency": {
+      "$ref": "./common/idempotency.schema.json#/$defs/IdempotencySpec"
+    },
+    "platform_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "ANY",
+          "WINDOWS",
+          "MACOS"
+        ]
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signed"
+      ],
+      "properties": {
+        "signed": {
+          "type": "boolean"
+        },
+        "signature_alg": {
+          "type": "string",
+          "enum": [
+            "ED25519"
+          ]
+        },
+        "publisher_key_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "signature": {
+          "type": "string",
+          "maxLength": 512
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "signed": {
+                "const": true
+              }
+            },
+            "required": [
+              "signed"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "signature_alg",
+              "publisher_key_id",
+              "signature"
+            ]
+          }
+        }
+      ]
+    },
+    "integrity": {
+      "$ref": "./common/provenance.schema.json#/$defs/Integrity",
+      "description": "Digest of the canonicalised descriptor with this field removed."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "الشبكة غير المقيدة تتطلب تبريرًا صريحًا وتصنيف خطورة أعلى. لا تُمنح ضمنًا لأي مستوى امتياز.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "execution_requirements": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "const": "UNRESTRICTED"
+              }
+            },
+            "required": [
+              "network"
+            ]
+          }
+        },
+        "required": [
+          "execution_requirements"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "network_justification"
+        ],
+        "properties": {
+          "risk_class": {
+            "enum": [
+              "HIGH",
+              "CRITICAL"
+            ]
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "type": "object",
+          "required": [
+            "network_justification"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "لا يجوز طلب أثر شبكي بينما التنفيذ يعلن network=NONE.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "execution_requirements": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "const": "NONE"
+              }
+            },
+            "required": [
+              "network"
+            ]
+          }
+        },
+        "required": [
+          "execution_requirements"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "requested_effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "not": {
+                    "enum": [
+                      "network.fetch",
+                      "network.send",
+                      "network.publish",
+                      "browser.navigate",
+                      "browser.submit",
+                      "email.read",
+                      "email.send"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "الآثار التي تعدّل النظام أو تلتزم بالدفع لا يمكن أن تكون منخفضة الخطورة.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "requested_effects": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "enum": [
+                    "system.modify",
+                    "install.package",
+                    "payment.commit",
+                    "secret.deref",
+                    "delete.filesystem"
+                  ]
+                }
+              },
+              "required": [
+                "action"
+              ]
+            }
+          }
+        },
+        "required": [
+          "requested_effects"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "risk_class": {
+            "enum": [
+              "HIGH",
+              "CRITICAL"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

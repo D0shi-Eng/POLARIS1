@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase03RequestPayloadV1",
+  "description": "The closed set of request payloads the ten Phase-03 operations accept. Every payload is a closed object; none can carry an operation name, a URL, a header, or a credential.",
+  "$comment": "لا اسم عملية داخل الحمولة، ولا عنوان حرّ، ولا سرّ. الوكيل لا يصل إلى هذه الطبقة أصلًا: العارض وحده يتكلّم هنا.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/MissionListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionCreateRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionStartRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionCancelRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionResumeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/TaskListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AgentListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ClaimListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/EvidenceListRequestV1"
+    }
+  ],
+  "$defs": {
+    "MissionListRequestV1": {
+      "title": "MissionListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists missions, optionally narrowed to one project. No side effect."
+    },
+    "MissionGetRequestV1": {
+      "title": "MissionGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "MissionCreateRequestV1": {
+      "title": "MissionCreateRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "objective"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionTitle"
+        },
+        "objective": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionObjective"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "execution_mode": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/ExecutionMode"
+        },
+        "priority": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionPriority"
+        },
+        "budget_preset": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/BudgetPreset"
+        },
+        "budget": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionBudget"
+        },
+        "requirements": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "title": "MissionRequirementInputV1",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requirement_id",
+              "text",
+              "mandatory"
+            ],
+            "properties": {
+              "requirement_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "mandatory": {
+                "type": "boolean"
+              },
+              "verification_rule_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              }
+            }
+          }
+        }
+      },
+      "description": "Creates a mission. It does not start it: creation and execution are separate operations so that starting work is always an explicit act.",
+      "$comment": "الإنشاء لا يشغّل. بدء التنفيذ عملية مستقلة بمفتاح idempotency خاص بها."
+    },
+    "MissionStartRequestV1": {
+      "title": "MissionStartRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Starts orchestration for one mission that this session owns."
+    },
+    "MissionCancelRequestV1": {
+      "title": "MissionCancelRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Cancels one mission. There is no cancel-all."
+    },
+    "MissionResumeRequestV1": {
+      "title": "MissionResumeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Resumes a mission that a restart left blocked. Resuming never replays a completed side effect."
+    },
+    "TaskListRequestV1": {
+      "title": "TaskListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "AgentListRequestV1": {
+      "title": "AgentListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists role descriptors always, and the agent instances of one mission when a mission is named."
+    },
+    "ClaimListRequestV1": {
+      "title": "ClaimListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "EvidenceListRequestV1": {
+      "title": "EvidenceListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    }
+  }
+}

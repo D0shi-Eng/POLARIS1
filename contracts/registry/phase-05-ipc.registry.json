@@ -1,0 +1,342 @@
+{
+  "contract_version": "1.5",
+  "phase": "PHASE-05",
+  "envelope_contract": "IPCEnvelopeV1",
+  "implementation_status": "IMPLEMENTED",
+  "operations": [
+    {
+      "operation": "memory.list",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/MemoryListRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/MemoryListResultV1",
+      "owner": "MemoryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "memory.get",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/MemoryGetRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/MemoryGetResultV1",
+      "owner": "MemoryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "memory.delete",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/MemoryDeleteRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/MemoryDeleteResultV1",
+      "owner": "MemoryService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "WRITE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "browser.session.list",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/BrowserSessionListRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/BrowserSessionListResultV1",
+      "owner": "BrowserSessionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "browser.session.get",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/BrowserSessionGetRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/BrowserSessionGetResultV1",
+      "owner": "BrowserSessionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "browser.session.cancel",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/BrowserSessionCancelRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/SessionCancelResultV1",
+      "owner": "BrowserSessionService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.session.list",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerSessionListRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/ComputerSessionListResultV1",
+      "owner": "ComputerSessionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.session.get",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerSessionGetRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/ComputerSessionGetResultV1",
+      "owner": "ComputerSessionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.session.cancel",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerSessionCancelRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/SessionCancelResultV1",
+      "owner": "ComputerSessionService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.window.list",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerWindowListRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/ComputerWindowListResultV1",
+      "owner": "ComputerTargetService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.target.grant",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerTargetGrantRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/ComputerTargetGrantResultV1",
+      "owner": "ComputerTargetService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "WRITE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    },
+    {
+      "operation": "computer.target.revoke",
+      "envelope_version": "1.5",
+      "request_schema": "desktop-p05-request.v1.schema.json#/$defs/ComputerTargetRevokeRequestV1",
+      "response_schema": "desktop-p05-result.v1.schema.json#/$defs/ComputerTargetRevokeResultV1",
+      "owner": "ComputerTargetService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "WRITE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-05"
+    }
+  ]
+}

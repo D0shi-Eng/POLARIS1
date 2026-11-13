@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase03ResultPayloadV1",
+  "description": "The closed set of result payloads the ten Phase-03 operations return. No result carries a secret, a raw provider body, a filesystem path outside a declared reference, or hidden model reasoning.",
+  "$comment": "لا سرّ، ولا جسد مزوّد خام، ولا سلسلة تفكير. الحالة والإثبات يسافران معًا دائمًا.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/MissionListResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionCreateResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionStartResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionCancelResultV1"
+    },
+    {
+      "$ref": "#/$defs/MissionResumeResultV1"
+    },
+    {
+      "$ref": "#/$defs/TaskListResultV1"
+    },
+    {
+      "$ref": "#/$defs/AgentListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ClaimListResultV1"
+    },
+    {
+      "$ref": "#/$defs/EvidenceListResultV1"
+    }
+  ],
+  "$defs": {
+    "MissionListResultV1": {
+      "title": "MissionListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "missions"
+      ],
+      "properties": {
+        "missions": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionSummaryV1"
+          }
+        }
+      }
+    },
+    "MissionGetResultV1": {
+      "title": "MissionGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission",
+        "completion_proof"
+      ],
+      "properties": {
+        "mission": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionDetailV1"
+        },
+        "completion_proof": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/CompletionProofViewV1"
+        }
+      },
+      "description": "The mission and its proof, always together. Reading one without the other is how a completed mission gets mistaken for a proven one."
+    },
+    "MissionCreateResultV1": {
+      "title": "MissionCreateResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "state",
+        "completion_proof_status",
+        "created_at"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        },
+        "completion_proof_status": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/CompletionProofStatus"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "MissionStartResultV1": {
+      "title": "MissionStartResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "state",
+        "completion_proof",
+        "report"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        },
+        "completion_proof": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/CompletionProofViewV1"
+        },
+        "report": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionRunReportV1"
+        }
+      }
+    },
+    "MissionCancelResultV1": {
+      "title": "MissionCancelResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "state"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        }
+      }
+    },
+    "MissionResumeResultV1": {
+      "title": "MissionResumeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "state",
+        "tasks_interrupted"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        },
+        "tasks_interrupted": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        }
+      },
+      "description": "Resuming reports how many tasks a restart had interrupted. It never reports interrupted work as finished."
+    },
+    "TaskListResultV1": {
+      "title": "TaskListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "graph_revision",
+        "tasks",
+        "ready"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "graph_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "tasks": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/TaskViewV1"
+          }
+        },
+        "ready": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./common/ids.schema.json#/$defs/Uuid"
+          },
+          "description": "The deterministic ready set at this revision, in scheduling order."
+        }
+      }
+    },
+    "AgentListResultV1": {
+      "title": "AgentListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roles",
+        "instances"
+      ],
+      "properties": {
+        "roles": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/AgentRoleViewV1"
+          }
+        },
+        "instances": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/AgentViewV1"
+          }
+        }
+      }
+    },
+    "ClaimListResultV1": {
+      "title": "ClaimListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "claims"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "claims": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/ClaimViewV1"
+          }
+        }
+      }
+    },
+    "EvidenceListResultV1": {
+      "title": "EvidenceListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "evidence"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/EvidenceViewV1"
+          }
+        }
+      }
+    }
+  }
+}

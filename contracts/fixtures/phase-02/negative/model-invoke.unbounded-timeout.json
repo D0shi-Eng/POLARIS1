@@ -1,0 +1,16 @@
+{
+  "invocation_id": "7e8f9a0b-1c2d-4e3f-8a4b-5c6d7e8f9a01",
+  "routing_mode": "DEFAULT_MODEL",
+  "project_id": "3b1f5a2e-7c4d-4e8f-9a6b-1c2d3e4f5a60",
+  "context_source_ids": [
+    "5c6d7e8f-9a0b-4c1d-8e2f-3a4b5c6d7e8f"
+  ],
+  "messages": [
+    {
+      "role": "USER",
+      "text": "Summarise the README."
+    }
+  ],
+  "max_output_tokens": 256,
+  "timeout_ms": 3600000
+}

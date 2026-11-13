@@ -1,0 +1,2085 @@
+{
+ "source": "Manus add-ons inventory 2026-11-13 (partial: the list continues past Viator)",
+ "connectors": [
+  {
+   "id": "c000",
+   "name": "متصفحي",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "الوصول إلى الويب عبر متصفحك الخاص.",
+   "color": "#5f30a6",
+   "mark": "مت",
+   "icon": "browser"
+  },
+  {
+   "id": "c001",
+   "name": "Gmail",
+   "category": "work",
+   "preset_id": "gmail.read",
+   "desc_ar": "ابحث في بريدك الوارد واقرأ الرسائل وسلاسلها.",
+   "color": "#a69430",
+   "mark": "GM",
+   "icon": "report"
+  },
+  {
+   "id": "c002",
+   "name": "Google Calendar",
+   "category": "work",
+   "preset_id": "google-calendar.read",
+   "desc_ar": "اعرض تقويماتك وأحداثك القادمة.",
+   "color": "#30a64d",
+   "mark": "GC",
+   "icon": "schedule"
+  },
+  {
+   "id": "c003",
+   "name": "Instagram",
+   "category": "creativity",
+   "preset_id": "instagram.read",
+   "desc_ar": "اقرأ ملف حسابك المهني ومنشوراته.",
+   "color": "#30a4a6",
+   "mark": "IN",
+   "icon": "chat"
+  },
+  {
+   "id": "c004",
+   "name": "Outlook Mail",
+   "category": "work",
+   "preset_id": "outlook-mail.read",
+   "desc_ar": "ابحث في بريد Outlook واقرأ رسائله.",
+   "color": "#7aa630",
+   "mark": "OM",
+   "icon": "report"
+  },
+  {
+   "id": "c005",
+   "name": "Slack",
+   "category": "work",
+   "preset_id": "slack.read",
+   "desc_ar": "اقرأ القنوات وآخر الرسائل في مساحة عمل Slack.",
+   "color": "#a63630",
+   "mark": "SL",
+   "icon": "chat"
+  },
+  {
+   "id": "c006",
+   "name": "Instagram Creator Marketplace",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "اكتشف صنّاع محتوى يلائمون علامتك التجارية.",
+   "color": "#306fa6",
+   "mark": "IC",
+   "icon": "chat"
+  },
+  {
+   "id": "c007",
+   "name": "Higgsfield",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "أنشئ صورًا وفيديوهات سينمائية.",
+   "color": "#5f30a6",
+   "mark": "HI",
+   "icon": "slides"
+  },
+  {
+   "id": "c008",
+   "name": "Similarweb",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "حلّل حركة مرور المواقع وبيانات تحسين محركات البحث.",
+   "color": "#9430a6",
+   "mark": "SI",
+   "icon": "data"
+  },
+  {
+   "id": "c009",
+   "name": "DataBank",
+   "category": "finance",
+   "preset_id": "worldbank.read",
+   "desc_ar": "اقرأ مؤشرات البنك الدولي الرسمية لأي بلد.",
+   "color": "#3096a6",
+   "mark": "DA",
+   "icon": "database"
+  },
+  {
+   "id": "c010",
+   "name": "X (Twitter)",
+   "category": "creativity",
+   "preset_id": "x.read",
+   "desc_ar": "ابحث في المنشورات العامة واقرأ الملفات الشخصية.",
+   "color": "#3045a6",
+   "mark": "XT",
+   "icon": "chat"
+  },
+  {
+   "id": "c011",
+   "name": "Notion",
+   "category": "work",
+   "preset_id": "notion.read",
+   "desc_ar": "اقرأ صفحات مساحة عمل Notion ومحتواها.",
+   "color": "#a65530",
+   "mark": "NO",
+   "icon": "folder"
+  },
+  {
+   "id": "c012",
+   "name": "Google Workspace",
+   "category": "work",
+   "preset_id": "google-drive.read",
+   "desc_ar": "ابحث في ملفات Google Drive واقرأ بياناتها.",
+   "color": "#30a655",
+   "mark": "GW",
+   "icon": "folder"
+  },
+  {
+   "id": "c013",
+   "name": "Meta Ads Manager",
+   "category": "business",
+   "preset_id": "meta-ads.read",
+   "desc_ar": "اقرأ الحسابات الإعلانية والحملات ونتائجها.",
+   "color": "#3053a6",
+   "mark": "MA",
+   "icon": "data"
+  },
+  {
+   "id": "c014",
+   "name": "GitHub",
+   "category": "development",
+   "preset_id": "github.read",
+   "desc_ar": "اقرأ المستودعات والقضايا وطلبات الدمج.",
+   "color": "#a66130",
+   "mark": "GI",
+   "icon": "code"
+  },
+  {
+   "id": "c015",
+   "name": "ElevenLabs API",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "توليد أصوات واقعية واستنساخ الكلام.",
+   "color": "#30a6a0",
+   "mark": "EA",
+   "icon": "mic"
+  },
+  {
+   "id": "c016",
+   "name": "Brand24",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "راقب ذكر العلامة التجارية والمشاعر والمؤثرين.",
+   "color": "#a69e30",
+   "mark": "BR",
+   "icon": "data"
+  },
+  {
+   "id": "c017",
+   "name": "TikTok for Business",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "أتمتة حملات إعلانات TikTok وتقاريرها.",
+   "color": "#4f30a6",
+   "mark": "TF",
+   "icon": "automation"
+  },
+  {
+   "id": "c018",
+   "name": "Vercel",
+   "category": "development",
+   "preset_id": "vercel.read",
+   "desc_ar": "اقرأ مشاريع Vercel وعمليات النشر.",
+   "color": "#45a630",
+   "mark": "VE",
+   "icon": "code"
+  },
+  {
+   "id": "c019",
+   "name": "Similarweb (App)",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "بيانات الزيارات والجمهور والتطبيقات من Similarweb.",
+   "color": "#a6303d",
+   "mark": "SA",
+   "icon": "data"
+  },
+  {
+   "id": "c020",
+   "name": "Ahrefs",
+   "category": "business",
+   "preset_id": "ahrefs.read",
+   "desc_ar": "حلّل أداء السيو والروابط الخلفية والكلمات.",
+   "color": "#3d30a6",
+   "mark": "AH",
+   "icon": "data"
+  },
+  {
+   "id": "c021",
+   "name": "Dify",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "صِل Dify ونسّق سير عمل الذكاء الاصطناعي.",
+   "color": "#a2a630",
+   "mark": "DI",
+   "icon": "automation"
+  },
+  {
+   "id": "c022",
+   "name": "Supabase",
+   "category": "development",
+   "preset_id": "supabase.read",
+   "desc_ar": "اعرض مشاريع Supabase ومؤسساتك.",
+   "color": "#8ea630",
+   "mark": "SU",
+   "icon": "database"
+  },
+  {
+   "id": "c023",
+   "name": "Canva",
+   "category": "creativity",
+   "preset_id": "canva.read",
+   "desc_ar": "اعرض تصاميم Canva الخاصة بك.",
+   "color": "#30a63f",
+   "mark": "CA",
+   "icon": "shapes"
+  },
+  {
+   "id": "c024",
+   "name": "Prisma Postgres",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "صِل قواعد Postgres وأدرها.",
+   "color": "#30a630",
+   "mark": "PP",
+   "icon": "database"
+  },
+  {
+   "id": "c025",
+   "name": "Zapier",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "أتمتة سير العمل عبر آلاف التطبيقات.",
+   "color": "#7ca630",
+   "mark": "ZA",
+   "icon": "automation"
+  },
+  {
+   "id": "c026",
+   "name": "HeyGen",
+   "category": "creativity",
+   "preset_id": "heygen.read",
+   "desc_ar": "اعرض الأفاتارات والأصوات والفيديوهات المولّدة.",
+   "color": "#a69230",
+   "mark": "HE",
+   "icon": "slides"
+  },
+  {
+   "id": "c027",
+   "name": "Hugging Face",
+   "category": "development",
+   "preset_id": "huggingface.read",
+   "desc_ar": "ابحث في النماذج ومجموعات البيانات.",
+   "color": "#a67830",
+   "mark": "HF",
+   "icon": "brain"
+  },
+  {
+   "id": "c028",
+   "name": "Mobbin",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "ابحث في شاشات تطبيقات حقيقية لأنماط التصميم.",
+   "color": "#3076a6",
+   "mark": "MO",
+   "icon": "shapes"
+  },
+  {
+   "id": "c029",
+   "name": "Cloudflare",
+   "category": "development",
+   "preset_id": "cloudflare.read",
+   "desc_ar": "اقرأ النطاقات وسجلات DNS والحسابات.",
+   "color": "#a630a0",
+   "mark": "CL",
+   "icon": "code"
+  },
+  {
+   "id": "c030",
+   "name": "Cloudflare Worker Bindings",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "إدارة Workers وموارده.",
+   "color": "#3074a6",
+   "mark": "CW",
+   "icon": "code"
+  },
+  {
+   "id": "c031",
+   "name": "Zoom",
+   "category": "work",
+   "preset_id": "zoom.read",
+   "desc_ar": "اعرض اجتماعاتك وتسجيلاتك في Zoom.",
+   "color": "#6d30a6",
+   "mark": "ZO",
+   "icon": "schedule"
+  },
+  {
+   "id": "c032",
+   "name": "Stripe",
+   "category": "finance",
+   "preset_id": "stripe.read",
+   "desc_ar": "اقرأ الرصيد والعملاء والمدفوعات والفواتير.",
+   "color": "#3043a6",
+   "mark": "ST",
+   "icon": "star"
+  },
+  {
+   "id": "c033",
+   "name": "Metabase",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "الوصول إلى تحليلات Metabase.",
+   "color": "#a63072",
+   "mark": "ME",
+   "icon": "database"
+  },
+  {
+   "id": "c034",
+   "name": "OpenAI",
+   "category": "development",
+   "preset_id": "openai.read",
+   "desc_ar": "اعرض النماذج المتاحة لمفتاحك.",
+   "color": "#305da6",
+   "mark": "OP",
+   "icon": "brain"
+  },
+  {
+   "id": "c035",
+   "name": "Make",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "حوّل سيناريوهات Make إلى أدوات.",
+   "color": "#a4a630",
+   "mark": "MA",
+   "icon": "automation"
+  },
+  {
+   "id": "c036",
+   "name": "Outlook Calendar",
+   "category": "work",
+   "preset_id": "outlook-calendar.read",
+   "desc_ar": "اعرض أحداث تقويم Outlook.",
+   "color": "#6b30a6",
+   "mark": "OC",
+   "icon": "schedule"
+  },
+  {
+   "id": "c037",
+   "name": "Crypto.com",
+   "category": "finance",
+   "preset_id": "cryptocom.read",
+   "desc_ar": "أسعار السوق الحية ودفاتر الطلبات.",
+   "color": "#a63d30",
+   "mark": "CR",
+   "icon": "star"
+  },
+  {
+   "id": "c038",
+   "name": "OpenRouter API",
+   "category": "development",
+   "preset_id": "openrouter.read",
+   "desc_ar": "اعرض النماذج وأسعارها ورصيد مفتاحك.",
+   "color": "#307ca6",
+   "mark": "OA",
+   "icon": "brain"
+  },
+  {
+   "id": "c039",
+   "name": "Airtable",
+   "category": "work",
+   "preset_id": "airtable.read",
+   "desc_ar": "اعرض القواعد واقرأ السجلات.",
+   "color": "#32a630",
+   "mark": "AI",
+   "icon": "database"
+  },
+  {
+   "id": "c040",
+   "name": "LINE",
+   "category": "work",
+   "preset_id": "line.read",
+   "desc_ar": "اقرأ معلومات حساب LINE الرسمي وحصّة الرسائل.",
+   "color": "#3090a6",
+   "mark": "LI",
+   "icon": "chat"
+  },
+  {
+   "id": "c041",
+   "name": "CoinGecko",
+   "category": "finance",
+   "preset_id": "coingecko.read",
+   "desc_ar": "أسعار العملات الرقمية وبيانات السوق.",
+   "color": "#32a630",
+   "mark": "CO",
+   "icon": "star"
+  },
+  {
+   "id": "c042",
+   "name": "Playwright",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "أتمتة المتصفحات للاختبار والاستخراج.",
+   "color": "#a63086",
+   "mark": "PL",
+   "icon": "browser"
+  },
+  {
+   "id": "c043",
+   "name": "ElevenLabs",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "توليد الكلام واستنساخه وتفريغه.",
+   "color": "#7030a6",
+   "mark": "EL",
+   "icon": "mic"
+  },
+  {
+   "id": "c044",
+   "name": "Similarweb API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "حلّل حركة المواقع ومعلومات المنافسين.",
+   "color": "#a63032",
+   "mark": "SA",
+   "icon": "data"
+  },
+  {
+   "id": "c045",
+   "name": "Grok",
+   "category": "development",
+   "preset_id": "xai.read",
+   "desc_ar": "اعرض نماذج Grok المتاحة لمفتاحك.",
+   "color": "#a6a430",
+   "mark": "GR",
+   "icon": "brain"
+  },
+  {
+   "id": "c046",
+   "name": "tl;dv",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "سير عمل الاجتماعات مع التفريغ واللحظات المهمة.",
+   "color": "#32a630",
+   "mark": "TL",
+   "icon": "schedule"
+  },
+  {
+   "id": "c047",
+   "name": "Ahrefs API",
+   "category": "business",
+   "preset_id": "ahrefs.read",
+   "desc_ar": "تقييم النطاق والروابط والكلمات العضوية.",
+   "color": "#30a68a",
+   "mark": "AA",
+   "icon": "data"
+  },
+  {
+   "id": "c048",
+   "name": "n8n API",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "أنشئ سير عمل مؤتمتًا وصِل التطبيقات.",
+   "color": "#308aa6",
+   "mark": "NA",
+   "icon": "automation"
+  },
+  {
+   "id": "c049",
+   "name": "Wix",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "ابحث في بيانات الموقع وأتمت سير عمل Wix.",
+   "color": "#51a630",
+   "mark": "WI",
+   "icon": "automation"
+  },
+  {
+   "id": "c050",
+   "name": "Perplexity",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "بحث آني بإجابات موثّقة.",
+   "color": "#9430a6",
+   "mark": "PE",
+   "icon": "brain"
+  },
+  {
+   "id": "c051",
+   "name": "Serena",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "إدارة شيفرة دلالية وأدوات تحرير.",
+   "color": "#a430a6",
+   "mark": "SE",
+   "icon": "code"
+  },
+  {
+   "id": "c052",
+   "name": "Asana",
+   "category": "work",
+   "preset_id": "asana.read",
+   "desc_ar": "اقرأ مساحات العمل والمشاريع والمهام.",
+   "color": "#30a67a",
+   "mark": "AS",
+   "icon": "list"
+  },
+  {
+   "id": "c053",
+   "name": "Cloudflare API",
+   "category": "development",
+   "preset_id": "cloudflare.read",
+   "desc_ar": "أدِر بنية الويب عبر واجهة Cloudflare.",
+   "color": "#4f30a6",
+   "mark": "CA",
+   "icon": "code"
+  },
+  {
+   "id": "c054",
+   "name": "Webflow",
+   "category": "creativity",
+   "preset_id": "webflow.read",
+   "desc_ar": "اعرض مواقع Webflow ومجموعات المحتوى.",
+   "color": "#a63084",
+   "mark": "WE",
+   "icon": "shapes"
+  },
+  {
+   "id": "c055",
+   "name": "PayPal for Business",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "إدارة المعاملات والفواتير.",
+   "color": "#a6a630",
+   "mark": "PF",
+   "icon": "star"
+  },
+  {
+   "id": "c056",
+   "name": "Context7",
+   "category": "development",
+   "preset_id": "context7.read",
+   "desc_ar": "توثيق محدّث للمكتبات البرمجية.",
+   "color": "#a63036",
+   "mark": "CO",
+   "icon": "code"
+  },
+  {
+   "id": "c057",
+   "name": "Zoho",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "عمليات Zoho CRM وBooks وDesk.",
+   "color": "#7a30a6",
+   "mark": "ZO",
+   "icon": "user"
+  },
+  {
+   "id": "c058",
+   "name": "Linear",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "تتبّع المشكلات وإدارة المشاريع.",
+   "color": "#a63088",
+   "mark": "LI",
+   "icon": "chat"
+  },
+  {
+   "id": "c059",
+   "name": "Typeform",
+   "category": "business",
+   "preset_id": "typeform.read",
+   "desc_ar": "اعرض النماذج واقرأ الردود.",
+   "color": "#3da630",
+   "mark": "TY",
+   "icon": "brain"
+  },
+  {
+   "id": "c060",
+   "name": "Google Gemini",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "معالجة المحتوى متعدد الوسائط.",
+   "color": "#30a698",
+   "mark": "GG",
+   "icon": "brain"
+  },
+  {
+   "id": "c061",
+   "name": "Mailchimp Marketing",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "إدارة الجماهير والحملات البريدية.",
+   "color": "#a6303a",
+   "mark": "MM",
+   "icon": "report"
+  },
+  {
+   "id": "c062",
+   "name": "Anthropic",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "خدمات مساعد ذكاء اصطناعي موثوقة.",
+   "color": "#49a630",
+   "mark": "AN",
+   "icon": "brain"
+  },
+  {
+   "id": "c063",
+   "name": "Fireflies",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "أتمتة تفريغ الاجتماعات ورؤاها.",
+   "color": "#9e30a6",
+   "mark": "FI",
+   "icon": "schedule"
+  },
+  {
+   "id": "c064",
+   "name": "Box",
+   "category": "work",
+   "preset_id": "box.read",
+   "desc_ar": "اعرض المجلدات والملفات وابحث فيها.",
+   "color": "#30a2a6",
+   "mark": "BO",
+   "icon": "folder"
+  },
+  {
+   "id": "c065",
+   "name": "Neon",
+   "category": "development",
+   "preset_id": "neon.read",
+   "desc_ar": "اعرض مشاريع Postgres وفروعها في Neon.",
+   "color": "#4f30a6",
+   "mark": "NE",
+   "icon": "database"
+  },
+  {
+   "id": "c066",
+   "name": "Xero",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "البيانات المالية والتقارير.",
+   "color": "#a68c30",
+   "mark": "XE",
+   "icon": "star"
+  },
+  {
+   "id": "c067",
+   "name": "Mercury",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "راجع الحسابات والنشاط المصرفي.",
+   "color": "#a63047",
+   "mark": "ME",
+   "icon": "star"
+  },
+  {
+   "id": "c068",
+   "name": "Jotform",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "أنشئ النماذج واجمع البيانات.",
+   "color": "#30a67c",
+   "mark": "JO",
+   "icon": "brain"
+  },
+  {
+   "id": "c069",
+   "name": "Firecrawl",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "استخراج الويب والزحف والبحث.",
+   "color": "#a68430",
+   "mark": "FI",
+   "icon": "code"
+  },
+  {
+   "id": "c070",
+   "name": "Shopify",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "حلّل العمليات وتجارة المتجر.",
+   "color": "#7a30a6",
+   "mark": "SH",
+   "icon": "data"
+  },
+  {
+   "id": "c071",
+   "name": "PostHog",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "تحليلات المنتج والميزات والتجارب.",
+   "color": "#a68430",
+   "mark": "PO",
+   "icon": "data"
+  },
+  {
+   "id": "c072",
+   "name": "Apollo API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "أتمتة التنقيب عن العملاء.",
+   "color": "#3094a6",
+   "mark": "AA",
+   "icon": "automation"
+  },
+  {
+   "id": "c073",
+   "name": "PopHIVE",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "بيانات الصحة العامة.",
+   "color": "#30a68e",
+   "mark": "PO",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c074",
+   "name": "JSONBin.io",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "تخزين بيانات JSON وإدارتها.",
+   "color": "#32a630",
+   "mark": "JS",
+   "icon": "database"
+  },
+  {
+   "id": "c075",
+   "name": "Apollo",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "اعثر على عملاء B2B وتواصل معهم.",
+   "color": "#3030a6",
+   "mark": "AP",
+   "icon": "user"
+  },
+  {
+   "id": "c076",
+   "name": "MiniMax",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "توليد الكلام والموسيقى والصور والفيديو.",
+   "color": "#a63430",
+   "mark": "MI",
+   "icon": "slides"
+  },
+  {
+   "id": "c077",
+   "name": "Cohere",
+   "category": "development",
+   "preset_id": "cohere.read",
+   "desc_ar": "اعرض نماذج Cohere المتاحة.",
+   "color": "#3076a6",
+   "mark": "CO",
+   "icon": "brain"
+  },
+  {
+   "id": "c078",
+   "name": "Todoist",
+   "category": "work",
+   "preset_id": "todoist.read",
+   "desc_ar": "اقرأ المشاريع والمهام النشطة.",
+   "color": "#5530a6",
+   "mark": "TO",
+   "icon": "list"
+  },
+  {
+   "id": "c079",
+   "name": "Kling",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "توليد فيديو بالذكاء الاصطناعي.",
+   "color": "#a68e30",
+   "mark": "KL",
+   "icon": "slides"
+  },
+  {
+   "id": "c080",
+   "name": "ClickUp",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "أتمتة المهام وسير العمل.",
+   "color": "#a63034",
+   "mark": "CL",
+   "icon": "automation"
+  },
+  {
+   "id": "c081",
+   "name": "Sentry",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "مراجعة الأخطاء وأسبابها الجذرية.",
+   "color": "#a63051",
+   "mark": "SE",
+   "icon": "bell"
+  },
+  {
+   "id": "c082",
+   "name": "Supabase API",
+   "category": "development",
+   "preset_id": "supabase.read",
+   "desc_ar": "قواعد Postgres والمصادقة والتخزين.",
+   "color": "#304ba6",
+   "mark": "SA",
+   "icon": "database"
+  },
+  {
+   "id": "c083",
+   "name": "Flux API",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "صور مولّدة بأساليب فنية متنوعة.",
+   "color": "#3430a6",
+   "mark": "FA",
+   "icon": "shapes"
+  },
+  {
+   "id": "c084",
+   "name": "Dropbox API",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "إدارة الملفات والمجلدات والمشاركة.",
+   "color": "#305fa6",
+   "mark": "DA",
+   "icon": "folder"
+  },
+  {
+   "id": "c085",
+   "name": "monday.com",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "تنسيق المهام واللوحات.",
+   "color": "#3da630",
+   "mark": "MO",
+   "icon": "list"
+  },
+  {
+   "id": "c086",
+   "name": "HeyGen API",
+   "category": "creativity",
+   "preset_id": "heygen.read",
+   "desc_ar": "فيديوهات بأفاتارات واقعية.",
+   "color": "#4d30a6",
+   "mark": "HA",
+   "icon": "slides"
+  },
+  {
+   "id": "c087",
+   "name": "Granola",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "ابحث في محاضر الاجتماعات واستخرج أفكارها.",
+   "color": "#9aa630",
+   "mark": "GR",
+   "icon": "schedule"
+  },
+  {
+   "id": "c088",
+   "name": "هواية",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "تحليل التسجيلات الشاشية والسياق.",
+   "color": "#82a630",
+   "mark": "هو",
+   "icon": "data"
+  },
+  {
+   "id": "c089",
+   "name": "Morningstar",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "بيانات وأبحاث الاستثمار.",
+   "color": "#3a30a6",
+   "mark": "MO",
+   "icon": "star"
+  },
+  {
+   "id": "c090",
+   "name": "RevenueCat",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "إدارة تطبيقات الاشتراكات.",
+   "color": "#30a641",
+   "mark": "RE",
+   "icon": "data"
+  },
+  {
+   "id": "c091",
+   "name": "Stripe API",
+   "category": "finance",
+   "preset_id": "stripe.read",
+   "desc_ar": "إدارة المعاملات والفوترة برمجيًا.",
+   "color": "#30a6a2",
+   "mark": "SA",
+   "icon": "star"
+  },
+  {
+   "id": "c092",
+   "name": "Explorium",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "بيانات الأعمال والتواصل.",
+   "color": "#3d30a6",
+   "mark": "EX",
+   "icon": "data"
+  },
+  {
+   "id": "c093",
+   "name": "Tripo API",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "تحويل النص أو الصور إلى نماذج ثلاثية الأبعاد.",
+   "color": "#30a663",
+   "mark": "TA",
+   "icon": "brain"
+  },
+  {
+   "id": "c094",
+   "name": "Intercom",
+   "category": "business",
+   "preset_id": "intercom.read",
+   "desc_ar": "اقرأ جهات الاتصال والمحادثات.",
+   "color": "#3049a6",
+   "mark": "IN",
+   "icon": "chat"
+  },
+  {
+   "id": "c095",
+   "name": "Close",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "أتمتة مسار المبيعات في Close.",
+   "color": "#30a63b",
+   "mark": "CL",
+   "icon": "automation"
+  },
+  {
+   "id": "c096",
+   "name": "Atlassian",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "ابحث في Jira وConfluence وCompass.",
+   "color": "#7630a6",
+   "mark": "AT",
+   "icon": "list"
+  },
+  {
+   "id": "c097",
+   "name": "HubSpot",
+   "category": "business",
+   "preset_id": "hubspot.read",
+   "desc_ar": "اقرأ جهات الاتصال والشركات والصفقات.",
+   "color": "#8e30a6",
+   "mark": "HU",
+   "icon": "user"
+  },
+  {
+   "id": "c098",
+   "name": "Wrike",
+   "category": "work",
+   "preset_id": "wrike.read",
+   "desc_ar": "اقرأ المجلدات والمشاريع والمهام.",
+   "color": "#30a688",
+   "mark": "WR",
+   "icon": "list"
+  },
+  {
+   "id": "c099",
+   "name": "Neimo",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "معلومات تنظيمية للفرق القانونية.",
+   "color": "#3086a6",
+   "mark": "NE",
+   "icon": "data"
+  },
+  {
+   "id": "c100",
+   "name": "ilert",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "التنبيهات والحوادث وجداول المناوبة.",
+   "color": "#41a630",
+   "mark": "IL",
+   "icon": "bell"
+  },
+  {
+   "id": "c101",
+   "name": "TomTom Maps",
+   "category": "travel",
+   "preset_id": null,
+   "desc_ar": "الترميز الجغرافي والمسارات والخرائط.",
+   "color": "#30a651",
+   "mark": "TM",
+   "icon": "globe"
+  },
+  {
+   "id": "c102",
+   "name": "Google Ads",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "حلّل حسابات Google Ads وحملاتها.",
+   "color": "#a63080",
+   "mark": "GA",
+   "icon": "data"
+  },
+  {
+   "id": "c103",
+   "name": "Tailscale",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "صِل أجهزتك عبر شبكة Tailscale.",
+   "color": "#a63041",
+   "mark": "TA",
+   "icon": "globe"
+  },
+  {
+   "id": "c104",
+   "name": "Adjust API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "بيانات الإسناد وأداء الحملات.",
+   "color": "#a030a6",
+   "mark": "AA",
+   "icon": "data"
+  },
+  {
+   "id": "c105",
+   "name": "Kalshi API",
+   "category": "finance",
+   "preset_id": "kalshi.read",
+   "desc_ar": "أسواق التنبؤ العامة وأحداثها.",
+   "color": "#a6304b",
+   "mark": "KA",
+   "icon": "star"
+  },
+  {
+   "id": "c106",
+   "name": "Mindbody API",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "إدارة أعمال اللياقة والجداول.",
+   "color": "#3078a6",
+   "mark": "MA",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c107",
+   "name": "eToro API",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "مراقبة المحافظ والأسواق.",
+   "color": "#a63b30",
+   "mark": "EA",
+   "icon": "star"
+  },
+  {
+   "id": "c108",
+   "name": "Toast API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "قوائم المطاعم والطلبات.",
+   "color": "#61a630",
+   "mark": "TA",
+   "icon": "data"
+  },
+  {
+   "id": "c109",
+   "name": "Clover API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "طلبات التاجر والمدفوعات.",
+   "color": "#a63094",
+   "mark": "CA",
+   "icon": "star"
+  },
+  {
+   "id": "c110",
+   "name": "Yelp API",
+   "category": "travel",
+   "preset_id": "yelp.read",
+   "desc_ar": "ابحث في الأعمال المحلية واقرأ مراجعاتها.",
+   "color": "#309ca6",
+   "mark": "YA",
+   "icon": "globe"
+  },
+  {
+   "id": "c111",
+   "name": "Zendesk API",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "تذاكر الدعم والمستخدمين.",
+   "color": "#a6309a",
+   "mark": "ZA",
+   "icon": "chat"
+  },
+  {
+   "id": "c112",
+   "name": "Wave API",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "الفواتير والعملاء والمحاسبة.",
+   "color": "#30a676",
+   "mark": "WA",
+   "icon": "star"
+  },
+  {
+   "id": "c113",
+   "name": "Publer API",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "جدولة المنشورات وإدارة الوسائط.",
+   "color": "#a65530",
+   "mark": "PA",
+   "icon": "shapes"
+  },
+  {
+   "id": "c114",
+   "name": "Suno",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "إنشاء الأغاني وإعادة مزجها.",
+   "color": "#30a64f",
+   "mark": "SU",
+   "icon": "mic"
+  },
+  {
+   "id": "c115",
+   "name": "Anchor Browser",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "مهام ويب مؤتمتة في متصفحات سحابية.",
+   "color": "#30a69a",
+   "mark": "AB",
+   "icon": "browser"
+  },
+  {
+   "id": "c116",
+   "name": "Evernote",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "ابحث في الملاحظات ونظّمها.",
+   "color": "#55a630",
+   "mark": "EV",
+   "icon": "folder"
+  },
+  {
+   "id": "c117",
+   "name": "Fastmail",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "البريد وجهات الاتصال والتقويم.",
+   "color": "#30a647",
+   "mark": "FA",
+   "icon": "report"
+  },
+  {
+   "id": "c118",
+   "name": "ماي ريال تريب",
+   "category": "travel",
+   "preset_id": null,
+   "desc_ar": "عروض السفر والرحلات والإقامة.",
+   "color": "#3034a6",
+   "mark": "مر",
+   "icon": "globe"
+  },
+  {
+   "id": "c119",
+   "name": "Tana Outliner",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "نظّم العقد والحقول في Tana.",
+   "color": "#30a690",
+   "mark": "TO",
+   "icon": "chat"
+  },
+  {
+   "id": "c120",
+   "name": "Picsart",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "إنشاء الصور والفيديو وتحريرها.",
+   "color": "#30a636",
+   "mark": "PI",
+   "icon": "slides"
+  },
+  {
+   "id": "c121",
+   "name": "Lovie",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "تدفقات تمويل الشركات.",
+   "color": "#7ca630",
+   "mark": "LO",
+   "icon": "data"
+  },
+  {
+   "id": "c122",
+   "name": "Datadog",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "المقاييس والتنبيهات ولوحات المعلومات.",
+   "color": "#6930a6",
+   "mark": "DA",
+   "icon": "data"
+  },
+  {
+   "id": "c123",
+   "name": "Coinbase",
+   "category": "finance",
+   "preset_id": "coinbase.read",
+   "desc_ar": "الأسعار الفورية وأسعار الصرف.",
+   "color": "#3074a6",
+   "mark": "CO",
+   "icon": "star"
+  },
+  {
+   "id": "c124",
+   "name": "Amplitude EU",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "بيانات المنتج وسلوك المستخدم.",
+   "color": "#3b30a6",
+   "mark": "AE",
+   "icon": "data"
+  },
+  {
+   "id": "c125",
+   "name": "Meticulous",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "نتائج الاختبارات والفروق البصرية.",
+   "color": "#78a630",
+   "mark": "ME",
+   "icon": "code"
+  },
+  {
+   "id": "c126",
+   "name": "AdaptlyPost",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "جدولة النشر الاجتماعي وتحليلاته.",
+   "color": "#6b30a6",
+   "mark": "AD",
+   "icon": "schedule"
+  },
+  {
+   "id": "c127",
+   "name": "Tana",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "الوصول إلى محتوى مساحة Tana.",
+   "color": "#3076a6",
+   "mark": "TA",
+   "icon": "folder"
+  },
+  {
+   "id": "c128",
+   "name": "Restream",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "إدارة البث والفعاليات.",
+   "color": "#3fa630",
+   "mark": "RE",
+   "icon": "slides"
+  },
+  {
+   "id": "c129",
+   "name": "Respond.io",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "محادثات العملاء والوكلاء.",
+   "color": "#a6309e",
+   "mark": "RE",
+   "icon": "chat"
+  },
+  {
+   "id": "c130",
+   "name": "ImagineArt",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "صور وفيديو وموسيقى وإعلانات.",
+   "color": "#a63230",
+   "mark": "IM",
+   "icon": "slides"
+  },
+  {
+   "id": "c131",
+   "name": "Falconer",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "ابحث في المعرفة ونظّمها.",
+   "color": "#a63230",
+   "mark": "FA",
+   "icon": "list"
+  },
+  {
+   "id": "c132",
+   "name": "Opsera",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "خطوط DevOps ورؤاها.",
+   "color": "#a6306f",
+   "mark": "OP",
+   "icon": "code"
+  },
+  {
+   "id": "c133",
+   "name": "Phoenix",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "معلومات استراتيجيات دخول السوق.",
+   "color": "#3076a6",
+   "mark": "PH",
+   "icon": "data"
+  },
+  {
+   "id": "c134",
+   "name": "Checkmarx",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "معالجة ثغرات أمان التطبيقات.",
+   "color": "#30a653",
+   "mark": "CH",
+   "icon": "shield"
+  },
+  {
+   "id": "c135",
+   "name": "SandboxAQ",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "محاكاة علمية للتحفيز والأدوية.",
+   "color": "#a63057",
+   "mark": "SA",
+   "icon": "folder"
+  },
+  {
+   "id": "c136",
+   "name": "Pletor",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "سير عمل إبداعي وأصول.",
+   "color": "#7230a6",
+   "mark": "PL",
+   "icon": "automation"
+  },
+  {
+   "id": "c137",
+   "name": "Atlan",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "سياق البيانات المحكومة ونسبها.",
+   "color": "#305ba6",
+   "mark": "AT",
+   "icon": "code"
+  },
+  {
+   "id": "c138",
+   "name": "Braintrust",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "تتبّع الوكلاء وتقييماتهم.",
+   "color": "#3aa630",
+   "mark": "BR",
+   "icon": "brain"
+  },
+  {
+   "id": "c139",
+   "name": "1inch",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "عروض DeFi والمحافظ.",
+   "color": "#a6305b",
+   "mark": "1I",
+   "icon": "star"
+  },
+  {
+   "id": "c140",
+   "name": "OneSignal",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "الرسائل والجماهير والقوالب.",
+   "color": "#30a669",
+   "mark": "ON",
+   "icon": "report"
+  },
+  {
+   "id": "c141",
+   "name": "Render",
+   "category": "development",
+   "preset_id": "render.read",
+   "desc_ar": "اعرض خدمات Render وعمليات نشرها.",
+   "color": "#3094a6",
+   "mark": "RE",
+   "icon": "code"
+  },
+  {
+   "id": "c142",
+   "name": "Sourcegraph",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "استكشاف الشيفرة وتحليلها.",
+   "color": "#a65d30",
+   "mark": "SO",
+   "icon": "code"
+  },
+  {
+   "id": "c143",
+   "name": "GitBook",
+   "category": "development",
+   "preset_id": "gitbook.read",
+   "desc_ar": "اعرض مؤسسات GitBook ومساحاته.",
+   "color": "#82a630",
+   "mark": "GI",
+   "icon": "folder"
+  },
+  {
+   "id": "c144",
+   "name": "Fitbod",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "تمارين مخصّصة للعضلات والمعدات.",
+   "color": "#a63034",
+   "mark": "FI",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c145",
+   "name": "COROS",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "تحليل النشاط والنوم والتعافي.",
+   "color": "#a63072",
+   "mark": "CO",
+   "icon": "data"
+  },
+  {
+   "id": "c146",
+   "name": "Rhizome AI",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "أسئلة تنظيمية بسجلات صحية موثّقة.",
+   "color": "#3096a6",
+   "mark": "RA",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c147",
+   "name": "SmartSpectra",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "مفاتيح واستخدام SmartSpectra.",
+   "color": "#30a65b",
+   "mark": "SM",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c148",
+   "name": "Wispr Flow",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "ابحث في محاضر الاجتماعات والملاحظات.",
+   "color": "#3051a6",
+   "mark": "WF",
+   "icon": "schedule"
+  },
+  {
+   "id": "c149",
+   "name": "Oath",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "حاسبات سريرية ومنطق مبني على الأدلة.",
+   "color": "#69a630",
+   "mark": "OA",
+   "icon": "sparkle"
+  },
+  {
+   "id": "c150",
+   "name": "Resolve",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "التحقيق في الحوادث وحلّها.",
+   "color": "#a63092",
+   "mark": "RE",
+   "icon": "bell"
+  },
+  {
+   "id": "c151",
+   "name": "Interactive Brokers",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "تحليل المحافظ وبيانات السوق.",
+   "color": "#a63034",
+   "mark": "IB",
+   "icon": "data"
+  },
+  {
+   "id": "c152",
+   "name": "IcePanel",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "نماذج معمارية IcePanel.",
+   "color": "#a69630",
+   "mark": "IC",
+   "icon": "brain"
+  },
+  {
+   "id": "c153",
+   "name": "Navan",
+   "category": "travel",
+   "preset_id": null,
+   "desc_ar": "السفر والمصروفات والسياسات.",
+   "color": "#70a630",
+   "mark": "NA",
+   "icon": "globe"
+  },
+  {
+   "id": "c154",
+   "name": "Monte Carlo",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "تنبيهات البيانات وأصولها.",
+   "color": "#a230a6",
+   "mark": "MC",
+   "icon": "bell"
+  },
+  {
+   "id": "c155",
+   "name": "GitHits",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "أمثلة شيفرة مفتوحة المصدر.",
+   "color": "#9aa630",
+   "mark": "GI",
+   "icon": "code"
+  },
+  {
+   "id": "c156",
+   "name": "Raisely",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "حملات جمع التبرعات.",
+   "color": "#34a630",
+   "mark": "RA",
+   "icon": "data"
+  },
+  {
+   "id": "c157",
+   "name": "Sonatype Guide",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "إصدارات تبعيات أكثر أمانًا.",
+   "color": "#a6309e",
+   "mark": "SG",
+   "icon": "shield"
+  },
+  {
+   "id": "c158",
+   "name": "Era Context",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "فهم الشؤون المالية وتنظيمها.",
+   "color": "#30a4a6",
+   "mark": "EC",
+   "icon": "star"
+  },
+  {
+   "id": "c159",
+   "name": "TierZero",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "التحقيق في حوادث الإنتاج.",
+   "color": "#30a632",
+   "mark": "TI",
+   "icon": "bell"
+  },
+  {
+   "id": "c160",
+   "name": "Synthesize Bio",
+   "category": "health",
+   "preset_id": null,
+   "desc_ar": "تحليلات التعبير الجيني.",
+   "color": "#53a630",
+   "mark": "SB",
+   "icon": "data"
+  },
+  {
+   "id": "c161",
+   "name": "QuiverAI",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "توليد رسوم SVG قابلة للتحرير.",
+   "color": "#a69a30",
+   "mark": "QU",
+   "icon": "shapes"
+  },
+  {
+   "id": "c162",
+   "name": "GoCardless",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "تكاملات الدفع والعمليات.",
+   "color": "#30a6a2",
+   "mark": "GO",
+   "icon": "star"
+  },
+  {
+   "id": "c163",
+   "name": "Profound",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "الظهور في محركات الذكاء الاصطناعي.",
+   "color": "#6930a6",
+   "mark": "PR",
+   "icon": "data"
+  },
+  {
+   "id": "c164",
+   "name": "Granted",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "اكتشف المنح والمموّلين.",
+   "color": "#308ca6",
+   "mark": "GR",
+   "icon": "data"
+  },
+  {
+   "id": "c165",
+   "name": "AWS Marketplace",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "اكتشف حلول AWS Marketplace وقيّمها.",
+   "color": "#a63074",
+   "mark": "AM",
+   "icon": "code"
+  },
+  {
+   "id": "c166",
+   "name": "Roboflow",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "مشاريع الرؤية الحاسوبية وبياناتها.",
+   "color": "#30a63a",
+   "mark": "RO",
+   "icon": "list"
+  },
+  {
+   "id": "c167",
+   "name": "حدث",
+   "category": "travel",
+   "preset_id": null,
+   "desc_ar": "اكتشف الأحداث والتجارب في المدن.",
+   "color": "#5530a6",
+   "mark": "حد",
+   "icon": "globe"
+  },
+  {
+   "id": "c168",
+   "name": "Antimetal",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "التحقيق في مشكلات الإنتاج.",
+   "color": "#a63074",
+   "mark": "AN",
+   "icon": "bell"
+  },
+  {
+   "id": "c169",
+   "name": "Vantage",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "تكاليف السحابة وميزانياتها.",
+   "color": "#8230a6",
+   "mark": "VA",
+   "icon": "code"
+  },
+  {
+   "id": "c170",
+   "name": "CockroachDB Cloud",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "استكشف عناقيد CockroachDB.",
+   "color": "#94a630",
+   "mark": "CC",
+   "icon": "database"
+  },
+  {
+   "id": "c171",
+   "name": "Buildkite",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "خطوط البناء والاختبار.",
+   "color": "#8030a6",
+   "mark": "BU",
+   "icon": "code"
+  },
+  {
+   "id": "c172",
+   "name": "ClickHouse",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "بيانات ClickHouse Cloud وخدماته.",
+   "color": "#3063a6",
+   "mark": "CL",
+   "icon": "database"
+  },
+  {
+   "id": "c173",
+   "name": "Plain",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "فرز الدعم وعمليات العملاء.",
+   "color": "#a6a030",
+   "mark": "PL",
+   "icon": "chat"
+  },
+  {
+   "id": "c174",
+   "name": "Whop",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "منتجات Whop وعضوياته.",
+   "color": "#30a698",
+   "mark": "WH",
+   "icon": "data"
+  },
+  {
+   "id": "c175",
+   "name": "Ashby",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "التوظيف والمقابلات والمرشّحون.",
+   "color": "#a6308a",
+   "mark": "AS",
+   "icon": "user"
+  },
+  {
+   "id": "c176",
+   "name": "ChartMogul",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "مقاييس الإيرادات والعملاء.",
+   "color": "#30a674",
+   "mark": "CH",
+   "icon": "data"
+  },
+  {
+   "id": "c177",
+   "name": "SubscriptionFlow",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "العملاء والاشتراكات والفوترة.",
+   "color": "#a68e30",
+   "mark": "SU",
+   "icon": "user"
+  },
+  {
+   "id": "c178",
+   "name": "Jentic",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "اكتشف واجهات API وسير العمل.",
+   "color": "#305ba6",
+   "mark": "JE",
+   "icon": "automation"
+  },
+  {
+   "id": "c179",
+   "name": "incident.io",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "الحوادث والتنبيهات والمناوبات.",
+   "color": "#30a0a6",
+   "mark": "IN",
+   "icon": "bell"
+  },
+  {
+   "id": "c180",
+   "name": "Orion",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "المشاريع ومؤشرات الأداء والتقارير.",
+   "color": "#3030a6",
+   "mark": "OR",
+   "icon": "list"
+  },
+  {
+   "id": "c181",
+   "name": "Sybill",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "محادثات المبيعات والصفقات.",
+   "color": "#8230a6",
+   "mark": "SY",
+   "icon": "chat"
+  },
+  {
+   "id": "c182",
+   "name": "Carta CRM",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "العلاقات والصفقات وجمع التمويل.",
+   "color": "#3aa630",
+   "mark": "CC",
+   "icon": "user"
+  },
+  {
+   "id": "c183",
+   "name": "doola",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "تأسيس الشركات ومتابعتها.",
+   "color": "#a6305b",
+   "mark": "DO",
+   "icon": "data"
+  },
+  {
+   "id": "c184",
+   "name": "Amplemarket",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "التنقيب والتواصل ومسار الصفقات.",
+   "color": "#8e30a6",
+   "mark": "AM",
+   "icon": "data"
+  },
+  {
+   "id": "c185",
+   "name": "AWeber",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "المشتركون والرسائل والقوائم.",
+   "color": "#4ba630",
+   "mark": "AW",
+   "icon": "report"
+  },
+  {
+   "id": "c186",
+   "name": "Enterpret",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "رؤى ملاحظات العملاء.",
+   "color": "#a65730",
+   "mark": "EN",
+   "icon": "user"
+  },
+  {
+   "id": "c187",
+   "name": "Demodesk",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "اجتماعات المبيعات وتسجيلاتها.",
+   "color": "#49a630",
+   "mark": "DE",
+   "icon": "schedule"
+  },
+  {
+   "id": "c188",
+   "name": "Workable",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "التوظيف والمرشّحون وعمليات الموارد البشرية.",
+   "color": "#43a630",
+   "mark": "WO",
+   "icon": "user"
+  },
+  {
+   "id": "c189",
+   "name": "Unthread",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "محادثات الدعم والمعرفة.",
+   "color": "#7830a6",
+   "mark": "UN",
+   "icon": "chat"
+  },
+  {
+   "id": "c190",
+   "name": "Shapes",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "بيانات القوى العاملة.",
+   "color": "#9230a6",
+   "mark": "SH",
+   "icon": "data"
+  },
+  {
+   "id": "c191",
+   "name": "Harness",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "إدارة سير التسليم وتشخيصه.",
+   "color": "#3086a6",
+   "mark": "HA",
+   "icon": "code"
+  },
+  {
+   "id": "c192",
+   "name": "Fiscal",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "البيانات المالية المؤسسية.",
+   "color": "#6730a6",
+   "mark": "FI",
+   "icon": "star"
+  },
+  {
+   "id": "c193",
+   "name": "Mintlify",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "إنشاء التوثيق وإدارته.",
+   "color": "#a64730",
+   "mark": "MI",
+   "icon": "code"
+  },
+  {
+   "id": "c194",
+   "name": "Mixpanel",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "تحليل السلوك وإدارة التحليلات.",
+   "color": "#5730a6",
+   "mark": "MI",
+   "icon": "data"
+  },
+  {
+   "id": "c195",
+   "name": "Digits",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "المعاملات والقوائم المالية.",
+   "color": "#8e30a6",
+   "mark": "DI",
+   "icon": "star"
+  },
+  {
+   "id": "c196",
+   "name": "Eraser",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "مخططات تقنية ومحتوى مساحة العمل.",
+   "color": "#a6306b",
+   "mark": "ER",
+   "icon": "shapes"
+  },
+  {
+   "id": "c197",
+   "name": "Zocks",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "معلومات العملاء والاجتماعات.",
+   "color": "#30a65f",
+   "mark": "ZO",
+   "icon": "schedule"
+  },
+  {
+   "id": "c198",
+   "name": "CoinDesk",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "بيانات أسواق العملات الرقمية وأخبارها.",
+   "color": "#7830a6",
+   "mark": "CO",
+   "icon": "star"
+  },
+  {
+   "id": "c199",
+   "name": "Descript",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "إنشاء الوسائط وتحريرها ونشرها.",
+   "color": "#7630a6",
+   "mark": "DE",
+   "icon": "slides"
+  },
+  {
+   "id": "c200",
+   "name": "Rillet",
+   "category": "finance",
+   "preset_id": null,
+   "desc_ar": "بيانات المحاسبة الحية.",
+   "color": "#30a63b",
+   "mark": "RI",
+   "icon": "star"
+  },
+  {
+   "id": "c201",
+   "name": "Lucid",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "أنشئ مستندات Lucid وابحث فيها.",
+   "color": "#8230a6",
+   "mark": "LU",
+   "icon": "folder"
+  },
+  {
+   "id": "c202",
+   "name": "Tango",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "فرص الشراء الفيدرالية.",
+   "color": "#a65730",
+   "mark": "TA",
+   "icon": "data"
+  },
+  {
+   "id": "c203",
+   "name": "Splice",
+   "category": "creativity",
+   "preset_id": null,
+   "desc_ar": "عينات صوتية ومجموعات موسيقية.",
+   "color": "#3092a6",
+   "mark": "SP",
+   "icon": "mic"
+  },
+  {
+   "id": "c204",
+   "name": "Learning Commons",
+   "category": "work",
+   "preset_id": null,
+   "desc_ar": "معايير K-12 والمهارات التعليمية.",
+   "color": "#3053a6",
+   "mark": "LC",
+   "icon": "list"
+  },
+  {
+   "id": "c205",
+   "name": "Dovetail",
+   "category": "business",
+   "preset_id": null,
+   "desc_ar": "مشاريع البحث ورؤاه.",
+   "color": "#303fa6",
+   "mark": "DO",
+   "icon": "list"
+  },
+  {
+   "id": "c206",
+   "name": "Deepnote",
+   "category": "development",
+   "preset_id": null,
+   "desc_ar": "دفاتر Deepnote ومشاريعها.",
+   "color": "#a67c30",
+   "mark": "DE",
+   "icon": "code"
+  },
+  {
+   "id": "c207",
+   "name": "Viator",
+   "category": "travel",
+   "preset_id": null,
+   "desc_ar": "اكتشف تجارب السفر وقارنها.",
+   "color": "#a64d30",
+   "mark": "VI",
+   "icon": "globe"
+  }
+ ]
+}

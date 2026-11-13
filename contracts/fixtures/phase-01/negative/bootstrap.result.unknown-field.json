@@ -1,0 +1,29 @@
+{
+  "app_version": "0.1.0",
+  "build_channel": "DEV",
+  "platform": "WINDOWS",
+  "architecture": "X64",
+  "locale": "ar",
+  "direction": "RTL",
+  "appearance": "SYSTEM",
+  "runtime_status": {
+    "reachability": "NOT_ATTACHED",
+    "availability": {
+      "state": "UNAVAILABLE",
+      "reason": "PHASE_NOT_IMPLEMENTED"
+    }
+  },
+  "enabled_capabilities": [],
+  "unavailable_capabilities": [
+    {
+      "capability_id": "polaris.desktop.missions",
+      "availability": {
+        "state": "UNAVAILABLE",
+        "reason": "PHASE_NOT_IMPLEMENTED"
+      }
+    }
+  ],
+  "settings_schema_version": "1.0",
+  "ipc_protocol_version": "1.1",
+  "host_process_id": 4212
+}

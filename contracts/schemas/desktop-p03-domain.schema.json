@@ -1,0 +1,1113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase03Domain",
+  "description": "The closed vocabularies and shared shapes of the Phase-03 agent runtime: missions, task graphs, agents, claims and evidence.",
+  "$comment": "مفردات مغلقة. لا حقل سرّ، ولا عنوان حرّ، ولا سلسلة تفكير مخفية: النتيجة المهيكلة وأسباب القرار فقط.",
+  "$defs": {
+    "MissionTitle": {
+      "title": "MissionTitle",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "MissionObjective": {
+      "title": "MissionObjective",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8000
+    },
+    "BoundedText": {
+      "title": "BoundedText",
+      "type": "string",
+      "maxLength": 4000,
+      "description": "A bounded summary or statement. Bounded so that one message cannot grow the database without limit."
+    },
+    "MissionState": {
+      "title": "MissionState",
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "PLANNING",
+        "READY",
+        "RUNNING",
+        "WAITING_FOR_APPROVAL",
+        "WAITING_FOR_USER",
+        "BLOCKED",
+        "VERIFYING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED",
+        "STOPPED"
+      ],
+      "description": "Where the mission is in its execution lifecycle. It does not say whether success was proven; CompletionProofStatus answers that separately."
+    },
+    "CompletionProofStatus": {
+      "title": "CompletionProofStatus",
+      "type": "string",
+      "enum": [
+        "NOT_EVALUATED",
+        "NOT_PROVEN",
+        "PROVEN"
+      ],
+      "description": "Whether successful completion was actually proven. COMPLETED and NOT_PROVEN coexist deliberately; the two are never merged."
+    },
+    "MissionPriority": {
+      "title": "MissionPriority",
+      "type": "string",
+      "enum": [
+        "LOW",
+        "NORMAL",
+        "HIGH"
+      ],
+      "description": "Priority, used only as a deterministic scheduling tiebreak."
+    },
+    "MissionOrigin": {
+      "title": "MissionOrigin",
+      "type": "string",
+      "enum": [
+        "USER",
+        "SYSTEM"
+      ],
+      "description": "Who created the mission. Documentary; it grants no authority."
+    },
+    "ExecutionMode": {
+      "title": "ExecutionMode",
+      "type": "string",
+      "enum": [
+        "SINGLE_AGENT",
+        "COORDINATED_MULTI_AGENT"
+      ],
+      "description": "The two Phase-03 execution modes. There is no swarm mode, because there is no swarm semantics yet."
+    },
+    "TaskType": {
+      "title": "TaskType",
+      "type": "string",
+      "enum": [
+        "PLAN",
+        "DESIGN",
+        "BUILD",
+        "DEBUG",
+        "REVIEW",
+        "SECURITY_REVIEW",
+        "TEST",
+        "RESEARCH",
+        "SYNTHESIZE"
+      ],
+      "description": "The closed set of task kinds."
+    },
+    "TaskState": {
+      "title": "TaskState",
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "READY",
+        "ASSIGNED",
+        "RUNNING",
+        "WAITING",
+        "REVIEW",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED",
+        "BLOCKED",
+        "INTERRUPTED",
+        "UNVERIFIED_DONE"
+      ],
+      "description": "Task lifecycle state. INTERRUPTED exists because a task that was running when the application stopped must not still read RUNNING after a restart. UNVERIFIED_DONE (ADR-041): the agent said the step is done and no measured tool call belongs to it; it is terminal and never reads as success."
+    },
+    "DependencyKind": {
+      "title": "DependencyKind",
+      "type": "string",
+      "enum": [
+        "REQUIRES_SUCCESS",
+        "REQUIRES_COMPLETION"
+      ],
+      "description": "Explicit dependency semantics. Readiness is decided by these, never by array order."
+    },
+    "AgentRole": {
+      "title": "AgentRole",
+      "type": "string",
+      "enum": [
+        "COORDINATOR",
+        "PLANNER",
+        "ARCHITECT",
+        "BUILDER",
+        "DEBUGGER",
+        "REVIEWER",
+        "SECURITY_REVIEWER",
+        "TEST_ENGINEER",
+        "RESEARCHER"
+      ],
+      "description": "A behavioural template. A role is not a permission: naming an agent SECURITY_REVIEWER grants it nothing."
+    },
+    "AgentState": {
+      "title": "AgentState",
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "IDLE",
+        "WORKING",
+        "WAITING",
+        "REVIEWING",
+        "BLOCKED",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED",
+        "STOPPED"
+      ],
+      "description": "Agent instance lifecycle state."
+    },
+    "ClaimType": {
+      "title": "ClaimType",
+      "type": "string",
+      "enum": [
+        "FACT",
+        "RESULT",
+        "COMPLETION",
+        "REQUIREMENT_SATISFACTION",
+        "ASSUMPTION",
+        "RISK",
+        "OBSERVATION"
+      ],
+      "description": "The closed claim vocabulary."
+    },
+    "ClaimStatus": {
+      "title": "ClaimStatus",
+      "type": "string",
+      "enum": [
+        "UNVERIFIED",
+        "SUPPORTED",
+        "VERIFIED",
+        "REFUTED",
+        "CONFLICTED",
+        "UNKNOWN"
+      ],
+      "description": "SUPPORTED means evidence exists but the stricter rule did not pass. VERIFIED means a configured verification rule passed. Model confidence never becomes VERIFIED."
+    },
+    "EvidenceType": {
+      "title": "EvidenceType",
+      "type": "string",
+      "enum": [
+        "USER_CONFIRMATION",
+        "RUNTIME_MEASUREMENT",
+        "TEST_RESULT",
+        "TOOL_RESULT",
+        "ARTIFACT",
+        "SOURCE_DOCUMENT",
+        "PROJECT_CONTEXT",
+        "PROVIDER_RESPONSE",
+        "POLICY_DECISION",
+        "AUDIT_EVENT",
+        "COMPLETION_PROOF",
+        "AGENT_OUTPUT",
+        "GRADER_RESULT",
+        "MODEL_JUDGMENT"
+      ],
+      "description": "Closed evidence vocabulary. TOOL_RESULT was added in Phase-04: it is measured, because the tool gateway executed it, and it still does not satisfy a rule that requires a test artefact."
+    },
+    "MeasurementKind": {
+      "title": "MeasurementKind",
+      "type": "string",
+      "enum": [
+        "MEASURED",
+        "INFERRED"
+      ],
+      "description": "Whether the evidence was measured or inferred. Inference is not measurement."
+    },
+    "AuthorityClass": {
+      "title": "AuthorityClass",
+      "type": "string",
+      "enum": [
+        "SYSTEM_POLICY",
+        "DIRECT_USER_INSTRUCTION",
+        "TRUSTED_RUNTIME_FACT",
+        "AGENT_MESSAGE",
+        "MODEL_GENERATED",
+        "UNTRUSTED_CONTENT"
+      ],
+      "description": "Where an instruction or fact came from. Only SYSTEM_POLICY and DIRECT_USER_INSTRUCTION may command; an agent message never becomes a user instruction."
+    },
+    "TaintFlag": {
+      "title": "TaintFlag",
+      "type": "string",
+      "enum": [
+        "UNTRUSTED_CONTENT",
+        "MODEL_GENERATED",
+        "AGENT_RELAYED",
+        "UNVERIFIED_CLAIM"
+      ],
+      "description": "Taint flags merge by union only. Nothing subtracts a flag automatically."
+    },
+    "RequirementStatus": {
+      "title": "RequirementStatus",
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "SATISFIED",
+        "UNSATISFIED",
+        "UNVERIFIED",
+        "BLOCKED"
+      ],
+      "description": "Mission requirement status."
+    },
+    "BudgetPreset": {
+      "title": "BudgetPreset",
+      "type": "string",
+      "enum": [
+        "CONSERVATIVE",
+        "BALANCED",
+        "EXTENDED",
+        "CUSTOM"
+      ],
+      "description": "Named budget presets. The values each preset expands to are shown to the user; no preset is called best or smart, because nothing measured says it is."
+    },
+    "ReviewIndependence": {
+      "title": "ReviewIndependence",
+      "type": "string",
+      "enum": [
+        "NOT_REVIEWED",
+        "SAME_MODEL_REVIEW",
+        "INDEPENDENT_MODEL_REVIEW"
+      ],
+      "description": "Whether a review used a different model. A model reviewing its own output is recorded as SAME_MODEL_REVIEW, never as independent."
+    },
+    "MissionBudget": {
+      "title": "MissionBudget",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_wall_clock_ms",
+        "max_model_calls",
+        "max_input_tokens",
+        "max_output_tokens",
+        "max_total_tokens",
+        "max_tasks",
+        "max_agent_instances",
+        "max_active_agents",
+        "max_concurrent_model_calls",
+        "max_delegations",
+        "max_delegation_depth",
+        "max_retries",
+        "max_review_rounds",
+        "max_graph_revisions"
+      ],
+      "properties": {
+        "max_wall_clock_ms": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 86400000
+        },
+        "max_model_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "max_input_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000000
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000000
+        },
+        "max_total_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200000000
+        },
+        "max_tasks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "max_agent_instances": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_active_agents": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "max_concurrent_model_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "max_delegations": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_delegation_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "max_review_rounds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "max_graph_revisions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_tool_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "max_tool_calls_per_task": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200
+        },
+        "max_external_side_effects": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_network_tool_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "max_tool_runtime_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600000
+        }
+      },
+      "description": "Every enforced budget dimension. The upper bounds here are contract ceilings, not recommendations; the product default is conservative.",
+      "$comment": "كل بُعد يُفرَض بالحجز قبل الإنفاق. السقوف هنا حدود عقد لا قيم مُثلى مُقاسة. أبعاد الأدوات أُضيفت في Phase-04 اختياريةً: حمولة بلا هذه الحقول تبقى صالحة وتأخذ الحدّ المحافظ."
+    },
+    "RequirementViewV1": {
+      "title": "RequirementViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement_id",
+        "text",
+        "verification_rule_id",
+        "mandatory",
+        "status"
+      ],
+      "properties": {
+        "requirement_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "verification_rule_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/RequirementStatus"
+        },
+        "claim_ref": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "TaskDependencyViewV1": {
+      "title": "TaskDependencyViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "depends_on",
+        "kind"
+      ],
+      "properties": {
+        "depends_on": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "kind": {
+          "$ref": "#/$defs/DependencyKind"
+        }
+      }
+    },
+    "TaskViewV1": {
+      "title": "TaskViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "mission_id",
+        "title",
+        "task_type",
+        "state",
+        "dependencies",
+        "attempt",
+        "max_attempts"
+      ],
+      "properties": {
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "objective": {
+          "$ref": "#/$defs/BoundedText"
+        },
+        "task_type": {
+          "$ref": "#/$defs/TaskType"
+        },
+        "state": {
+          "$ref": "#/$defs/TaskState"
+        },
+        "assigned_agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "parent_task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid",
+          "description": "The step this one belongs to: a step of the agent's plan, or a delegated helper's step (ADR-039)."
+        },
+        "dependencies": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/TaskDependencyViewV1"
+          }
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "AgentViewV1": {
+      "title": "AgentViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id",
+        "mission_id",
+        "role",
+        "state",
+        "delegation_depth",
+        "created_at",
+        "last_active_at"
+      ],
+      "properties": {
+        "agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "role": {
+          "$ref": "#/$defs/AgentRole"
+        },
+        "state": {
+          "$ref": "#/$defs/AgentState"
+        },
+        "model_id": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "The model this agent was routed to, by registry id. Never an endpoint, never a credential."
+        },
+        "delegation_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "parent_agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "current_task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_active_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "ClaimViewV1": {
+      "title": "ClaimViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "mission_id",
+        "agent_id",
+        "statement",
+        "claim_type",
+        "status",
+        "evidence_count",
+        "counterevidence_count",
+        "taint",
+        "verification_required",
+        "created_at"
+      ],
+      "properties": {
+        "claim_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "agent_id": {
+          "description": "The agent that made the claim, or polaris.runtime for a claim the mission runtime records itself (deliverable and requirement checks).",
+          "oneOf": [
+            { "$ref": "./common/ids.schema.json#/$defs/Uuid" },
+            { "const": "polaris.runtime" }
+          ]
+        },
+        "statement": {
+          "$ref": "#/$defs/BoundedText"
+        },
+        "claim_type": {
+          "$ref": "#/$defs/ClaimType"
+        },
+        "status": {
+          "$ref": "#/$defs/ClaimStatus"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "property": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "counterevidence_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "taint": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/TaintFlag"
+          }
+        },
+        "verification_required": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A claim as the renderer may see it. There is no confidence percentage, because no measured definition of one exists."
+    },
+    "EvidenceViewV1": {
+      "title": "EvidenceViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "mission_id",
+        "evidence_type",
+        "digest",
+        "producer",
+        "authority",
+        "source_ref",
+        "measurement_kind",
+        "taint",
+        "created_at"
+      ],
+      "properties": {
+        "evidence_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "evidence_type": {
+          "$ref": "#/$defs/EvidenceType"
+        },
+        "digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "producer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "authority": {
+          "$ref": "#/$defs/AuthorityClass"
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "description": "Where the evidence came from, as an internal reference. It is not a URL the renderer may choose or the host will fetch."
+        },
+        "lineage": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "description": "The derivation lineage. Two items sharing a lineage root are one source, not two."
+        },
+        "measurement_kind": {
+          "$ref": "#/$defs/MeasurementKind"
+        },
+        "taint": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/TaintFlag"
+          }
+        },
+        "summary": {
+          "$ref": "#/$defs/BoundedText"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "BlockerViewV1": {
+      "title": "BlockerViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "title": "BlockerKind",
+          "type": "string",
+          "enum": [
+            "UNSATISFIED_REQUIREMENT",
+            "UNVERIFIED_REQUIREMENT",
+            "CONFLICTED_CLAIM",
+            "CRITICAL_POLICY_VIOLATION",
+            "NO_MANDATORY_REQUIREMENT",
+            "EXECUTION_INCOMPLETE"
+          ],
+          "description": "Why completion is not proven."
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 512
+        }
+      }
+    },
+    "CompletionProofViewV1": {
+      "title": "CompletionProofViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "proof_summary",
+        "verified_requirements",
+        "unverified_requirements",
+        "conflicted_claims",
+        "remaining_blockers"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/CompletionProofStatus"
+        },
+        "proof_summary": {
+          "$ref": "#/$defs/BoundedText"
+        },
+        "verified_requirements": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "unverified_requirements": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "conflicted_claims": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./common/ids.schema.json#/$defs/Uuid"
+          }
+        },
+        "remaining_blockers": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/BlockerViewV1"
+          }
+        }
+      },
+      "description": "The proof side of a mission, always reported next to the lifecycle state and never folded into it."
+    },
+    "MissionSummaryV1": {
+      "title": "MissionSummaryV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "title",
+        "state",
+        "completion_proof_status",
+        "created_at",
+        "task_count",
+        "tasks_succeeded"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "$ref": "#/$defs/MissionTitle"
+        },
+        "title_authority": {
+          "$ref": "#/$defs/AuthorityClass"
+        },
+        "state": {
+          "$ref": "#/$defs/MissionState"
+        },
+        "completion_proof_status": {
+          "$ref": "#/$defs/CompletionProofStatus"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "task_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "tasks_succeeded": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        }
+      },
+      "description": "A mission row. Progress is derived from task states; no percentage is invented when none can be computed."
+    },
+    "MissionDetailV1": {
+      "title": "MissionDetailV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "title",
+        "objective",
+        "origin",
+        "execution_mode",
+        "priority",
+        "state",
+        "completion_proof_status",
+        "current_revision",
+        "budget",
+        "requirements",
+        "created_at",
+        "version"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "$ref": "#/$defs/MissionTitle"
+        },
+        "title_authority": {
+          "$ref": "#/$defs/AuthorityClass"
+        },
+        "objective": {
+          "$ref": "#/$defs/MissionObjective"
+        },
+        "origin": {
+          "$ref": "#/$defs/MissionOrigin"
+        },
+        "execution_mode": {
+          "$ref": "#/$defs/ExecutionMode"
+        },
+        "priority": {
+          "$ref": "#/$defs/MissionPriority"
+        },
+        "state": {
+          "$ref": "#/$defs/MissionState"
+        },
+        "completion_proof_status": {
+          "$ref": "#/$defs/CompletionProofStatus"
+        },
+        "current_revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "root_task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "budget": {
+          "$ref": "#/$defs/MissionBudget"
+        },
+        "requirements": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/RequirementViewV1"
+          }
+        },
+        "result_summary": {
+          "$ref": "#/$defs/BoundedText"
+        },
+        "failure_reason": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "started_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "completed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        }
+      }
+    },
+    "SecurityClass": {
+      "title": "SecurityClass",
+      "type": "string",
+      "enum": [
+        "STANDARD",
+        "SECURITY_SENSITIVE"
+      ],
+      "description": "Documentary classification of a role. It grants nothing; policy enforcement points decide what is allowed."
+    },
+    "StopReasonCode": {
+      "title": "StopReasonCode",
+      "type": "string",
+      "enum": [
+        "NO_PROGRESS",
+        "BUDGET_EXHAUSTED",
+        "MODEL_OUTPUT_INVALID",
+        "NO_MODEL_ROUTED",
+        "TASK_GRAPH_INVALID",
+        "MISSION_CANCELLED",
+        "DEADLINE_EXCEEDED",
+        "PROVIDER_UNAVAILABLE",
+        "PROVIDER_CREDIT_EXHAUSTED",
+        "DELIVERABLES_INCOMPLETE",
+        "TASKS_BLOCKED",
+        "TASKS_FAILED",
+        "REPEATED_DENIALS",
+        "TAMPER_DETECTED",
+        "STORAGE_FAILURE"
+      ],
+      "description": "Why a run stopped before its natural end. A stop reason is a reason code, never internal detail. STORAGE_FAILURE (remediation 2026-10-12): the session log or the resume checkpoint could not be written, so the run stopped before its next side effect."
+    },
+    "AgentRoleViewV1": {
+      "title": "AgentRoleViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_type",
+        "display_name_key",
+        "purpose_key",
+        "allowed_task_types",
+        "max_delegation_depth",
+        "review_eligible",
+        "security_class",
+        "enabled"
+      ],
+      "properties": {
+        "agent_type": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/AgentRole"
+        },
+        "display_name_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "purpose_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "allowed_task_types": {
+          "type": "array",
+          "maxItems": 9,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./desktop-p03-domain.schema.json#/$defs/TaskType"
+          }
+        },
+        "max_delegation_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "review_eligible": {
+          "type": "boolean"
+        },
+        "security_class": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/SecurityClass"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "description": "A role descriptor as the Agents screen shows it. There is no productivity score, because none is measured."
+    },
+    "MissionRunReportV1": {
+      "title": "MissionRunReportV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_state",
+        "tasks_succeeded",
+        "tasks_failed",
+        "tasks_blocked",
+        "model_calls",
+        "total_tokens",
+        "claims",
+        "verified_claims",
+        "review_independence"
+      ],
+      "properties": {
+        "mission_state": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/MissionState"
+        },
+        "tasks_succeeded": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "tasks_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "tasks_blocked": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "model_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "total_tokens": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200000000
+        },
+        "claims": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "verified_claims": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "review_independence": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/ReviewIndependence"
+        },
+        "stop_reason": {
+          "$ref": "./desktop-p03-domain.schema.json#/$defs/StopReasonCode"
+        },
+        "tool_proposals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "tool_calls_executed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "tool_calls_denied": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "tool_calls_awaiting_approval": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "delegations_requested": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "delegations_executed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "agent_messages": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        }
+      },
+      "description": "What one orchestration run actually did. Counts are measured, not estimated. The tool and delegation counts were added in Phase-04 as optional fields, so a Phase-03 result stays valid."
+    }
+  }
+}

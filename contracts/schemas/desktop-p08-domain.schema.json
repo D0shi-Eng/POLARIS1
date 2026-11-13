@@ -1,0 +1,1039 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase08Domain",
+  "description": "Shared Phase-08 value shapes: mission workspaces, attachments, artifacts, sandboxed execution runs, schedules, OAuth connections, collaboration grants, publications, skill packages and integration settings. No shape carries a credential value, a token, an absolute path of the user's computer or raw untrusted content presented as instructions.",
+  "$comment": "قيم مشتركة لعمليات Phase-08. لا قيمة سرّ ولا رمز ولا مسار مطلق من جهاز المستخدم.",
+  "$defs": {
+    "WorkspacePath": {
+      "title": "WorkspacePath",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 260,
+      "pattern": "^[^\\\\:*?\"<>|\\u0000-\\u001f]+$",
+      "description": "A path relative to one mission workspace, with forward slashes. Absolute paths, drive letters, backslashes and alternate data streams are unrepresentable; '..' and reserved names are refused by the host."
+    },
+    "FileName": {
+      "title": "FileName",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "pattern": "^[^/\\\\:*?\"<>|\\u0000-\\u001f]+$"
+    },
+    "ArtifactType": {
+      "title": "ArtifactType",
+      "type": "string",
+      "enum": [
+        "DOCX",
+        "PPTX",
+        "XLSX",
+        "PDF",
+        "CSV",
+        "HTML",
+        "MARKDOWN",
+        "TEXT",
+        "JSON",
+        "IMAGE",
+        "WEB_SITE",
+        "CODE_PROJECT"
+      ]
+    },
+    "ModelId": {
+      "title": "ModelId",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^\\s\\u0000-\\u001f]+$"
+    },
+    "SpecialistId": {
+      "title": "SpecialistId",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120,
+      "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$",
+      "description": "A specialist from the built-in catalog, as <domain>.<slug>. Issued by the catalog, never by a model."
+    },
+    "AttachmentV1": {
+      "title": "AttachmentV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_id",
+        "mission_id",
+        "file_name",
+        "workspace_ref",
+        "file_kind",
+        "size_bytes",
+        "sha256",
+        "classification",
+        "imported_at"
+      ],
+      "properties": {
+        "attachment_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "file_name": {
+          "$ref": "#/$defs/FileName"
+        },
+        "workspace_ref": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "file_kind": {
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "classification": {
+          "const": "USER_PROVIDED_UNTRUSTED"
+        },
+        "imported_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "family": {
+          "anyOf": [
+            {
+              "enum": [
+                "TEXT",
+                "CODE",
+                "DOCUMENT",
+                "SPREADSHEET",
+                "PRESENTATION",
+                "IMAGE",
+                "AUDIO",
+                "VIDEO",
+                "ARCHIVE",
+                "BINARY"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mime_type": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content_check": {
+          "anyOf": [
+            {
+              "enum": [
+                "MATCHED",
+                "UNVERIFIED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_access": {
+          "anyOf": [
+            {
+              "enum": [
+                "TEXT_EXTRACTION",
+                "IMAGE_INPUT",
+                "STORE_ONLY"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "A file the user attached. Its classification is fixed: user-provided content is data for the agent, never an instruction, and it is never sent to a remote model unless the user's routing allows it. Since schema v20 the host also states what content inspection found: the format family, the MIME type decided from the content signature, whether that signature matched the extension, and how the file reaches a model (extracted text, image input for a model that declares vision, or storage only). Rows staged before v20 carry null in these fields."
+    },
+    "VerificationV1": {
+      "title": "VerificationV1",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "checks",
+        "facts"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "FAILED"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "maxItems": 400,
+          "items": {
+            "type": "object"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "description": "The host's own re-open verification of an artifact file."
+    },
+    "ArtifactV1": {
+      "title": "ArtifactV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "mission_id",
+        "type",
+        "title",
+        "file_ref",
+        "mime_type",
+        "size",
+        "sha256",
+        "created_at",
+        "source_task",
+        "verification",
+        "preview",
+        "provenance"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "type": {
+          "$ref": "#/$defs/ArtifactType"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 300,
+          "minLength": 1
+        },
+        "file_ref": {
+          "$ref": "#/$defs/WorkspacePath"
+        },
+        "mime_type": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "source_task": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verification": {
+          "$ref": "#/$defs/VerificationV1"
+        },
+        "preview": {
+          "type": "object"
+        },
+        "provenance": {
+          "type": "object"
+        }
+      },
+      "description": "An artifact descriptor. file_ref is relative to the mission workspace; the preview is an excerpt measured by the host, and provenance marks the content MODEL_GENERATED_UNTRUSTED."
+    },
+    "ExecutionRunV1": {
+      "title": "ExecutionRunV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "task_id",
+        "tool_id",
+        "runtime",
+        "command_preview",
+        "status",
+        "exit_code",
+        "duration_ms",
+        "output_truncated",
+        "network",
+        "processes_total",
+        "survivors",
+        "output_excerpt",
+        "started_at",
+        "finished_at"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "tool_id": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "runtime": {
+          "type": "string",
+          "enum": [
+            "POWERSHELL",
+            "PYTHON"
+          ]
+        },
+        "command_preview": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "status": {
+          "type": "string",
+          "maxLength": 40,
+          "minLength": 1
+        },
+        "exit_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "output_truncated": {
+          "type": "boolean"
+        },
+        "network": {
+          "type": "boolean"
+        },
+        "processes_total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "survivors": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "output_excerpt": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "started_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "finished_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "One sandboxed run, sanitised and bounded. survivors counts processes still alive when the job was closed; it is expected to be zero."
+    },
+    "MissionTemplateV1": {
+      "title": "MissionTemplateV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "objective"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "objective": {
+          "type": "string",
+          "maxLength": 20000,
+          "minLength": 1
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ModelId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ScheduleSpecV1": {
+      "title": "ScheduleSpecV1",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "at"
+          ],
+          "properties": {
+            "kind": {
+              "const": "ONCE"
+            },
+            "at": {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "minutes"
+          ],
+          "properties": {
+            "kind": {
+              "const": "INTERVAL"
+            },
+            "minutes": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 525600
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "time"
+          ],
+          "properties": {
+            "kind": {
+              "const": "DAILY"
+            },
+            "time": {
+              "type": "string",
+              "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "days",
+            "time"
+          ],
+          "properties": {
+            "kind": {
+              "const": "WEEKLY"
+            },
+            "days": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 7,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "MON",
+                  "TUE",
+                  "WED",
+                  "THU",
+                  "FRI",
+                  "SAT",
+                  "SUN"
+                ]
+              }
+            },
+            "time": {
+              "type": "string",
+              "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "days",
+            "time"
+          ],
+          "description": "Days of the month 1..31 at one time. A month without a chosen day (31 in April) does not run on it.",
+          "properties": {
+            "kind": {
+              "const": "MONTHLY"
+            },
+            "days": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 31,
+              "uniqueItems": true,
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 31
+              }
+            },
+            "time": {
+              "type": "string",
+              "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+            }
+          }
+        }
+      ]
+    },
+    "TimeZone": {
+      "title": "TimeZone",
+      "type": "string",
+      "pattern": "^UTC([+-](0[0-9]|1[0-4]):[0-5][0-9])?$",
+      "description": "A fixed offset from UTC. Daylight-saving zones are represented by their current offset; the change is not followed (a declared limitation)."
+    },
+    "ApprovalPolicy": {
+      "title": "ApprovalPolicy",
+      "type": "string",
+      "enum": [
+        "WAIT_FOR_APPROVAL",
+        "FAIL_ON_APPROVAL"
+      ],
+      "description": "What a scheduled mission does when a tool needs approval. Neither value grants the approval: the mission waits for the user, or it is cancelled and the reason recorded."
+    },
+    "ScheduleRunV1": {
+      "title": "ScheduleRunV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "schedule_id",
+        "mission_id",
+        "trigger_kind",
+        "status",
+        "detail",
+        "triggered_at"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "trigger_kind": {
+          "type": "string",
+          "description": "PHASE-14: CATCH_UP = due while POLARIS was not running, run once on opening; RETRY = the one retry after a failed launch or a failed mission.",
+          "enum": [
+            "SCHEDULED",
+            "RUN_NOW",
+            "CATCH_UP",
+            "RETRY"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "maxLength": 40,
+          "minLength": 1
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "triggered_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "ScheduleV1": {
+      "title": "ScheduleV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "name",
+        "mission_template",
+        "timezone",
+        "schedule",
+        "enabled",
+        "next_run",
+        "last_run",
+        "last_mission_id",
+        "last_status",
+        "budget",
+        "approval_policy",
+        "created_at",
+        "updated_at",
+        "end_at",
+        "run_target"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "mission_template": {
+          "$ref": "#/$defs/MissionTemplateV1"
+        },
+        "timezone": {
+          "$ref": "#/$defs/TimeZone"
+        },
+        "schedule": {
+          "$ref": "#/$defs/ScheduleSpecV1"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "next_run": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_run": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_mission_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_status": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 40
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "budget": {
+          "type": "object"
+        },
+        "approval_policy": {
+          "$ref": "#/$defs/ApprovalPolicy"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "recent_runs": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/ScheduleRunV1"
+          }
+        },
+        "end_at": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The last moment the schedule runs, or null."
+        },
+        "run_target": {
+          "$ref": "#/$defs/RunTarget"
+        }
+      }
+    },
+    "OAuthConnectionV1": {
+      "title": "OAuthConnectionV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connection_id",
+        "provider_id",
+        "display_name",
+        "client_id",
+        "scopes",
+        "status",
+        "stored_in_vault",
+        "expires_at",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "connection_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "provider_id": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "display_name": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "client_id": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "scopes": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "CONNECTED",
+            "FAILED",
+            "REVOKED",
+            "EXPIRED"
+          ]
+        },
+        "stored_in_vault": {
+          "type": "boolean"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "An OAuth connection as the renderer may see it: status and scopes. Neither the access token, the refresh token nor their vault reference crosses the boundary."
+    },
+    "ShareGrantV1": {
+      "title": "ShareGrantV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "object_type",
+        "object_id",
+        "member",
+        "role",
+        "created_at"
+      ],
+      "properties": {
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "MISSION",
+            "ARTIFACT",
+            "WORKSPACE"
+          ]
+        },
+        "object_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "member": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "OWNER",
+            "EDITOR",
+            "VIEWER"
+          ]
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "PublicationV1": {
+      "title": "PublicationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_id",
+        "artifact_id",
+        "publisher",
+        "status",
+        "target",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "publication_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "artifact_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "publisher": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "AWAITING_APPROVAL",
+            "PUBLISHED",
+            "DENIED",
+            "FAILED"
+          ]
+        },
+        "target": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "SkillPackageV1": {
+      "title": "SkillPackageV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package_id",
+        "name",
+        "version",
+        "author",
+        "manifest_sha256",
+        "signature_state",
+        "source",
+        "trust_state",
+        "rejection",
+        "imported_at",
+        "grants_authority"
+      ],
+      "properties": {
+        "package_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "manifest_sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "signature_state": {
+          "type": "string",
+          "maxLength": 40,
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "trust_state": {
+          "type": "string",
+          "maxLength": 40,
+          "minLength": 1
+        },
+        "rejection": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 500
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imported_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "grants_authority": {
+          "const": false
+        }
+      },
+      "description": "An imported skill package. grants_authority is always false: a package describes a skill, it grants no capability."
+    },
+    "IntegrationSettingKey": {
+      "title": "IntegrationSettingKey",
+      "type": "string",
+      "enum": [
+        "voice.transcription_endpoint",
+        "voice.transcription_model",
+        "workspace.export_folder_label",
+        "browser.engine_enabled",
+        "web.search_endpoint",
+        "profile.nickname",
+        "profile.profession",
+        "profile.about",
+        "profile.instructions",
+        "web.search_provider",
+        "notifications.enabled",
+        "notifications.sound"
+      ],
+      "description": "A Phase-08 setting. profile.* is what the user wrote about themselves on the Customize page; the agent reads it as the user's own words in every task."
+    },
+    "IntegrationSettingsV1": {
+      "title": "IntegrationSettingsV1",
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/IntegrationSettingKey"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 3000
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "RuntimeStateV1": {
+      "title": "RuntimeStateV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "detail"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 400
+        }
+      }
+    },
+    "RunTarget": {
+      "title": "RunTarget",
+      "type": "string",
+      "enum": [
+        "SEPARATE_TASK",
+        "SAME_TASK"
+      ],
+      "description": "SEPARATE_TASK: each run is its own task. SAME_TASK: each run is the next turn in the previous run's task; the first run starts it."
+    }
+  }
+}

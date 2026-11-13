@@ -1,0 +1,137 @@
+{
+  "contract_version": "1.0",
+  "phase": "PHASE-01",
+  "envelope_contract": "IPCEnvelopeV1",
+  "implementation_status": "SPECIFIED",
+  "operations": [
+    {
+      "operation": "desktop.bootstrap",
+      "envelope_version": "1.1",
+      "request_schema": "desktop-request.v1.schema.json#/$defs/DesktopBootstrapRequestV1",
+      "response_schema": "desktop-result.v1.schema.json#/$defs/DesktopBootstrapResultV1",
+      "owner": "BootstrapService",
+      "effect": "READ_ONLY",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-01"
+    },
+    {
+      "operation": "desktop.runtime.status",
+      "envelope_version": "1.1",
+      "request_schema": "desktop-request.v1.schema.json#/$defs/DesktopRuntimeStatusRequestV1",
+      "response_schema": "desktop-result.v1.schema.json#/$defs/DesktopRuntimeStatusResultV1",
+      "owner": "RuntimeStatusService",
+      "effect": "READ_ONLY",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-01"
+    },
+    {
+      "operation": "desktop.capability.availability",
+      "envelope_version": "1.1",
+      "request_schema": "desktop-request.v1.schema.json#/$defs/DesktopCapabilityAvailabilityRequestV1",
+      "response_schema": "desktop-result.v1.schema.json#/$defs/DesktopCapabilityAvailabilityResultV1",
+      "owner": "CapabilityAvailabilityService",
+      "effect": "READ_ONLY",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-01"
+    },
+    {
+      "operation": "desktop.settings.describe",
+      "envelope_version": "1.1",
+      "request_schema": "desktop-request.v1.schema.json#/$defs/DesktopSettingsDescribeRequestV1",
+      "response_schema": "desktop-result.v1.schema.json#/$defs/DesktopSettingsDescribeResultV1",
+      "owner": "SettingsFacade",
+      "effect": "READ_ONLY",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-01"
+    },
+    {
+      "operation": "desktop.settings.read",
+      "envelope_version": "1.1",
+      "request_schema": "desktop-request.v1.schema.json#/$defs/DesktopSettingsReadRequestV1",
+      "response_schema": "desktop-result.v1.schema.json#/$defs/DesktopSettingsReadResultV1",
+      "owner": "SettingsFacade",
+      "effect": "READ_ONLY",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-01"
+    }
+  ]
+}

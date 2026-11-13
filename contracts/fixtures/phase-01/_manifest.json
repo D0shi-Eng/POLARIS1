@@ -1,0 +1,210 @@
+{
+  "positive": [
+    {
+      "file": "bootstrap.request.json",
+      "operation": "desktop.bootstrap",
+      "direction": "REQUEST",
+      "claim": "bootstrap takes no parameters and the empty object is closed"
+    },
+    {
+      "file": "bootstrap.result.json",
+      "operation": "desktop.bootstrap",
+      "direction": "RESULT",
+      "claim": "the whole Phase-01 snapshot, with an unattached runtime stated as such"
+    },
+    {
+      "file": "capability-availability.request.json",
+      "operation": "desktop.capability.availability",
+      "direction": "REQUEST",
+      "claim": "a bounded, explicit capability query"
+    },
+    {
+      "file": "capability-availability.result.json",
+      "operation": "desktop.capability.availability",
+      "direction": "RESULT",
+      "claim": "one entry per capability asked about, available and unavailable alike"
+    },
+    {
+      "file": "runtime-status.request.json",
+      "operation": "desktop.runtime.status",
+      "direction": "REQUEST",
+      "claim": "runtime status takes no parameters"
+    },
+    {
+      "file": "runtime-status.result.json",
+      "operation": "desktop.runtime.status",
+      "direction": "RESULT",
+      "claim": "reachability, availability and the observation instant"
+    },
+    {
+      "file": "settings-describe.request.json",
+      "operation": "desktop.settings.describe",
+      "direction": "REQUEST",
+      "claim": "a description restricted to named sections"
+    },
+    {
+      "file": "settings-describe.result.json",
+      "operation": "desktop.settings.describe",
+      "direction": "RESULT",
+      "claim": "structure and mode only, with an unavailable section carrying its reason"
+    },
+    {
+      "file": "settings-read.request.json",
+      "operation": "desktop.settings.read",
+      "direction": "REQUEST",
+      "claim": "a read bounded to one section"
+    },
+    {
+      "file": "settings-read.result.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "claim": "display-safe values, and a secret-bearing setting reported as configured with no value"
+    }
+  ],
+  "negative": [
+    {
+      "file": "bootstrap.result.invalid-direction.json",
+      "operation": "desktop.bootstrap",
+      "direction": "RESULT",
+      "reason": "a writing direction outside the closed pair",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/direction"
+    },
+    {
+      "file": "bootstrap.result.missing-locale.json",
+      "operation": "desktop.bootstrap",
+      "direction": "RESULT",
+      "reason": "a snapshot missing a required shell fact",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "bootstrap.result.unavailable-without-reason.json",
+      "operation": "desktop.bootstrap",
+      "direction": "RESULT",
+      "reason": "an unavailable state with no machine reason",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/runtime_status/availability"
+    },
+    {
+      "file": "bootstrap.result.unknown-field.json",
+      "operation": "desktop.bootstrap",
+      "direction": "RESULT",
+      "reason": "a snapshot growing an undeclared host internal",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "capability-availability.request.empty-query.json",
+      "operation": "desktop.capability.availability",
+      "direction": "REQUEST",
+      "reason": "an empty query, which is a wildcard by another name",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/capability_ids"
+    },
+    {
+      "file": "capability-availability.result.available-with-reason.json",
+      "operation": "desktop.capability.availability",
+      "direction": "RESULT",
+      "reason": "an AVAILABLE state carrying a reason it cannot have",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/capabilities/1/availability"
+    },
+    {
+      "file": "capability-availability.result.unknown-reason.json",
+      "operation": "desktop.capability.availability",
+      "direction": "RESULT",
+      "reason": "a free-text reason smuggled in place of a classified one",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/capabilities/0/availability/reason"
+    },
+    {
+      "file": "capability-availability.result.unknown-state.json",
+      "operation": "desktop.capability.availability",
+      "direction": "RESULT",
+      "reason": "an availability state outside the closed five",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/capabilities/0/availability/state"
+    },
+    {
+      "file": "runtime-status.result.local-offset-timestamp.json",
+      "operation": "desktop.runtime.status",
+      "direction": "RESULT",
+      "reason": "an observation instant with a local offset, which breaks total ordering",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/observed_at"
+    },
+    {
+      "file": "runtime-status.result.unknown-reachability.json",
+      "operation": "desktop.runtime.status",
+      "direction": "RESULT",
+      "reason": "a reachability value outside the closed three",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/runtime_status/reachability"
+    },
+    {
+      "file": "settings-describe.result.unavailable-without-reason.json",
+      "operation": "desktop.settings.describe",
+      "direction": "RESULT",
+      "reason": "a setting disabled with no reason given",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/sections/1/settings/0"
+    },
+    {
+      "file": "settings-describe.result.unknown-mode.json",
+      "operation": "desktop.settings.describe",
+      "direction": "RESULT",
+      "reason": "a setting mode outside the closed three",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/sections/0/settings/0/mode"
+    },
+    {
+      "file": "settings-read.request.no-section.json",
+      "operation": "desktop.settings.read",
+      "direction": "REQUEST",
+      "reason": "a read with no section, which would become a settings dump",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "settings-read.result.credential-named-key.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "reason": "a key that names a credential cannot be added anywhere in a desktop payload: the closed shapes refuse it before secret hygiene is even reached",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/settings/0"
+    },
+    {
+      "file": "settings-read.result.secret-like-token.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "reason": "a credential-shaped token inside a bounded token field",
+      "expect_code": "CONTRACT_VIOLATION",
+      "expect_pointer": "/result/settings/0/value/code_value"
+    },
+    {
+      "file": "settings-read.result.secret-like-value.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "reason": "a credential-shaped value inside a display-safe text field",
+      "expect_code": "CONTRACT_VIOLATION",
+      "expect_pointer": "/result/settings/0/value/text_value"
+    },
+    {
+      "file": "settings-read.result.unknown-field.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "reason": "a result growing an undeclared field",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "settings-read.result.withheld-with-value.json",
+      "operation": "desktop.settings.read",
+      "direction": "RESULT",
+      "reason": "a setting whose value the host withholds carrying a value anyway",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/settings/2"
+    }
+  ]
+}

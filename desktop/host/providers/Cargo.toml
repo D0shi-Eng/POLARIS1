@@ -1,0 +1,24 @@
+[package]
+name = "polaris-host-providers"
+description = "POLARIS Phase-02 provider layer: provider domain, endpoint policy, HTTP transport, adapters"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+name = "polaris_host_providers"
+path = "src/lib.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+# تحليل رأس استجابة HTTP/1.1 فقط. مكتبة صغيرة بلا تبعيات، بدل محلّل مكتوب باليد.
+httparse = "1.10"
+# تحليل عناوين URL وفق WHATWG. موجودة أصلًا في شجرة Tauri.
+url = "2.5"
+# TLS من نظام التشغيل: SChannel على Windows. لا تشفير مكتوب هنا.
+native-tls = "0.2"
+# تصفير ذاكرة القيمة السرية عند الإسقاط. مكتبة صغيرة شائعة بلا تبعيات تشغيل.
+zeroize = "1"

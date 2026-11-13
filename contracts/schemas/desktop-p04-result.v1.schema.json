@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase04ResultPayloadV1",
+  "description": "The closed set of result payloads the twelve Phase-04 operations return. No result carries a credential, a raw MCP body, a filesystem path outside a declared reference, or hidden model reasoning.",
+  "$comment": "نتيجة الأداة تُعرض ملخّصًا وبصمة، لا جسدًا خامًا. وما يعيده خادم MCP يبقى بيانات موسومة.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/SkillListResultV1"
+    },
+    {
+      "$ref": "#/$defs/SkillGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/SkillConfigureResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolActivityListResultV1"
+    },
+    {
+      "$ref": "#/$defs/McpListResultV1"
+    },
+    {
+      "$ref": "#/$defs/McpRegisterResultV1"
+    },
+    {
+      "$ref": "#/$defs/McpConfigureResultV1"
+    },
+    {
+      "$ref": "#/$defs/McpRefreshResultV1"
+    },
+    {
+      "$ref": "#/$defs/ApprovalListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalRespondResultV1"
+    }
+  ],
+  "$defs": {
+    "SkillListResultV1": {
+      "title": "SkillListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skills"
+      ],
+      "properties": {
+        "skills": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillViewV1"
+          }
+        }
+      }
+    },
+    "SkillGetResultV1": {
+      "title": "SkillGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skill",
+        "tools"
+      ],
+      "properties": {
+        "skill": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillViewV1"
+        },
+        "tools": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolViewV1"
+          },
+          "description": "The registered descriptors of the tools this skill allows. A name in allowed_tools with no descriptor here is a tool that does not exist."
+        }
+      }
+    },
+    "SkillConfigureResultV1": {
+      "title": "SkillConfigureResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skill"
+      ],
+      "properties": {
+        "skill": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillViewV1"
+        }
+      }
+    },
+    "ToolListResultV1": {
+      "title": "ToolListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tools"
+      ],
+      "properties": {
+        "tools": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolViewV1"
+          }
+        }
+      }
+    },
+    "ToolGetResultV1": {
+      "title": "ToolGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool"
+      ],
+      "properties": {
+        "tool": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolViewV1"
+        },
+        "allowed_by_skills": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/SkillId"
+          }
+        }
+      }
+    },
+    "ToolActivityListResultV1": {
+      "title": "ToolActivityListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocations"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "invocations": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolInvocationViewV1"
+          }
+        },
+        "summary": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/MissionToolSummaryV1"
+        }
+      }
+    },
+    "McpListResultV1": {
+      "title": "McpListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "servers"
+      ],
+      "properties": {
+        "servers": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerViewV1"
+          }
+        }
+      }
+    },
+    "McpRegisterResultV1": {
+      "title": "McpRegisterResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server"
+      ],
+      "properties": {
+        "server": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerViewV1"
+        }
+      }
+    },
+    "McpConfigureResultV1": {
+      "title": "McpConfigureResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server"
+      ],
+      "properties": {
+        "server": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerViewV1"
+        }
+      }
+    },
+    "McpRefreshResultV1": {
+      "title": "McpRefreshResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "server",
+        "accepted",
+        "rejected"
+      ],
+      "properties": {
+        "server": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/McpServerViewV1"
+        },
+        "accepted": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolViewV1"
+          }
+        },
+        "pending_redefinitions": {
+          "type": "array",
+          "maxItems": 200,
+          "description": "Tools whose definition changed after discovery and that stay disabled until the user accepts the new definition (remediation 2026-10-12).",
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolId"
+          }
+        },
+        "rejected": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "declared_name",
+              "reason"
+            ],
+            "properties": {
+              "declared_name": {
+                "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+              },
+              "reason": {
+                "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolDenialReason"
+              },
+              "detail": {
+                "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedDescription"
+              }
+            }
+          },
+          "description": "Every tool the server offered and the registry refused, with the reason. A rejected tool is reported, never silently dropped."
+        }
+      }
+    },
+    "ApprovalListResultV1": {
+      "title": "ApprovalListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvals"
+      ],
+      "properties": {
+        "approvals": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ApprovalViewV1"
+          }
+        }
+      }
+    },
+    "ToolApprovalRespondResultV1": {
+      "title": "ToolApprovalRespondResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval"
+      ],
+      "properties": {
+        "approval": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ApprovalViewV1"
+        }
+      }
+    }
+  }
+}

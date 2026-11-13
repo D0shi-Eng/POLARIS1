@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisProvenance",
+  "description": "Taint labels, provenance references and integrity metadata.",
+  "$comment": "أساس Truth/Provenance المستقبلي. W2 يعرّف التمثيل فقط، لا يبني السلسلة.",
+  "$defs": {
+    "TaintLabel": {
+      "title": "TaintLabel",
+      "type": "string",
+      "enum": [
+        "UNTRUSTED_WEB",
+        "UNTRUSTED_EMAIL",
+        "UNTRUSTED_FILE",
+        "MODEL_GENERATED",
+        "USER_SUPPLIED",
+        "SYSTEM_DERIVED"
+      ],
+      "description": "Data lineage marker. Propagated, never silently cleared."
+    },
+    "ProvenanceRef": {
+      "title": "ProvenanceRef",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "AUDIT_EVENT",
+            "MODEL_OUTPUT",
+            "CAPABILITY_RESULT",
+            "USER_INPUT"
+          ]
+        },
+        "ref": {
+          "$ref": "./ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "Integrity": {
+      "title": "Integrity",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonicalization",
+        "hash_alg",
+        "hash"
+      ],
+      "properties": {
+        "canonicalization": {
+          "type": "string",
+          "const": "POLARIS-CJSON-1",
+          "description": "Deterministic JSON canonicalisation: UTF-8, lexicographic key order by UTF-16 code unit, no insignificant whitespace, integers without exponent."
+        },
+        "hash_alg": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "hash": {
+          "$ref": "./ids.schema.json#/$defs/Sha256Hex"
+        },
+        "prev_hash": {
+          "$ref": "./ids.schema.json#/$defs/Sha256Hex",
+          "description": "Reserved for the audit hash chain. W2 defines the field; it builds no chain."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelOutputContractV1",
+  "description": "The gate between a model and the capability layer. Model output is not valid merely because it parses as JSON.",
+  "$comment": "بوابة إلزامية. لا يتحول مخرج النموذج إلى استدعاء قدرة إلا بعد validation_status=VALID.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "output_id",
+    "correlation_id",
+    "causation_id",
+    "model_ref",
+    "output_type",
+    "declared_schema_ref",
+    "declared_schema_version",
+    "validation_status",
+    "violations",
+    "loop_control",
+    "produced_at"
+  ],
+  "properties": {
+    "contract_version": {
+      "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+    },
+    "output_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid"
+    },
+    "correlation_id": {
+      "$ref": "./common/ids.schema.json#/$defs/CorrelationId"
+    },
+    "causation_id": {
+      "$ref": "./common/ids.schema.json#/$defs/CausationId"
+    },
+    "mission_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid"
+    },
+    "agent_id": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid"
+    },
+    "model_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id"
+      ],
+      "properties": {
+        "model_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Opaque to Core. No provider-specific payload shape enters this contract."
+        },
+        "revision": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "output_type": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "STRUCTURED",
+        "TOOL_INVOCATION_PROPOSAL",
+        "REFUSAL"
+      ]
+    },
+    "declared_schema_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "declared_schema_version": {
+      "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+    },
+    "raw_length": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16777216,
+      "description": "Length of the raw completion. The raw text itself is never carried here."
+    },
+    "raw_hash": {
+      "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "VALID",
+        "INVALID_SCHEMA",
+        "MISSING_REQUIRED_FIELD",
+        "UNSUPPORTED_ACTION",
+        "MALFORMED_OUTPUT",
+        "REFUSAL",
+        "TIMEOUT",
+        "MODEL_CONTRACT_VIOLATION"
+      ]
+    },
+    "parsed_payload": {
+      "type": "object",
+      "description": "Present if and only if validation_status is VALID. Absent status means absent payload; there is no partially trusted state."
+    },
+    "violations": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "detail"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "SCHEMA_MISMATCH",
+              "MISSING_FIELD",
+              "UNKNOWN_ACTION",
+              "UNPARSEABLE",
+              "TRUNCATED",
+              "DISALLOWED_CONTENT",
+              "BUDGET_EXCEEDED"
+            ]
+          },
+          "pointer": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          }
+        }
+      }
+    },
+    "taint_labels": {
+      "type": "array",
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "./common/provenance.schema.json#/$defs/TaintLabel"
+      }
+    },
+    "loop_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt",
+        "max_retries",
+        "iteration",
+        "max_iterations",
+        "terminal"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9,
+          "description": "Bounded by the schema: unbounded retry is unrepresentable."
+        },
+        "iteration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "terminal": {
+          "type": "boolean",
+          "description": "true when the loop must stop WITHOUT a valid output. A VALID output is never terminal: the loop ended by succeeding, not by exhausting a budget."
+        },
+        "failure_reason": {
+          "type": "string",
+          "enum": [
+            "RETRY_BUDGET_EXHAUSTED",
+            "ITERATION_BUDGET_EXHAUSTED",
+            "NON_RETRYABLE_VIOLATION"
+          ]
+        }
+      }
+    },
+    "produced_at": {
+      "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "الحمولة المفسَّرة موجودة إذا وفقط إذا كانت الحالة VALID.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "validation_status": {
+            "const": "VALID"
+          }
+        },
+        "required": [
+          "validation_status"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "parsed_payload"
+        ],
+        "properties": {
+          "violations": {
+            "type": "array",
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "type": "object",
+          "required": [
+            "parsed_payload"
+          ]
+        }
+      }
+    },
+    {
+      "$comment": "أي حالة غير VALID وغير REFUSAL يجب أن تسرد سبب البطلان.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "validation_status": {
+            "enum": [
+              "INVALID_SCHEMA",
+              "MISSING_REQUIRED_FIELD",
+              "UNSUPPORTED_ACTION",
+              "MALFORMED_OUTPUT",
+              "MODEL_CONTRACT_VIOLATION"
+            ]
+          }
+        },
+        "required": [
+          "validation_status"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "violations": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "$comment": "اقتراح استدعاء أداة صالح يجب أن يكون موسومًا بأنه من إنتاج النموذج.",
+      "if": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "output_type": {
+                "const": "TOOL_INVOCATION_PROPOSAL"
+              }
+            },
+            "required": [
+              "output_type"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "validation_status": {
+                "const": "VALID"
+              }
+            },
+            "required": [
+              "validation_status"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "taint_labels"
+        ],
+        "properties": {
+          "taint_labels": {
+            "type": "array",
+            "contains": {
+              "const": "MODEL_GENERATED"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "النهائية تتطلب سببًا، وغير النهائية تمنعه.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "loop_control": {
+            "type": "object",
+            "properties": {
+              "terminal": {
+                "const": true
+              }
+            },
+            "required": [
+              "terminal"
+            ]
+          }
+        },
+        "required": [
+          "loop_control"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "loop_control": {
+            "type": "object",
+            "required": [
+              "failure_reason"
+            ]
+          }
+        }
+      },
+      "else": {
+        "type": "object",
+        "properties": {
+          "loop_control": {
+            "not": {
+              "type": "object",
+              "required": [
+                "failure_reason"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "المخرج الصالح لا يكون نهائيًا بمعنى الفشل.",
+      "if": {
+        "type": "object",
+        "properties": {
+          "validation_status": {
+            "const": "VALID"
+          }
+        },
+        "required": [
+          "validation_status"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "loop_control": {
+            "type": "object",
+            "properties": {
+              "terminal": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

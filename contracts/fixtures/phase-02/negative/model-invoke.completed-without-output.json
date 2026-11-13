@@ -1,0 +1,53 @@
+{
+  "invocation_id": "7e8f9a0b-1c2d-4e3f-8a4b-5c6d7e8f9a01",
+  "status": "COMPLETED",
+  "routing": {
+    "mode": "DEFAULT_MODEL",
+    "decision": "SELECTED",
+    "model_id": "lm-studio:fixture-model-7b",
+    "provider_id": "lm-studio",
+    "locality": "LOCAL",
+    "reason_codes": [
+      "USER_DEFAULT"
+    ],
+    "candidates_considered": 1
+  },
+  "egress": {
+    "network_class": "LOOPBACK_PROVIDER_ACCESS",
+    "decision": "ALLOWED",
+    "reason": "LOOPBACK",
+    "context_attached": true
+  },
+  "finish_reason": "STOP",
+  "usage": {
+    "input_tokens": {
+      "value": 12,
+      "provenance": "PROVIDER_REPORTED"
+    },
+    "output_tokens": {
+      "provenance": "UNKNOWN"
+    }
+  },
+  "timing": {
+    "total": {
+      "value": 420,
+      "provenance": "LOCALLY_MEASURED"
+    },
+    "first_byte": {
+      "value": 80,
+      "provenance": "LOCALLY_MEASURED"
+    },
+    "streamed": true
+  },
+  "context": {
+    "items": 1,
+    "omitted": 0,
+    "estimated_tokens": {
+      "value": 256,
+      "provenance": "ESTIMATED",
+      "method": "UTF8_BYTES_DIV_4"
+    },
+    "truncated": false,
+    "bundle_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+}

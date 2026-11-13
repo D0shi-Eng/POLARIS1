@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "provider_id": "ollama",
+      "health": {
+        "state": "UNREACHABLE",
+        "reason_code": "CONNECTION_REFUSED",
+        "latency": {
+          "value": 2,
+          "provenance": "LOCALLY_MEASURED"
+        },
+        "installation": "NOT_DETECTED",
+        "runtime": "NOT_RUNNING"
+      },
+      "models": {
+        "discovered": 0,
+        "enabled": 0,
+        "available": 0
+      },
+      "outcome": {
+        "code": "PROVIDER_UNREACHABLE",
+        "retryable": true
+      },
+      "duration": {
+        "value": 3,
+        "provenance": "LOCALLY_MEASURED"
+      }
+    }
+  ]
+}

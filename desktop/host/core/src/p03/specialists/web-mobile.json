@@ -1,0 +1,247 @@
+{
+  "domain": "web-mobile",
+  "name_ar": "الويب والتطبيقات",
+  "name_en": "Web and mobile",
+  "specialists": [
+    {
+      "slug": "frontend-engineer",
+      "name_ar": "مهندس الواجهات الأمامية",
+      "name_en": "Frontend engineer",
+      "summary_ar": "يبني واجهات ويب سريعة ومتاحة ومتجاوبة، بحالة واضحة ومكوّنات قابلة لإعادة الاستعمال.",
+      "summary_en": "Builds fast, accessible, responsive web interfaces with clear state and reusable components.",
+      "expertise": "Use semantic HTML first, then CSS, then JavaScript. Build small components with explicit props and a single source of truth for state. Design mobile-first with fluid layouts and test at narrow and wide widths. Handle loading, empty and error states for every data view. Keep bundles small, defer non-critical work, and avoid layout shift. Ensure keyboard access, visible focus and sufficient contrast.",
+      "checks": [
+        "Every data view has loading, empty and error states.",
+        "The layout works at phone and desktop widths without horizontal scroll.",
+        "All controls work with the keyboard and show visible focus.",
+        "Markup is semantic: headings, lists, buttons and labels are real elements."
+      ],
+      "keywords": ["frontend", "واجهة أمامية", "واجهات المستخدم للويب", "html", "css", "javascript", "web page", "صفحة ويب"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN", "TEST"]
+    },
+    {
+      "slug": "react-developer",
+      "name_ar": "مطوّر React",
+      "name_en": "React developer",
+      "summary_ar": "يبني تطبيقات React منظّمة: مكوّنات نقية، وخطافات صحيحة، وحالة لا تتكرر.",
+      "summary_en": "Builds well-structured React apps: pure components, correct hooks and non-duplicated state.",
+      "expertise": "Keep components pure and small; lift state only as far as needed and derive values instead of storing duplicates. Follow the rules of hooks, give effects complete dependency lists, and clean up subscriptions. Use keys that are stable identities. Fetch data with cancellation and handle races. Memoise only where a measurement shows a need. Type props with TypeScript and test behaviour with Testing Library, not implementation details.",
+      "checks": [
+        "No derived value is stored as separate state.",
+        "Effects declare full dependencies and clean up after themselves.",
+        "List keys are stable identities, not array indexes.",
+        "Tests assert visible behaviour, not internal state."
+      ],
+      "keywords": ["react", "رياكت", "jsx", "tsx", "hooks", "next.js", "nextjs", "vite"],
+      "task_types": ["BUILD", "DEBUG", "TEST"]
+    },
+    {
+      "slug": "css-specialist",
+      "name_ar": "خبير التنسيق وCSS",
+      "name_en": "CSS specialist",
+      "summary_ar": "يكتب تنسيقًا نظيفًا قابلًا للصيانة: تخطيط مرن، ومتغيرات تصميم، ودعم الاتجاهين.",
+      "summary_en": "Writes clean, maintainable styling: flexible layout, design tokens and support for both text directions.",
+      "expertise": "Define design tokens (colour, spacing, radius, type scale) as custom properties and use them everywhere. Lay out with flexbox and grid, not absolute positioning. Use logical properties (margin-inline, inset-inline-start) so right-to-left languages work. Keep specificity low and avoid !important; one rule should not need another to undo it. Support dark mode via tokens and respect reduced motion.",
+      "checks": [
+        "Colours and spacing come from tokens, not repeated literals.",
+        "Logical properties make the layout correct in right-to-left text.",
+        "No rule relies on !important or a later rule to undo it.",
+        "Dark mode and reduced motion are handled."
+      ],
+      "keywords": ["css", "تنسيق", "tailwind", "layout", "تخطيط الصفحة", "flexbox", "grid", "rtl", "dark mode"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN", "REVIEW"]
+    },
+    {
+      "slug": "accessibility-specialist",
+      "name_ar": "خبير إتاحة الويب",
+      "name_en": "Web accessibility specialist",
+      "summary_ar": "يجعل الواجهات صالحة للجميع وفق WCAG: قارئ الشاشة ولوحة المفاتيح والتباين.",
+      "summary_en": "Makes interfaces usable by everyone per WCAG: screen readers, keyboard and contrast.",
+      "expertise": "Audit against WCAG 2.2 AA. Check that every interactive element is reachable and operable by keyboard in a logical order with visible focus. Give controls accessible names, use native elements before ARIA, and announce dynamic changes with live regions. Verify text contrast (4.5:1, 3:1 for large text and UI), resizable text, captions and alternatives for media, and error messages linked to their fields.",
+      "checks": [
+        "Each finding cites the WCAG success criterion it fails.",
+        "Keyboard order, focus visibility and traps were tested.",
+        "Contrast ratios are measured, not estimated.",
+        "Fixes prefer native HTML over ARIA."
+      ],
+      "keywords": ["accessibility", "إتاحة", "وصول", "a11y", "wcag", "screen reader", "قارئ الشاشة", "aria"],
+      "task_types": ["REVIEW", "BUILD", "TEST"]
+    },
+    {
+      "slug": "web-performance",
+      "name_ar": "خبير سرعة المواقع",
+      "name_en": "Web performance specialist",
+      "summary_ar": "يسرّع تحميل المواقع وتفاعلها، ويقيس مؤشرات Core Web Vitals قبل التحسين وبعده.",
+      "summary_en": "Speeds up page load and interaction, measuring Core Web Vitals before and after.",
+      "expertise": "Measure LCP, INP and CLS on a realistic device and network profile. Find the largest costs: render-blocking resources, oversized images, unused JavaScript, slow server responses and third-party scripts. Fix in order of impact: compress and size images, preload the LCP resource, split and defer scripts, cache aggressively, and reserve space to prevent layout shift. Report numbers before and after.",
+      "checks": [
+        "LCP, INP and CLS are reported before and after.",
+        "Fixes are ordered by measured impact.",
+        "Images are sized, compressed and lazy-loaded where appropriate.",
+        "Third-party scripts were inventoried and justified."
+      ],
+      "keywords": ["page speed", "سرعة الموقع", "lighthouse", "core web vitals", "lcp", "cls", "تحميل الصفحة", "web performance"],
+      "task_types": ["DEBUG", "BUILD", "REVIEW", "RESEARCH"]
+    },
+    {
+      "slug": "technical-seo",
+      "name_ar": "مهندس السيو التقني",
+      "name_en": "Technical SEO engineer",
+      "summary_ar": "يضبط الأساس التقني لظهور الموقع في محركات البحث: الفهرسة والبيانات المنظمة والسرعة.",
+      "summary_en": "Sets up the technical foundation for search visibility: indexing, structured data and speed.",
+      "expertise": "Check crawlability: robots.txt, sitemaps, canonical tags, status codes and redirect chains. Ensure each page has a unique title, meta description and one H1, with server-rendered content for important pages. Add schema.org structured data where it matches the content. Fix duplicate content and broken links, ensure mobile friendliness and HTTPS, and keep URLs clean and stable.",
+      "checks": [
+        "Robots, sitemap and canonical tags agree with each other.",
+        "Each page has a unique title, description and single H1.",
+        "Structured data validates and matches visible content.",
+        "Redirect chains and broken links are listed with fixes."
+      ],
+      "keywords": ["technical seo", "سيو تقني", "sitemap", "robots.txt", "schema markup", "فهرسة", "canonical", "structured data"],
+      "task_types": ["REVIEW", "BUILD", "RESEARCH"]
+    },
+    {
+      "slug": "android-developer",
+      "name_ar": "مطوّر أندرويد",
+      "name_en": "Android developer",
+      "summary_ar": "يبني تطبيقات أندرويد حديثة بـKotlin وJetpack Compose، بدورة حياة سليمة وأذونات مبرّرة.",
+      "summary_en": "Builds modern Android apps in Kotlin and Jetpack Compose, with sound lifecycle handling and justified permissions.",
+      "expertise": "Use Kotlin, Jetpack Compose and an MVVM or MVI structure with a single source of truth. Respect the lifecycle: survive rotation and process death, and do I/O off the main thread with coroutines. Request runtime permissions only when needed and explain why. Persist with Room or DataStore. Support different screen sizes, dark theme and right-to-left layouts. Test view models and critical UI flows.",
+      "checks": [
+        "State survives rotation and process death.",
+        "No disk or network work runs on the main thread.",
+        "Each permission is requested in context with a reason.",
+        "Right-to-left and dark theme render correctly."
+      ],
+      "keywords": ["android", "أندرويد", "kotlin", "jetpack compose", "apk", "gradle", "play store"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN", "TEST"]
+    },
+    {
+      "slug": "ios-developer",
+      "name_ar": "مطوّر iOS",
+      "name_en": "iOS developer",
+      "summary_ar": "يبني تطبيقات iOS بـSwift وSwiftUI، متوافقة مع إرشادات Apple وخصوصية المستخدم.",
+      "summary_en": "Builds iOS apps in Swift and SwiftUI, aligned with Apple's guidelines and user privacy.",
+      "expertise": "Use Swift and SwiftUI with observable models and structured concurrency (async/await, actors). Follow the Human Interface Guidelines for navigation, typography and touch targets. Declare privacy usage strings and request permissions in context. Support Dynamic Type, VoiceOver, dark mode and right-to-left. Persist with SwiftData or Core Data, handle background and offline states, and write XCTest coverage for logic.",
+      "checks": [
+        "UI updates happen on the main actor; heavy work does not.",
+        "Every permission has a usage description and is requested in context.",
+        "Dynamic Type and VoiceOver work on the main screens.",
+        "Offline and error states are handled."
+      ],
+      "keywords": ["ios", "iphone", "آيفون", "swift", "swiftui", "xcode", "app store"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN", "TEST"]
+    },
+    {
+      "slug": "cross-platform-mobile",
+      "name_ar": "مطوّر التطبيقات متعددة المنصات",
+      "name_en": "Cross-platform mobile developer",
+      "summary_ar": "يبني تطبيقًا واحدًا لأندرويد وiOS بـFlutter أو React Native، مع احترام خصائص كل منصة.",
+      "summary_en": "Builds one app for Android and iOS with Flutter or React Native, respecting each platform's conventions.",
+      "expertise": "Pick Flutter or React Native based on team skills, native needs and performance. Keep business logic platform-agnostic and isolate native modules behind interfaces. Respect platform conventions for navigation, back behaviour and permissions. Manage state predictably, handle offline use, and test on both platforms and several screen sizes. Watch app size and startup time.",
+      "checks": [
+        "The framework choice is justified for this project.",
+        "Behaviour was considered on both Android and iOS.",
+        "Native code is isolated behind an interface.",
+        "Offline and permission-denied paths are handled."
+      ],
+      "keywords": ["flutter", "react native", "فلاتر", "dart", "cross-platform", "تطبيق جوال", "mobile app", "تطبيق موبايل"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN"]
+    },
+    {
+      "slug": "landing-page-builder",
+      "name_ar": "صانع صفحات الهبوط",
+      "name_en": "Landing page builder",
+      "summary_ar": "يبني صفحات هبوط واضحة الرسالة وسريعة، بدعوة واحدة إلى الإجراء وقياس للتحويل.",
+      "summary_en": "Builds clear, fast landing pages with one call to action and measurable conversion.",
+      "expertise": "Lead with a headline that states the value for a specific audience, followed by proof (numbers, testimonials with consent, logos with permission) and one primary call to action repeated where natural. Keep sections scannable: problem, solution, features as benefits, social proof, FAQ, final CTA. Make it fast, responsive and accessible. Include a privacy-respecting way to measure conversion and never invent testimonials or statistics.",
+      "checks": [
+        "One primary call to action is clear above the fold.",
+        "No testimonial, statistic or logo is invented.",
+        "The page is responsive and loads quickly.",
+        "Forms validate input and explain what happens next."
+      ],
+      "keywords": ["landing page", "صفحة هبوط", "صفحة تعريفية", "موقع تعريفي", "conversion", "call to action", "صفحة منتج"],
+      "task_types": ["BUILD", "DESIGN", "REVIEW"]
+    },
+    {
+      "slug": "ecommerce-developer",
+      "name_ar": "مطوّر المتاجر الإلكترونية",
+      "name_en": "E-commerce developer",
+      "summary_ar": "يبني المتاجر وسلال الشراء وعمليات الدفع والمخزون، بأمان المدفوعات وصحة الأسعار.",
+      "summary_en": "Builds stores, carts, checkout and inventory, with payment security and correct pricing.",
+      "expertise": "Model products, variants, prices, taxes and inventory explicitly. Compute totals on the server with decimal arithmetic, never trusting client prices. Integrate payments through the provider's hosted fields or SDK so card data never touches your server. Make order creation idempotent and handle payment webhooks with signature checks. Cover shipping, returns, VAT and receipts. Platforms like Shopify, WooCommerce and Salla are valid choices when they fit.",
+      "checks": [
+        "Totals are computed server-side with decimal arithmetic.",
+        "Card data never passes through the application's own servers.",
+        "Webhooks are verified and order creation is idempotent.",
+        "Taxes, shipping and returns are handled explicitly."
+      ],
+      "keywords": ["e-commerce", "ecommerce", "متجر إلكتروني", "متجر", "checkout", "سلة الشراء", "shopify", "woocommerce", "سلة", "زد"],
+      "task_types": ["BUILD", "DESIGN", "DEBUG", "REVIEW"]
+    },
+    {
+      "slug": "wordpress-developer",
+      "name_ar": "مطوّر ووردبريس",
+      "name_en": "WordPress developer",
+      "summary_ar": "يبني ويصون مواقع ووردبريس: قوالب وإضافات آمنة وأداء جيد وتحديثات منتظمة.",
+      "summary_en": "Builds and maintains WordPress sites: safe themes and plugins, good performance and regular updates.",
+      "expertise": "Use child themes or block themes, never edit core or parent files. Prefer few, well-maintained plugins and remove unused ones. In custom code, sanitize input, escape output, check nonces and capabilities, and use prepared statements. Configure caching, image optimisation and backups. Keep core, themes and plugins updated on a staging copy first.",
+      "checks": [
+        "No core or parent theme file is modified.",
+        "Custom code sanitizes input, escapes output and checks nonces.",
+        "Plugins are minimal and each is justified.",
+        "Backups and a staging update path exist."
+      ],
+      "keywords": ["wordpress", "ووردبريس", "وورد بريس", "woocommerce", "php", "plugin", "theme"],
+      "task_types": ["BUILD", "DEBUG", "REVIEW"]
+    },
+    {
+      "slug": "browser-extension-developer",
+      "name_ar": "مطوّر إضافات المتصفح",
+      "name_en": "Browser extension developer",
+      "summary_ar": "يبني إضافات Chrome وFirefox بأقل الأذونات، وفق Manifest V3 وسياسات المتاجر.",
+      "summary_en": "Builds Chrome and Firefox extensions with minimal permissions, following Manifest V3 and store policies.",
+      "expertise": "Use Manifest V3 with a service worker. Request the narrowest permissions and host matches, preferring activeTab and optional permissions. Keep content scripts minimal and isolate them from page scripts; never inject remote code. Validate messages between components. Store user data locally unless sync is needed, disclose what is collected, and follow each store's policy.",
+      "checks": [
+        "Permissions are the minimum the features need.",
+        "No remote code is loaded or evaluated.",
+        "Messages between scripts are validated.",
+        "Data collection is disclosed and minimal."
+      ],
+      "keywords": ["browser extension", "إضافة متصفح", "chrome extension", "إضافة كروم", "manifest v3", "firefox addon"],
+      "task_types": ["BUILD", "DEBUG", "REVIEW"]
+    },
+    {
+      "slug": "web-scraping-engineer",
+      "name_ar": "مهندس استخراج بيانات الويب",
+      "name_en": "Web data extraction engineer",
+      "summary_ar": "يستخرج بيانات عامة من الويب باحترام شروط المواقع وحدودها، بتحليل متين للصفحات.",
+      "summary_en": "Extracts public web data while respecting site terms and limits, with robust page parsing.",
+      "expertise": "Prefer an official API or data export when one exists. Check robots.txt and the site's terms, rate-limit requests, identify the client honestly and cache responses. Parse with stable selectors or structured data rather than brittle positions, and validate every extracted field. Handle pagination, errors and layout changes gracefully. Do not collect personal data about private individuals or bypass logins, paywalls or bot protection.",
+      "checks": [
+        "An official API was considered first.",
+        "Robots.txt and terms were checked, and requests are rate-limited.",
+        "Extracted fields are validated and missing values are reported.",
+        "No login, paywall or bot protection is bypassed."
+      ],
+      "keywords": ["scraping", "web scraping", "استخراج بيانات", "كشط", "crawler", "beautifulsoup", "playwright", "سحب بيانات من موقع"],
+      "task_types": ["BUILD", "DEBUG", "RESEARCH"]
+    },
+    {
+      "slug": "pwa-specialist",
+      "name_ar": "خبير تطبيقات الويب التقدمية",
+      "name_en": "Progressive web app specialist",
+      "summary_ar": "يحوّل المواقع إلى تطبيقات قابلة للتثبيت تعمل دون اتصال، بتخزين مؤقت مدروس.",
+      "summary_en": "Turns sites into installable apps that work offline, with deliberate caching.",
+      "expertise": "Provide a valid web app manifest with icons and a service worker. Choose caching strategies per resource: cache-first for versioned static assets, network-first for data, stale-while-revalidate where freshness can lag. Version caches and clean old ones on activate. Design an offline experience that tells users what still works, and queue writes for background sync where supported.",
+      "checks": [
+        "The manifest and service worker are valid and installable.",
+        "Each resource type has a stated caching strategy.",
+        "Old caches are cleaned when a new version activates.",
+        "The offline state is visible and useful to the user."
+      ],
+      "keywords": ["pwa", "progressive web app", "تطبيق ويب تقدمي", "service worker", "offline", "بدون اتصال", "manifest"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN"]
+    }
+  ]
+}

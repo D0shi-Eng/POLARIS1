@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase05RequestPayloadV1",
+  "description": "The closed set of request payloads the twelve Phase-05 operations accept. No payload can name a web destination, send input, carry a free file path, or raise the trust of a memory.",
+  "$comment": "لا فعل متصفّح ولا فعل حاسوب من العارض، ولا ترقية ذاكرة. الأفعال تبدأ من زمن تشغيل المهمّة عبر بوابة الأدوات وحدها.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/MemoryListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryDeleteRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BrowserSessionListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BrowserSessionGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BrowserSessionCancelRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerSessionListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerSessionGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerSessionCancelRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerWindowListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerTargetGrantRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerTargetRevokeRequestV1"
+    }
+  ],
+  "$defs": {
+    "MemoryListRequestV1": {
+      "title": "MemoryListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "scope": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryScope"
+        },
+        "memory_type": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryType"
+        },
+        "status": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryStatus"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        }
+      },
+      "description": "Lists memory entries by scope, type, status, owner or text. Deleted entries are not listed unless DELETED is asked for. No side effect."
+    },
+    "MemoryGetRequestV1": {
+      "title": "MemoryGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id"
+      ],
+      "properties": {
+        "memory_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Reads one entry with its content, lineage and conflicts. Records a USER_VIEW access."
+    },
+    "MemoryDeleteRequestV1": {
+      "title": "MemoryDeleteRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id"
+      ],
+      "properties": {
+        "memory_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Deletes an entry from the store: its content, subject and sources are erased, not hidden."
+    },
+    "BrowserSessionListRequestV1": {
+      "title": "BrowserSessionListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists browser sessions, optionally for one mission. No side effect."
+    },
+    "BrowserSessionGetRequestV1": {
+      "title": "BrowserSessionGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Reads one browser session with its action history and downloads. No side effect."
+    },
+    "BrowserSessionCancelRequestV1": {
+      "title": "BrowserSessionCancelRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Stops a browser session. No further browser action runs in it."
+    },
+    "ComputerSessionListRequestV1": {
+      "title": "ComputerSessionListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists computer sessions, optionally for one mission. No side effect."
+    },
+    "ComputerSessionGetRequestV1": {
+      "title": "ComputerSessionGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Reads one computer session with its actions and observation digests. No side effect."
+    },
+    "ComputerSessionCancelRequestV1": {
+      "title": "ComputerSessionCancelRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Stops a computer session. No further input is sent in it."
+    },
+    "ComputerWindowListRequestV1": {
+      "title": "ComputerWindowListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists the visible windows so the user can grant one, and the grants of one mission. The inventory never reaches a model. No side effect."
+    },
+    "ComputerTargetGrantRequestV1": {
+      "title": "ComputerTargetGrantRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "hwnd"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "hwnd": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/WindowHandle"
+        }
+      },
+      "description": "Grants one window to one mission. The host reads the window identity from the system, never from this payload."
+    },
+    "ComputerTargetRevokeRequestV1": {
+      "title": "ComputerTargetRevokeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id"
+      ],
+      "properties": {
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Revokes a window grant. Actions bound to it are refused afterwards."
+    }
+  }
+}

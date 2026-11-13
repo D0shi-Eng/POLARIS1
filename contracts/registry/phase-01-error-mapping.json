@@ -1,0 +1,102 @@
+{
+  "contract_version": "1.0",
+  "phase": "PHASE-01",
+  "entries": [
+    {
+      "category": "IPC_TIMEOUT",
+      "canonical_codes": [
+        "TIMEOUT"
+      ],
+      "retryable": true,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.ipc_timeout"
+    },
+    {
+      "category": "NATIVE_SERVICE_UNAVAILABLE",
+      "canonical_codes": [
+        "DEPENDENCY_UNAVAILABLE"
+      ],
+      "retryable": true,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.native_service_unavailable"
+    },
+    {
+      "category": "IPC_UNAVAILABLE",
+      "canonical_codes": [
+        "DEPENDENCY_UNAVAILABLE"
+      ],
+      "retryable": true,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.ipc_unavailable"
+    },
+    {
+      "category": "UNSUPPORTED_OPERATION",
+      "canonical_codes": [
+        "UNSUPPORTED_VERSION",
+        "CONTRACT_VIOLATION"
+      ],
+      "retryable": false,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_INTERNAL_DETAIL",
+      "display_key": "desktop.error.unsupported_operation"
+    },
+    {
+      "category": "INVALID_RESPONSE",
+      "canonical_codes": [
+        "MALFORMED_MESSAGE",
+        "VALIDATION_ERROR",
+        "CONTRACT_VIOLATION"
+      ],
+      "retryable": false,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_INTERNAL_DETAIL",
+      "display_key": "desktop.error.invalid_response"
+    },
+    {
+      "category": "PERMISSION_DENIED",
+      "canonical_codes": [
+        "POLICY_DENIED"
+      ],
+      "retryable": false,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.permission_denied"
+    },
+    {
+      "category": "FEATURE_NOT_AVAILABLE",
+      "canonical_codes": [
+        "POLICY_DENIED",
+        "DEPENDENCY_UNAVAILABLE"
+      ],
+      "retryable": false,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.feature_not_available"
+    },
+    {
+      "category": "CONFIG_UNAVAILABLE",
+      "canonical_codes": [
+        "DEPENDENCY_UNAVAILABLE",
+        "CONFLICT"
+      ],
+      "retryable": true,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.config_unavailable"
+    },
+    {
+      "category": "INTERNAL_ERROR",
+      "canonical_codes": [
+        "INTERNAL_ERROR",
+        "CONFLICT"
+      ],
+      "retryable": false,
+      "detail_may_cross_boundary": false,
+      "default_redaction": "STRIP_ALL_DETAIL",
+      "display_key": "desktop.error.internal_error"
+    }
+  ]
+}

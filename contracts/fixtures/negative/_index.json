@@ -1,0 +1,287 @@
+{
+  "audit-event.failure-without-error.json": {
+    "reason": "failed outcome with no typed error",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/outcome"
+  },
+  "audit-event.integrity-mismatch.json": {
+    "reason": "audit digest does not match content",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/integrity/hash"
+  },
+  "audit-event.local-offset-timestamp.json": {
+    "reason": "non-UTC timestamp breaks canonical ordering",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/occurred_at"
+  },
+  "audit-event.misclassified-secret-effect.json": {
+    "reason": "secret dereference not classified SECRET",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/effects/0/data_classification"
+  },
+  "audit-event.missing-correlation-id.json": {
+    "reason": "no correlation id",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "audit-event.policy-event-without-decision.json": {
+    "reason": "POLICY_EVALUATED with no decision reference",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "audit-event.secret-like-key.json": {
+    "reason": "metadata key names a credential",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/metadata/api_key"
+  },
+  "audit-event.secret-like-value.json": {
+    "reason": "metadata value has a credential shape",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/metadata/upstream_header"
+  },
+  "audit-event.success-with-error.json": {
+    "reason": "successful outcome carrying an error",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/outcome"
+  },
+  "capability-descriptor.ambient-handle-inheritance.json": {
+    "reason": "ambient handle inheritance (W2-CARRY-004)",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/execution_requirements/handle_inheritance"
+  },
+  "capability-descriptor.claims-security-guarantee.json": {
+    "reason": "descriptor asserting its declaration is a guarantee",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/effect_declaration_semantics"
+  },
+  "capability-descriptor.destructive-effect-low-risk.json": {
+    "reason": "delete.filesystem declared as LOW risk",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/risk_class"
+  },
+  "capability-descriptor.explicit-grant-without-paths.json": {
+    "reason": "EXPLICIT_GRANT scope with no granted paths",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/execution_requirements"
+  },
+  "capability-descriptor.integrity-mismatch.json": {
+    "reason": "integrity digest does not match content",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/integrity/hash"
+  },
+  "capability-descriptor.malformed-version.json": {
+    "reason": "capability_version is not full semver",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/capability_version"
+  },
+  "capability-descriptor.network-none-with-network-effect.json": {
+    "reason": "network NONE while requesting a network effect",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/requested_effects/0/action"
+  },
+  "capability-descriptor.signed-without-signature.json": {
+    "reason": "signed descriptor with no signature material",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/provenance"
+  },
+  "capability-descriptor.unrestricted-without-justification.json": {
+    "reason": "UNRESTRICTED egress with no justification and LOW risk",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "capability-invocation.agent-without-taint.json": {
+    "reason": "agent invocation with no taint labels",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "capability-invocation.attempt-zero.json": {
+    "reason": "attempt below 1",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/attempt"
+  },
+  "capability-invocation.confined-but-unrestricted.json": {
+    "reason": "CONFINED execution claiming unrestricted filesystem",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/execution_constraints/filesystem_scope"
+  },
+  "capability-invocation.invalid-capability-version.json": {
+    "reason": "capability_version is not semver",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/capability_version"
+  },
+  "capability-invocation.missing-caller.json": {
+    "reason": "no caller identity",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "capability-invocation.missing-idempotency-key.json": {
+    "reason": "no idempotency key",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "capability-invocation.retry-without-origin.json": {
+    "reason": "attempt 2 without retry_of",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "capability-invocation.unknown-effect.json": {
+    "reason": "effect action outside the closed vocabulary",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/requested_effects/0/action"
+  },
+  "ipc-envelope.agent-claiming-tier0.json": {
+    "reason": "AGENT caller claiming the trusted tier",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/caller_identity/trust_tier"
+  },
+  "ipc-envelope.arbitrary-operation.json": {
+    "reason": "operation name outside the closed set",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/operation"
+  },
+  "ipc-envelope.desktop-malformed-payload.json": {
+    "reason": "desktop.settings.read without the section it reads",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/payload"
+  },
+  "ipc-envelope.desktop-operation-below-introduced-version.json": {
+    "reason": "a 1.1 operation carried by a document that declares 1.0",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/operation"
+  },
+  "ipc-envelope.desktop-read-only-with-idempotency-key.json": {
+    "reason": "a read-only desktop operation carrying an idempotency key",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/idempotency_key"
+  },
+  "ipc-envelope.desktop-renderer-claiming-tier0.json": {
+    "reason": "a desktop request asserting the trusted tier",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/caller_identity/trust_tier"
+  },
+  "ipc-envelope.desktop-unknown-operation.json": {
+    "reason": "an operation name that claims the desktop namespace but is not one of the five",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/operation"
+  },
+  "ipc-envelope.malformed-id.json": {
+    "reason": "message_id is not a well-formed UUID",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/message_id"
+  },
+  "ipc-envelope.missing-protocol-version.json": {
+    "reason": "protocol_version absent",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "ipc-envelope.response-with-result-and-error.json": {
+    "reason": "RESPONSE carrying both result and error",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "ipc-envelope.self-caused.json": {
+    "reason": "message names itself as its own cause",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/causation_id"
+  },
+  "ipc-envelope.side-effect-without-idempotency-key.json": {
+    "reason": "capability.invoke without an idempotency key",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "ipc-envelope.unknown-message-type.json": {
+    "reason": "message_type outside the closed union",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "ipc-envelope.unsupported-minor-version.json": {
+    "reason": "future MINOR contract version",
+    "expect_code": "UNSUPPORTED_VERSION",
+    "expect_pointer": "/contract_version"
+  },
+  "ipc-envelope.unsupported-version.json": {
+    "reason": "future MAJOR contract version",
+    "expect_code": "UNSUPPORTED_VERSION",
+    "expect_pointer": "/contract_version"
+  },
+  "model-output.attempt-beyond-budget.json": {
+    "reason": "attempt beyond the retry budget, not terminal",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/loop_control/attempt"
+  },
+  "model-output.invalid-with-payload.json": {
+    "reason": "invalid output still carrying a parsed payload",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "model-output.invalid-without-violations.json": {
+    "reason": "invalid output that lists no reason",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/violations"
+  },
+  "model-output.iteration-beyond-budget.json": {
+    "reason": "iteration beyond the loop budget",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/loop_control/iteration"
+  },
+  "model-output.proposal-without-taint.json": {
+    "reason": "tool proposal not marked MODEL_GENERATED",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/"
+  },
+  "model-output.unknown-output-type.json": {
+    "reason": "output_type outside the closed set",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/output_type"
+  },
+  "model-output.unsupported-version.json": {
+    "reason": "future MAJOR contract version",
+    "expect_code": "UNSUPPORTED_VERSION",
+    "expect_pointer": "/contract_version"
+  },
+  "model-output.valid-with-violations.json": {
+    "reason": "VALID output listing violations",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/violations"
+  },
+  "policy-decision.approval-as-result.json": {
+    "reason": "approval represented as a third result",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/result"
+  },
+  "policy-decision.approval-reason-without-obligation.json": {
+    "reason": "approval asserted in reason codes only",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/reason_codes"
+  },
+  "policy-decision.cacheable-without-ttl.json": {
+    "reason": "cacheable decision with no ttl or epoch rule",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/cacheability"
+  },
+  "policy-decision.contradictory-obligations.json": {
+    "reason": "prohibit network and require egress together",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/obligations"
+  },
+  "policy-decision.deny-with-approval.json": {
+    "reason": "denial carrying an approval obligation",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/obligations/0/type"
+  },
+  "policy-decision.duplicate-obligation.json": {
+    "reason": "same obligation type twice",
+    "expect_code": "CONTRACT_VIOLATION",
+    "expect_pointer": "/obligations/1/type"
+  },
+  "policy-decision.malformed-obligation.json": {
+    "reason": "obligation type outside the union",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/obligations/0/type"
+  },
+  "policy-decision.no-reason.json": {
+    "reason": "decision with no reason codes",
+    "expect_code": "VALIDATION_ERROR",
+    "expect_pointer": "/reason_codes"
+  }
+}

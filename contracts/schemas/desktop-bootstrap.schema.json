@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisDesktopBootstrapPrimitives",
+  "description": "The shell facts the renderer needs before it can draw anything, and nothing else. Every member is bounded; there is no free-form configuration object and no path into host internals.",
+  "$comment": "حقائق القشرة وحدها. ما ليس مطلوبًا للرسم لا يعبر الحدّ: لا أسرار، ولا مسارات، ولا داخليات سياسة، ولا مقابض أصلية.",
+  "$defs": {
+    "BuildChannel": {
+      "title": "BuildChannel",
+      "type": "string",
+      "enum": [
+        "DEV",
+        "BETA",
+        "STABLE"
+      ],
+      "description": "Release channel of this build."
+    },
+    "Platform": {
+      "title": "Platform",
+      "type": "string",
+      "enum": [
+        "WINDOWS",
+        "MACOS"
+      ],
+      "description": "Host platform. MACOS is representable because the host is cross-platform by construction; Phase-01 measures and claims WINDOWS only."
+    },
+    "Architecture": {
+      "title": "Architecture",
+      "type": "string",
+      "enum": [
+        "X64",
+        "ARM64"
+      ],
+      "description": "Host processor architecture."
+    },
+    "Locale": {
+      "title": "Locale",
+      "type": "string",
+      "enum": [
+        "ar",
+        "en",
+        "de",
+        "fr",
+        "ru",
+        "zh",
+        "ko",
+        "ja",
+        "es"
+      ],
+      "description": "The nine architectural locales. Phase-01 proves ar and en; the other seven resolve through fallback and are still representable so that adding one is a resource change, not a contract change."
+    },
+    "Direction": {
+      "title": "Direction",
+      "type": "string",
+      "enum": [
+        "RTL",
+        "LTR"
+      ],
+      "description": "Writing direction. Derived by the host from the locale, never from a manual toggle."
+    },
+    "Appearance": {
+      "title": "Appearance",
+      "type": "string",
+      "enum": [
+        "LIGHT",
+        "DARK",
+        "SYSTEM"
+      ],
+      "description": "Resolved appearance preference. SYSTEM means the host defers to the operating system setting."
+    },
+    "RuntimeReachability": {
+      "title": "RuntimeReachability",
+      "type": "string",
+      "enum": [
+        "ATTACHED",
+        "NOT_ATTACHED",
+        "UNREACHABLE"
+      ],
+      "description": "Whether the trusted POLARIS core is attached to this host. In Phase-01 the honest value is NOT_ATTACHED: the seam is drawn and left unbuilt, and the shell says so rather than implying a running core."
+    },
+    "RuntimeStatus": {
+      "title": "RuntimeStatus",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reachability",
+        "availability"
+      ],
+      "properties": {
+        "reachability": {
+          "$ref": "#/$defs/RuntimeReachability"
+        },
+        "availability": {
+          "$ref": "./desktop-availability.schema.json#/$defs/Availability"
+        },
+        "runtime_contract_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion",
+          "description": "Present only when a runtime is actually attached and declared its contract version. Absent is honest; an invented version is not."
+        }
+      },
+      "description": "Runtime reachability and posture. Facts only: no process id, no path, no environment, no stack trace."
+    },
+    "BootstrapSnapshot": {
+      "title": "BootstrapSnapshot",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "app_version",
+        "build_channel",
+        "platform",
+        "architecture",
+        "locale",
+        "direction",
+        "appearance",
+        "runtime_status",
+        "enabled_capabilities",
+        "unavailable_capabilities",
+        "settings_schema_version",
+        "ipc_protocol_version"
+      ],
+      "properties": {
+        "app_version": {
+          "$ref": "./common/ids.schema.json#/$defs/SemVer"
+        },
+        "build_channel": {
+          "$ref": "#/$defs/BuildChannel"
+        },
+        "platform": {
+          "$ref": "#/$defs/Platform"
+        },
+        "architecture": {
+          "$ref": "#/$defs/Architecture"
+        },
+        "locale": {
+          "$ref": "#/$defs/Locale"
+        },
+        "direction": {
+          "$ref": "#/$defs/Direction"
+        },
+        "appearance": {
+          "$ref": "#/$defs/Appearance"
+        },
+        "runtime_status": {
+          "$ref": "#/$defs/RuntimeStatus"
+        },
+        "enabled_capabilities": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./common/ids.schema.json#/$defs/Slug"
+          },
+          "description": "Capabilities the host will actually answer for right now. An empty array is a valid and honest answer."
+        },
+        "unavailable_capabilities": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "./desktop-availability.schema.json#/$defs/CapabilityAvailability"
+          },
+          "description": "Everything the shell can name but cannot use, each with a state and a machine reason."
+        },
+        "settings_schema_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "ipc_protocol_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        }
+      },
+      "description": "The complete Phase-01 bootstrap fact set. additionalProperties is false, so a host that grows a new fact must change this contract in the open."
+    }
+  }
+}

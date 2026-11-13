@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisIdPrimitives",
+  "description": "Identifier and time primitives shared by all POLARIS core contracts.",
+  "$comment": "بدائل المعرفات المشتركة. UUID فقط لمنع المعرفات الحرة غير القابلة للتتبع.",
+  "$defs": {
+    "Uuid": {
+      "title": "Uuid",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "description": "Lowercase RFC 4122 UUID. Uppercase and non-UUID identifiers are rejected."
+    },
+    "CorrelationId": {
+      "title": "CorrelationId",
+      "$ref": "#/$defs/Uuid",
+      "description": "Stable identifier for one end-to-end causal chain: IPC -> Invocation -> Decision -> Audit."
+    },
+    "CausationId": {
+      "title": "CausationId",
+      "$ref": "#/$defs/Uuid",
+      "description": "Identifier of the immediately preceding message that caused this one."
+    },
+    "IdempotencyKey": {
+      "title": "IdempotencyKey",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._:-]{16,128}$",
+      "description": "Stable across retries of the same logical operation. Never changes when `attempt` changes."
+    },
+    "SemVer": {
+      "title": "SemVer",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+      "description": "Exact three-part semantic version. Ranges are not permitted in contract payloads."
+    },
+    "ContractVersion": {
+      "title": "ContractVersion",
+      "type": "string",
+      "pattern": "^[1-9][0-9]*\\.(0|[1-9][0-9]*)$",
+      "description": "MAJOR.MINOR contract version. Consumers reject unknown MAJOR and unknown-higher MINOR."
+    },
+    "Timestamp": {
+      "title": "Timestamp",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$",
+      "description": "RFC 3339 instant, UTC only, trailing 'Z' required. Local offsets are rejected so ordering is total and canonicalisation is stable."
+    },
+    "Sha256Hex": {
+      "title": "Sha256Hex",
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Lowercase hex SHA-256 digest."
+    },
+    "Slug": {
+      "title": "Slug",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "maxLength": 128,
+      "description": "Lowercase namespaced identifier used for capability and policy names."
+    }
+  }
+}

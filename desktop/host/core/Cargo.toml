@@ -1,0 +1,35 @@
+[package]
+name = "polaris-host-core"
+description = "POLARIS Phase-01 native host core: IPC gateway, desktop services, settings facade"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+name = "polaris_host_core"
+path = "src/lib.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+boon.workspace = true
+polaris-host-providers = { path = "../providers" }
+# قاعدة بيانات المنتج المحلية الوحيدة. `bundled` يترجم SQLite نفسه فلا يعتمد على
+# نسخة النظام، والإصدار ثابت في القفل.
+rusqlite = { version = "0.42", features = ["bundled"] }
+# بصمات المحتوى وسلسلة التدقيق. تنفيذ SHA-256 من مكتبة RustCrypto لا يدويًا.
+sha2 = "0.10"
+# Phase-07: التحقق من توقيع بيان التحديث (Ed25519). تحقّق فقط في المنتج؛ التوقيع في الاختبار من بذرة ثابتة.
+ed25519-dalek = { version = "2", default-features = false, features = ["std", "fast", "zeroize"] }
+# تحليل عناوين الويب وحلّ النسبيّ منها (Phase-05). الإصدار نفسه الموجود في شجرة
+# التبعيات عبر طبقة المزوّدين والإطار؛ لا تبعية جديدة في القفل.
+url = "2.5"
+# Phase-08: ضغط وفكّ ضغط حزم OOXML (docx/xlsx/pptx) وتدفّقات PDF. الإصدار نفسه الموجود
+# أصلًا في Cargo.lock عبر Tauri، فلا مصدر توريد جديد.
+miniz_oxide = "0.8"
+# Phase-08: فكّ صور لقطات المتصفّح القادمة من بروتوكول DevTools. موجود أصلًا في القفل.
+base64 = "0.22"
+# Phase-08: عشوائية من نظام التشغيل لـ`state` و`code_verifier` في OAuth. موجود أصلًا في القفل.
+getrandom = "0.3"

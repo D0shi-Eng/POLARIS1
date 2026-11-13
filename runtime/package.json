@@ -1,0 +1,23 @@
+{
+  "name": "@polaris/runtime",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "description": "POLARIS Phase-00 W3 — minimal Config Service and local PDP over the W2 core contracts",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --test \"dist/tests/*.test.js\"",
+    "verify": "npm run typecheck && npm run build && npm run test"
+  },
+  "dependencies": {
+    "@cedar-policy/cedar-wasm": "4.12.0",
+    "@polaris/contracts": "file:../contracts"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "@types/node": "22.10.5"
+  }
+}

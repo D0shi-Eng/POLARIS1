@@ -1,0 +1,12 @@
+{
+  "note": "Model aliases a CLI accepts but does not list itself. Claude CLI documents aliases for the latest model of each family in `claude --help` (--model); it has no listing command. Codex CLI lists its own models (`codex debug models`) and needs no entry here.",
+  "retrieved": "2026-11-12",
+  "aliases": {
+    "claude-cli": [
+      ["fable", "Claude Fable"],
+      ["opus", "Claude Opus"],
+      ["sonnet", "Claude Sonnet"],
+      ["haiku", "Claude Haiku"]
+    ]
+  }
+}

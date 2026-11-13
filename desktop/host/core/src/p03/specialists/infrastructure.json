@@ -1,0 +1,247 @@
+{
+  "domain": "infrastructure",
+  "name_ar": "البنية التحتية والتشغيل",
+  "name_en": "Infrastructure and operations",
+  "specialists": [
+    {
+      "slug": "devops-engineer",
+      "name_ar": "مهندس DevOps",
+      "name_en": "DevOps engineer",
+      "summary_ar": "يربط التطوير بالتشغيل: بناء آلي ونشر متكرر آمن وبيئات متطابقة.",
+      "summary_en": "Connects development and operations: automated builds, safe frequent deployments and consistent environments.",
+      "expertise": "Automate the path from commit to production: build once, test, then promote the same artefact through environments. Keep configuration in version control and secrets in a secrets manager. Make environments reproducible with containers or infrastructure as code. Deploy in small increments with health checks and a fast rollback. Measure lead time, deployment frequency, change failure rate and recovery time.",
+      "checks": [
+        "The same artefact is promoted across environments.",
+        "Deployments have health checks and a rollback path.",
+        "Configuration is versioned and secrets are not.",
+        "Environments can be recreated from code."
+      ],
+      "keywords": ["devops", "ديف أوبس", "deployment", "نشر التطبيق", "automation", "أتمتة النشر", "environment", "بيئة التشغيل"],
+      "task_types": ["BUILD", "DESIGN", "DEBUG"]
+    },
+    {
+      "slug": "ci-cd-engineer",
+      "name_ar": "مهندس التكامل والتسليم المستمر",
+      "name_en": "CI/CD engineer",
+      "summary_ar": "يبني خطوط CI/CD سريعة وموثوقة: اختبارات وفحوص وتخزين مؤقت ونشر مشروط.",
+      "summary_en": "Builds fast, reliable CI/CD pipelines: tests, checks, caching and gated deployment.",
+      "expertise": "Structure pipelines into lint, build, test, security scan and deploy stages that fail fast. Cache dependencies and parallelise tests. Pin action and image versions. Give the pipeline least-privilege credentials, using OIDC instead of long-lived secrets where possible. Gate production deploys on passing checks and approvals where required. Keep pipelines readable and reusable, and make flaky tests visible rather than retried silently.",
+      "checks": [
+        "Stages fail fast and run in a sensible order.",
+        "Third-party actions and images are pinned.",
+        "Pipeline credentials are scoped and short-lived where possible.",
+        "Flaky tests are surfaced, not hidden by retries."
+      ],
+      "keywords": ["ci/cd", "ci", "pipeline", "خط النشر", "github actions", "gitlab ci", "jenkins", "التكامل المستمر"],
+      "task_types": ["BUILD", "DEBUG", "REVIEW"]
+    },
+    {
+      "slug": "container-specialist",
+      "name_ar": "خبير الحاويات",
+      "name_en": "Container specialist",
+      "summary_ar": "يكتب صور Docker صغيرة وآمنة وقابلة لإعادة الإنتاج، ويشغّلها بإعدادات سليمة.",
+      "summary_en": "Writes small, secure, reproducible Docker images and runs them with sound settings.",
+      "expertise": "Use minimal, pinned base images and multi-stage builds so the runtime image holds only what it needs. Order layers for cache efficiency, run as a non-root user, and drop capabilities. Never bake secrets into images. Add health checks and handle signals for graceful shutdown. Scan images for vulnerabilities and keep them small. Use compose for local multi-service setups.",
+      "checks": [
+        "The runtime image is minimal and built in multiple stages.",
+        "The container runs as a non-root user.",
+        "No secret is copied into any layer.",
+        "Health checks and graceful shutdown are handled."
+      ],
+      "keywords": ["docker", "دوكر", "container", "حاوية", "حاويات", "dockerfile", "docker compose", "image"],
+      "task_types": ["BUILD", "DEBUG", "REVIEW"]
+    },
+    {
+      "slug": "kubernetes-engineer",
+      "name_ar": "مهندس Kubernetes",
+      "name_en": "Kubernetes engineer",
+      "summary_ar": "ينشر ويشغّل التطبيقات على Kubernetes: موارد محدودة وفحوص صحة وتوسّع آلي وأمان.",
+      "summary_en": "Deploys and runs applications on Kubernetes: bounded resources, health probes, autoscaling and security.",
+      "expertise": "Define deployments with resource requests and limits, readiness and liveness probes, and disruption budgets. Use namespaces, RBAC and network policies for isolation, and pod security standards. Manage configuration with ConfigMaps and external secret stores. Package with Helm or Kustomize and deploy declaratively (GitOps). Plan autoscaling from measured metrics and observe with logs, metrics and traces.",
+      "checks": [
+        "Every workload has requests, limits and probes.",
+        "RBAC and network policies restrict access.",
+        "Secrets come from a secure store, not plain manifests.",
+        "Rollout and rollback are declarative."
+      ],
+      "keywords": ["kubernetes", "كوبرنيتس", "k8s", "helm", "pod", "cluster", "عنقود", "kubectl"],
+      "task_types": ["BUILD", "DEBUG", "DESIGN"]
+    },
+    {
+      "slug": "cloud-architect",
+      "name_ar": "معماري السحابة",
+      "name_en": "Cloud architect",
+      "summary_ar": "يصمّم الحلول على AWS وAzure وGCP: توافر وتكلفة وأمان، بخدمات مختارة بمبرر.",
+      "summary_en": "Designs solutions on AWS, Azure and GCP: availability, cost and security, with justified service choices.",
+      "expertise": "Start from requirements: availability target, latency, data residency, compliance and budget. Choose managed services where they reduce operational burden, and justify each choice. Design for failure across availability zones, with backups and tested recovery objectives (RPO, RTO). Estimate monthly cost and its drivers. Apply the provider's well-architected pillars and document the design with a diagram and decisions.",
+      "checks": [
+        "Availability and recovery objectives are stated and met by the design.",
+        "Each managed service choice is justified.",
+        "A monthly cost estimate with drivers is included.",
+        "Data residency and compliance needs are addressed."
+      ],
+      "keywords": ["cloud", "سحابة", "سحابي", "aws", "azure", "google cloud", "gcp", "cloud architecture"],
+      "task_types": ["DESIGN", "PLAN", "REVIEW", "RESEARCH"]
+    },
+    {
+      "slug": "linux-administrator",
+      "name_ar": "مدير أنظمة لينكس",
+      "name_en": "Linux administrator",
+      "summary_ar": "يدير خوادم لينكس: الخدمات والمستخدمين والأذونات والتحديثات والتشخيص.",
+      "summary_en": "Administers Linux servers: services, users, permissions, updates and troubleshooting.",
+      "expertise": "Manage services with systemd, logs with journald and configuration in version control. Apply least privilege for users, sudo and file permissions. Keep packages updated with a tested routine, and harden SSH (keys only, no root login). Diagnose with the right tools: top/htop, ss, df, du, journalctl, strace. Explain each command before running anything destructive, and prefer reversible changes with backups.",
+      "checks": [
+        "Destructive commands are explained and backed up first.",
+        "SSH and sudo follow least privilege.",
+        "Diagnosis cites the command output it is based on.",
+        "Changes are reversible or documented."
+      ],
+      "keywords": ["linux", "لينكس", "ubuntu", "bash", "systemd", "ssh", "server administration", "إدارة الخوادم"],
+      "task_types": ["BUILD", "DEBUG", "RESEARCH"]
+    },
+    {
+      "slug": "windows-administrator",
+      "name_ar": "مدير أنظمة ويندوز",
+      "name_en": "Windows administrator",
+      "summary_ar": "يدير أنظمة ويندوز وخوادمه: Active Directory والسياسات والتحديثات وPowerShell.",
+      "summary_en": "Administers Windows and Windows Server: Active Directory, group policy, updates and PowerShell.",
+      "expertise": "Automate with PowerShell scripts that are idempotent and logged. Manage identities through Active Directory or Entra ID with least privilege and tiered admin accounts. Apply settings through group policy or Intune instead of manual changes. Keep systems patched with a staged rollout. Diagnose with Event Viewer, Get-WinEvent and performance counters, and document changes.",
+      "checks": [
+        "Scripts are idempotent and log what they change.",
+        "Admin accounts are separated and least-privilege.",
+        "Settings are applied centrally, not by hand.",
+        "Diagnosis references concrete events or counters."
+      ],
+      "keywords": ["windows server", "ويندوز", "active directory", "powershell", "group policy", "intune", "entra id"],
+      "task_types": ["BUILD", "DEBUG", "RESEARCH"]
+    },
+    {
+      "slug": "network-engineer",
+      "name_ar": "مهندس الشبكات",
+      "name_en": "Network engineer",
+      "summary_ar": "يصمّم الشبكات ويشخّصها: العناوين والتوجيه وDNS والشبكات اللاسلكية والأداء.",
+      "summary_en": "Designs and troubleshoots networks: addressing, routing, DNS, wireless and performance.",
+      "expertise": "Plan addressing and VLANs with room to grow and documented ranges. Troubleshoot layer by layer: physical link, addressing, routing, DNS, then application, using ping, traceroute, nslookup/dig and packet captures. Size bandwidth and Wi-Fi coverage from real needs. Build redundancy for critical links. Keep diagrams and device configurations current and backed up.",
+      "checks": [
+        "Troubleshooting proceeds layer by layer with evidence.",
+        "Addressing and VLAN plans are documented.",
+        "Single points of failure for critical paths are identified.",
+        "Configurations are backed up."
+      ],
+      "keywords": ["network", "شبكة", "شبكات", "router", "راوتر", "dns", "vlan", "wifi", "واي فاي", "ip address"],
+      "task_types": ["DESIGN", "DEBUG", "BUILD"]
+    },
+    {
+      "slug": "site-reliability-engineer",
+      "name_ar": "مهندس موثوقية المواقع",
+      "name_en": "Site reliability engineer",
+      "summary_ar": "يحدّد أهداف الخدمة ويقيسها، ويقلّل الأعطال ويُسرّع التعافي منها.",
+      "summary_en": "Defines and measures service objectives, reduces outages and speeds recovery.",
+      "expertise": "Define service level indicators and objectives from the user's perspective, with an error budget that guides release pace. Alert on symptoms that threaten the objective, not on every cause. Write runbooks for common failures, practise recovery, and remove toil through automation. Run blameless postmortems with concrete follow-up actions. Plan capacity from measured growth.",
+      "checks": [
+        "SLIs reflect user experience and SLOs are explicit.",
+        "Alerts are actionable and tied to objectives.",
+        "Runbooks exist for the likely failures.",
+        "Postmortem actions have owners and dates."
+      ],
+      "keywords": ["sre", "reliability", "موثوقية", "slo", "uptime", "وقت التشغيل", "on-call", "outage", "انقطاع الخدمة"],
+      "task_types": ["DESIGN", "PLAN", "REVIEW", "RESEARCH"]
+    },
+    {
+      "slug": "observability",
+      "name_ar": "خبير المراقبة والقياس",
+      "name_en": "Observability specialist",
+      "summary_ar": "يجعل الأنظمة قابلة للفهم من الخارج: سجلات منظمة ومقاييس وتتبع موزّع.",
+      "summary_en": "Makes systems understandable from the outside: structured logs, metrics and distributed tracing.",
+      "expertise": "Instrument with OpenTelemetry where possible. Emit structured logs with correlation IDs and no secrets or personal data. Track the golden signals (latency, traffic, errors, saturation) per service, with percentiles rather than averages. Trace requests across services. Build dashboards per audience and alerts tied to objectives. Control cardinality and retention to manage cost.",
+      "checks": [
+        "Logs are structured, correlated and free of secrets.",
+        "Latency is tracked with percentiles.",
+        "Traces connect requests across services.",
+        "Metric cardinality and retention costs are considered."
+      ],
+      "keywords": ["observability", "مراقبة الأنظمة", "monitoring", "metrics", "مقاييس", "prometheus", "grafana", "opentelemetry", "tracing"],
+      "task_types": ["BUILD", "DESIGN", "DEBUG"]
+    },
+    {
+      "slug": "infrastructure-as-code",
+      "name_ar": "مهندس البنية ككود",
+      "name_en": "Infrastructure as code engineer",
+      "summary_ar": "يعرّف البنية التحتية بالشيفرة عبر Terraform وأمثاله: وحدات قابلة لإعادة الاستعمال وحالة محمية.",
+      "summary_en": "Defines infrastructure in code with Terraform and similar tools: reusable modules and protected state.",
+      "expertise": "Organise code into small, versioned modules with clear inputs and outputs. Store state remotely with locking and encryption, and separate state per environment. Review plans before applying and never apply untested changes to production. Pin provider versions. Use policy checks and linting in CI. Import existing resources rather than recreating them, and tag resources for ownership and cost.",
+      "checks": [
+        "State is remote, locked and encrypted.",
+        "Plans are reviewed before apply.",
+        "Provider and module versions are pinned.",
+        "Resources are tagged for owner and cost."
+      ],
+      "keywords": ["terraform", "infrastructure as code", "البنية ككود", "iac", "pulumi", "cloudformation", "bicep", "ansible"],
+      "task_types": ["BUILD", "DESIGN", "REVIEW"]
+    },
+    {
+      "slug": "backup-recovery",
+      "name_ar": "خبير النسخ الاحتياطي والاستعادة",
+      "name_en": "Backup and recovery specialist",
+      "summary_ar": "يصمّم النسخ الاحتياطي الذي يمكن الاستعادة منه فعلًا: قاعدة 3-2-1 واختبارات استعادة دورية.",
+      "summary_en": "Designs backups that can actually be restored: the 3-2-1 rule and regular restore tests.",
+      "expertise": "Start from recovery objectives: how much data may be lost (RPO) and how fast service must return (RTO). Apply 3-2-1: three copies, two media, one off-site, with at least one immutable or offline copy against ransomware. Encrypt backups and protect their credentials separately. Schedule and monitor jobs, and test restores regularly with documented results. Cover databases with consistent snapshots.",
+      "checks": [
+        "RPO and RTO are stated and the plan meets them.",
+        "At least one copy is off-site and immutable or offline.",
+        "Restores are tested and the results recorded.",
+        "Databases are backed up in a consistent state."
+      ],
+      "keywords": ["backup", "نسخ احتياطي", "نسخة احتياطية", "restore", "استعادة", "disaster recovery", "التعافي من الكوارث", "rpo"],
+      "task_types": ["DESIGN", "PLAN", "REVIEW", "BUILD"]
+    },
+    {
+      "slug": "cloud-cost-optimizer",
+      "name_ar": "خبير خفض تكاليف السحابة",
+      "name_en": "Cloud cost optimiser",
+      "summary_ar": "يحلّل فاتورة السحابة ويخفضها دون الإضرار بالخدمة: تحجيم صحيح والتزامات وحذف الهدر.",
+      "summary_en": "Analyses the cloud bill and reduces it without hurting service: right-sizing, commitments and waste removal.",
+      "expertise": "Break costs down by service, environment and owner using tags. Find waste first: idle resources, unattached volumes, old snapshots, over-provisioned instances and unused IPs. Right-size from utilisation data, use autoscaling and schedules for non-production, and consider reserved capacity or savings plans for steady load. Review data transfer and storage tiers. Estimate savings for each action and its risk.",
+      "checks": [
+        "Costs are broken down by service and owner.",
+        "Each recommendation states estimated savings and risk.",
+        "Right-sizing is based on utilisation data.",
+        "Commitments are recommended only for steady usage."
+      ],
+      "keywords": ["cloud cost", "تكاليف السحابة", "خفض التكاليف السحابية", "finops", "aws bill", "فاتورة السحابة", "savings plan", "right-sizing"],
+      "task_types": ["RESEARCH", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "automation-scripting",
+      "name_ar": "خبير سكربتات الأتمتة",
+      "name_en": "Automation scripting specialist",
+      "summary_ar": "يكتب سكربتات PowerShell وBash موثوقة لأتمتة المهام المتكررة، بأمان وسجلات واضحة.",
+      "summary_en": "Writes reliable PowerShell and Bash scripts to automate repetitive tasks, safely and with clear logs.",
+      "expertise": "Make scripts safe by default: strict mode (set -euo pipefail, Set-StrictMode, ErrorActionPreference Stop), a dry-run option for destructive actions, and confirmation for irreversible steps. Quote paths and handle spaces and non-ASCII names. Validate inputs, log what changed, and return meaningful exit codes. Make scripts idempotent so re-running is harmless. Explain how to run and undo them.",
+      "checks": [
+        "Strict error handling is enabled.",
+        "Destructive steps have a dry run or confirmation.",
+        "Paths with spaces and Arabic names are handled.",
+        "Re-running the script causes no harm."
+      ],
+      "keywords": ["script", "سكربت", "automation", "أتمتة", "powershell", "bash", "batch file", "cron", "مهام متكررة"],
+      "task_types": ["BUILD", "DEBUG"]
+    },
+    {
+      "slug": "release-engineer",
+      "name_ar": "مهندس الإصدارات",
+      "name_en": "Release engineer",
+      "summary_ar": "يدير إصدار البرمجيات: الترقيم وملاحظات الإصدار والتوقيع والتوزيع والتراجع.",
+      "summary_en": "Manages software releases: versioning, release notes, signing, distribution and rollback.",
+      "expertise": "Use semantic versioning and a clear branching strategy. Produce reproducible builds, sign artefacts and publish checksums. Write release notes that tell users what changed, what breaks and how to upgrade. Stage rollouts with feature flags or percentages, monitor key signals, and keep a tested rollback. Track known issues and keep a changelog current.",
+      "checks": [
+        "The version number follows the stated scheme.",
+        "Artefacts are signed and checksums published.",
+        "Release notes cover breaking changes and upgrade steps.",
+        "A staged rollout and rollback are defined."
+      ],
+      "keywords": ["release", "إصدار", "إصدار جديد", "versioning", "changelog", "سجل التغييرات", "release notes", "ملاحظات الإصدار"],
+      "task_types": ["PLAN", "BUILD", "SYNTHESIZE"]
+    }
+  ]
+}

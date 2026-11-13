@@ -1,0 +1,54 @@
+{
+  "contract_version": "1.0",
+  "capability_id": "polaris.fs.read_file",
+  "capability_version": "1.0",
+  "display_name": "Read a file",
+  "description": "Reads a single file from an explicitly granted path.",
+  "source": {
+    "origin": "BUILT_IN",
+    "publisher_id": "polaris.core"
+  },
+  "input_schema_ref": "capabilities/fs/read_file.input.v1.json",
+  "output_schema_ref": "capabilities/fs/read_file.output.v1.json",
+  "effect_declaration_semantics": "REQUESTED_PRIVILEGE",
+  "requested_effects": [
+    {
+      "action": "read.filesystem",
+      "resource": {
+        "kind": "FILESYSTEM_PATH",
+        "locator": "D:\\POLARIS\\README.md",
+        "scope": "EXACT"
+      },
+      "data_classification": "INTERNAL"
+    }
+  ],
+  "risk_class": "LOW",
+  "execution_requirements": {
+    "confinement": "CONFINED",
+    "filesystem_scope": "EXPLICIT_GRANT",
+    "process_tree": "CONFINED_KILL_ON_CLOSE",
+    "network": "NONE",
+    "handle_inheritance": "EXPLICIT_ONLY",
+    "environment": "EXPLICIT_ONLY",
+    "granted_paths": [
+      {
+        "kind": "FILESYSTEM_PATH",
+        "locator": "D:\\POLARIS\\README.md",
+        "scope": "EXACT"
+      }
+    ],
+    "max_wall_clock_ms": 5000,
+    "max_output_bytes": 1048576
+  },
+  "idempotency": {
+    "semantics": "AT_MOST_ONCE_LOCAL",
+    "retry_safe": true,
+    "key_derivation": "ARGUMENT_DIGEST"
+  },
+  "platform_requirements": [
+    "ANY"
+  ],
+  "provenance": {
+    "signed": false
+  }
+}

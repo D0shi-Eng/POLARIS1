@@ -1,0 +1,4 @@
+{
+  "provider_id": "lm-studio",
+  "endpoint": "http://192.168.1.20:1234"
+}

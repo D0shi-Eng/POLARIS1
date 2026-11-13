@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisIdempotency",
+  "description": "Explicit delivery semantics. POLARIS never claims exactly-once.",
+  "$comment": "لا ندّعي Exactly Once. الدلالة تُعلن صراحة لكل قدرة.",
+  "$defs": {
+    "IdempotencySemantics": {
+      "title": "IdempotencySemantics",
+      "type": "string",
+      "enum": [
+        "AT_MOST_ONCE_LOCAL",
+        "AT_LEAST_ONCE",
+        "PROVIDER_IDEMPOTENT",
+        "BEST_EFFORT",
+        "UNKNOWN"
+      ],
+      "description": "UNKNOWN is a valid, honest answer and forbids automatic retry of a side-effecting capability."
+    },
+    "IdempotencySpec": {
+      "title": "IdempotencySpec",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantics",
+        "retry_safe"
+      ],
+      "properties": {
+        "semantics": {
+          "$ref": "#/$defs/IdempotencySemantics"
+        },
+        "retry_safe": {
+          "type": "boolean",
+          "description": "Whether the runtime may retry without operator confirmation."
+        },
+        "key_derivation": {
+          "type": "string",
+          "enum": [
+            "CALLER_SUPPLIED",
+            "ARGUMENT_DIGEST"
+          ],
+          "description": "How the idempotency key for an invocation of this capability is produced."
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "الدلالة المجهولة أو at-least-once لا تكون آمنة لإعادة المحاولة تلقائيًا.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "semantics": {
+                "enum": [
+                  "UNKNOWN",
+                  "AT_LEAST_ONCE"
+                ]
+              }
+            },
+            "required": [
+              "semantics"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "retry_safe": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

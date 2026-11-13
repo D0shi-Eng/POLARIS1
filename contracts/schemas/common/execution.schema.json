@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisExecutionRequirements",
+  "description": "Platform-neutral confinement semantics. Windows and macOS adapters realise these; the contract never names a Win32 primitive.",
+  "$comment": "دلالات الحصر محايدة للمنصة. AppContainer/Job Object تفاصيل تنفيذ في المحوّل، لا في العقد.",
+  "$defs": {
+    "NetworkRequirement": {
+      "title": "NetworkRequirement",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "BROKERED_EGRESS",
+        "UNRESTRICTED"
+      ],
+      "description": "NONE: no egress path exists at all. BROKERED_EGRESS: all egress traverses the POLARIS Egress PEP against a declared destination allow-list; NOT IMPLEMENTED as of W2. UNRESTRICTED: unmediated internet; representable so policy can name and refuse it."
+    },
+    "FilesystemScope": {
+      "title": "FilesystemScope",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "EXPLICIT_GRANT",
+        "USER_SCOPE",
+        "UNRESTRICTED"
+      ],
+      "description": "EXPLICIT_GRANT: only paths granted per task, reverted on completion (the W1-proven mode)."
+    },
+    "ProcessTreeMode": {
+      "title": "ProcessTreeMode",
+      "type": "string",
+      "enum": [
+        "UNCONSTRAINED",
+        "CONFINED_KILL_ON_CLOSE"
+      ],
+      "description": "CONFINED_KILL_ON_CLOSE: descendants cannot break away and all die with the container."
+    },
+    "HandleInheritanceMode": {
+      "title": "HandleInheritanceMode",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "EXPLICIT_ONLY"
+      ],
+      "description": "Ambient inheritance is deliberately absent from this enum. W1 proved inherited handles bypass filesystem confinement (probe X03), so it is unrepresentable by construction."
+    },
+    "EnvironmentMode": {
+      "title": "EnvironmentMode",
+      "type": "string",
+      "enum": [
+        "EXPLICIT_ONLY",
+        "INHERITED"
+      ],
+      "description": "EXPLICIT_ONLY: the environment block is constructed, not inherited."
+    },
+    "ExecutionRequirements": {
+      "title": "ExecutionRequirements",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "confinement",
+        "filesystem_scope",
+        "process_tree",
+        "network",
+        "handle_inheritance",
+        "environment"
+      ],
+      "properties": {
+        "confinement": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "CONFINED"
+          ]
+        },
+        "filesystem_scope": {
+          "$ref": "#/$defs/FilesystemScope"
+        },
+        "process_tree": {
+          "$ref": "#/$defs/ProcessTreeMode"
+        },
+        "network": {
+          "$ref": "#/$defs/NetworkRequirement"
+        },
+        "handle_inheritance": {
+          "$ref": "#/$defs/HandleInheritanceMode"
+        },
+        "environment": {
+          "$ref": "#/$defs/EnvironmentMode"
+        },
+        "granted_paths": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "./effect.schema.json#/$defs/ResourceRef"
+          },
+          "description": "Required when filesystem_scope is EXPLICIT_GRANT; forbidden otherwise."
+        },
+        "allowed_destinations": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "./effect.schema.json#/$defs/NetworkDestination"
+          },
+          "description": "Required when network is BROKERED_EGRESS; forbidden otherwise."
+        },
+        "max_wall_clock_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400000
+        },
+        "max_output_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1073741824
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "التنفيذ المحصور يفرض شجرة عمليات محصورة وبيئة ووراثة مقابض صريحة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "confinement": {
+                "const": "CONFINED"
+              }
+            },
+            "required": [
+              "confinement"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "process_tree": {
+                "const": "CONFINED_KILL_ON_CLOSE"
+              },
+              "environment": {
+                "const": "EXPLICIT_ONLY"
+              },
+              "filesystem_scope": {
+                "enum": [
+                  "NONE",
+                  "EXPLICIT_GRANT"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "filesystem_scope": {
+                "const": "EXPLICIT_GRANT"
+              }
+            },
+            "required": [
+              "filesystem_scope"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "granted_paths"
+            ],
+            "properties": {
+              "granted_paths": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "not": {
+              "type": "object",
+              "required": [
+                "granted_paths"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "const": "BROKERED_EGRESS"
+              }
+            },
+            "required": [
+              "network"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "allowed_destinations"
+            ],
+            "properties": {
+              "allowed_destinations": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "not": {
+              "type": "object",
+              "required": [
+                "allowed_destinations"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

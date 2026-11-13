@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopErrorMappingV1",
+  "description": "How the frozen POLARIS error vocabulary becomes a UI-facing category, and what is allowed to cross the trust boundary with it. This is a mapping over the existing vocabulary, never a second error universe.",
+  "$comment": "لا كون أخطاء ثانٍ. الفئة المعروضة مشتقة من ErrorCode المجمَّد، والاشتقاق مُصرَّح به هنا ويُفحص باختبار اكتمال: رمز قانوني بلا فئة عيبٌ يُوقف البناء.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "phase",
+    "entries"
+  ],
+  "properties": {
+    "contract_version": {
+      "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "PHASE-01"
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "$ref": "#/$defs/DesktopErrorMappingEntry"
+      }
+    }
+  },
+  "$defs": {
+    "DesktopErrorCategory": {
+      "title": "DesktopErrorCategory",
+      "type": "string",
+      "enum": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "PERMISSION_DENIED",
+        "FEATURE_NOT_AVAILABLE",
+        "INTERNAL_ERROR"
+      ],
+      "description": "The nine categories a Phase-01 screen may render. Closed: a tenth category is a contract change, not a string a component invents."
+    },
+    "Redaction": {
+      "title": "Redaction",
+      "type": "string",
+      "enum": [
+        "STRIP_INTERNAL_DETAIL",
+        "STRIP_ALL_DETAIL"
+      ],
+      "description": "Default redaction applied before an error crosses to the renderer. STRIP_INTERNAL_DETAIL removes internal_detail and keeps the JSON pointer; STRIP_ALL_DETAIL removes both, for errors whose pointer would itself describe host internals."
+    },
+    "DesktopErrorMappingEntry": {
+      "title": "DesktopErrorMappingEntry",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "canonical_codes",
+        "retryable",
+        "detail_may_cross_boundary",
+        "default_redaction",
+        "display_key"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/DesktopErrorCategory"
+        },
+        "canonical_codes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 9,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./common/error.schema.json#/$defs/ErrorCode"
+          },
+          "description": "The frozen error codes that produce this category. The union over all entries must cover the whole vocabulary; a completeness test proves it."
+        },
+        "retryable": {
+          "type": "boolean",
+          "description": "Whether the shell may offer a retry. A retry offered for a permanent failure teaches the user to distrust the button."
+        },
+        "detail_may_cross_boundary": {
+          "type": "boolean",
+          "description": "Whether internal_detail may reach the renderer. In Phase-01 this is false for every entry; a trusted diagnostics path is a later phase and would have to flip this in the open."
+        },
+        "default_redaction": {
+          "$ref": "#/$defs/Redaction"
+        },
+        "display_key": {
+          "$ref": "./desktop-settings.schema.json#/$defs/DisplayKey",
+          "description": "Localization key for the message shown. The contract carries no prose."
+        }
+      }
+    },
+    "DesktopErrorView": {
+      "title": "DesktopErrorView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "code",
+        "display_message",
+        "retryable"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/DesktopErrorCategory"
+        },
+        "code": {
+          "$ref": "./common/error.schema.json#/$defs/ErrorCode"
+        },
+        "display_message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "correlation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CorrelationId",
+          "description": "So a user-visible failure can be found in the host log without the host log crossing the boundary."
+        },
+        "pointer": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Present only when the entry's redaction keeps it."
+        }
+      },
+      "description": "Exactly what an error looks like on the renderer side. There is no internal_detail member and no stack member: they are unrepresentable here, not merely omitted by convention."
+    }
+  }
+}

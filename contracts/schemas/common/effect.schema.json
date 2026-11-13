@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisEffectModel",
+  "description": "Typed vocabulary for side effects. A declared effect is a REQUESTED PRIVILEGE, never a security guarantee.",
+  "$comment": "الأثر المعلن = طلب صلاحية. لا يعني إطلاقًا أن الأداة آمنة أو للقراءة فقط.",
+  "$defs": {
+    "EffectAction": {
+      "title": "EffectAction",
+      "type": "string",
+      "description": "Closed v1 vocabulary. Extension happens by contract version bump, not by free strings.",
+      "enum": [
+        "read.filesystem",
+        "write.filesystem",
+        "create.filesystem",
+        "delete.filesystem",
+        "execute.process",
+        "install.package",
+        "network.fetch",
+        "network.send",
+        "network.publish",
+        "browser.navigate",
+        "browser.submit",
+        "email.read",
+        "email.send",
+        "secret.reference",
+        "secret.deref",
+        "memory.read",
+        "memory.write",
+        "system.read",
+        "system.modify",
+        "payment.prepare",
+        "payment.commit"
+      ]
+    },
+    "DataClassification": {
+      "title": "DataClassification",
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "SENSITIVE",
+        "SECRET"
+      ],
+      "description": "Sensitivity of the data the effect touches."
+    },
+    "ResourceKind": {
+      "title": "ResourceKind",
+      "type": "string",
+      "enum": [
+        "FILESYSTEM_PATH",
+        "PROCESS",
+        "NETWORK_ENDPOINT",
+        "MAILBOX",
+        "SECRET_REF",
+        "MEMORY_STORE",
+        "SYSTEM_SETTING",
+        "PAYMENT_INSTRUMENT",
+        "BROWSER_TARGET"
+      ]
+    },
+    "ResourceRef": {
+      "title": "ResourceRef",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "locator"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ResourceKind"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "description": "Opaque to Core. Interpreted only by the platform adapter that owns the resource kind."
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "EXACT",
+            "SUBTREE"
+          ],
+          "description": "SUBTREE is only meaningful for hierarchical kinds such as FILESYSTEM_PATH."
+        }
+      }
+    },
+    "NetworkDestination": {
+      "title": "NetworkDestination",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host",
+        "port",
+        "protocol"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "description": "DNS name or literal address. Wildcards are not permitted in v1."
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "HTTPS",
+            "HTTP",
+            "TCP",
+            "UDP"
+          ]
+        }
+      },
+      "$comment": "W1 أثبت أن internetClient لا يوفر تحكمًا بالوجهة. لذلك الوجهة تُصرَّح هنا ليفرضها Egress PEP لاحقًا، لا ويندوز."
+    },
+    "Effect": {
+      "title": "Effect",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/EffectAction"
+        },
+        "resource": {
+          "$ref": "#/$defs/ResourceRef"
+        },
+        "destination": {
+          "$ref": "#/$defs/NetworkDestination"
+        },
+        "data_classification": {
+          "$ref": "#/$defs/DataClassification"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "كل أثر شبكي يجب أن يعلن وجهته صراحة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "enum": [
+                  "network.fetch",
+                  "network.send",
+                  "network.publish"
+                ]
+              }
+            },
+            "required": [
+              "action"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "destination"
+            ]
+          },
+          "else": {
+            "not": {
+              "type": "object",
+              "required": [
+                "destination"
+              ]
+            }
+          }
+        },
+        {
+          "$comment": "الأثر غير الشبكي يجب أن يحدد المورد.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "enum": [
+                  "network.fetch",
+                  "network.send",
+                  "network.publish"
+                ]
+              }
+            },
+            "required": [
+              "action"
+            ]
+          },
+          "then": true,
+          "else": {
+            "type": "object",
+            "required": [
+              "resource"
+            ]
+          }
+        },
+        {
+          "$comment": "إخراج قيمة سر يستلزم تصنيف SECRET.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "const": "secret.deref"
+              }
+            },
+            "required": [
+              "action"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "data_classification"
+            ],
+            "properties": {
+              "data_classification": {
+                "const": "SECRET"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "EffectList": {
+      "title": "EffectList",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "$ref": "#/$defs/Effect"
+      }
+    }
+  }
+}

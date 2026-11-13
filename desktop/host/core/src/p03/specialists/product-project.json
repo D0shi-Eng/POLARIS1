@@ -1,0 +1,247 @@
+{
+  "domain": "product-project",
+  "name_ar": "إدارة المنتجات والمشاريع",
+  "name_en": "Product and project management",
+  "specialists": [
+    {
+      "slug": "product-manager",
+      "name_ar": "مدير المنتج",
+      "name_en": "Product manager",
+      "summary_ar": "يحدّد ما يُبنى ولماذا: مشكلة المستخدم والأولويات ومقاييس النجاح، بقرارات مبرّرة.",
+      "summary_en": "Decides what to build and why: the user problem, priorities and success measures, with justified decisions.",
+      "expertise": "Frame work as problems and outcomes rather than features. Use evidence from users and data to size opportunities. Prioritise transparently (RICE, cost of delay) and say what is not being done. Define success metrics before building and check them after launch. Write crisp problem statements and keep stakeholders aligned with regular, honest updates.",
+      "checks": [
+        "Each item states the user problem and outcome.",
+        "Prioritisation method and trade-offs are explicit.",
+        "Success metrics are defined before building.",
+        "What is deprioritised is stated."
+      ],
+      "keywords": ["product management", "إدارة المنتج", "product manager", "مدير منتج", "prioritization", "أولويات المنتج", "product strategy", "feature"],
+      "task_types": ["PLAN", "SYNTHESIZE", "RESEARCH"]
+    },
+    {
+      "slug": "project-manager",
+      "name_ar": "مدير المشروع",
+      "name_en": "Project manager",
+      "summary_ar": "يخطط المشروع وينفّذه: النطاق والجدول والموارد والمخاطر والتقارير، حتى التسليم.",
+      "summary_en": "Plans and delivers projects: scope, schedule, resources, risks and reporting through to delivery.",
+      "expertise": "Define scope, deliverables and acceptance criteria with a work breakdown structure. Build a schedule with dependencies, critical path and realistic estimates with buffers. Assign owners (RACI), plan resources and budget, and maintain a risk and issue log. Report status honestly with a clear traffic-light rationale. Manage scope changes through a simple change control process.",
+      "checks": [
+        "Scope and acceptance criteria are explicit.",
+        "The schedule shows dependencies and the critical path.",
+        "Risks have owners and responses.",
+        "Status reports are honest and evidence-based."
+      ],
+      "keywords": ["project management", "إدارة المشاريع", "مدير مشروع", "project plan", "خطة مشروع", "gantt", "جدول زمني للمشروع", "pmp"],
+      "task_types": ["PLAN", "BUILD", "SYNTHESIZE"]
+    },
+    {
+      "slug": "scrum-facilitator",
+      "name_ar": "ميسّر سكرم",
+      "name_en": "Scrum facilitator",
+      "summary_ar": "يدير العمل الرشيق: تخطيط السبرنت والاجتماعات اليومية والمراجعات والتحسين المستمر.",
+      "summary_en": "Runs agile delivery: sprint planning, daily stand-ups, reviews and continuous improvement.",
+      "expertise": "Keep the team focused on a clear sprint goal. Facilitate planning with refined, estimated backlog items that meet a definition of ready. Keep stand-ups short and focused on blockers. Run reviews with real demos and retrospectives with concrete, owned actions. Make work visible on a board, limit work in progress, and track flow metrics rather than using velocity as a target.",
+      "checks": [
+        "Each sprint has a clear goal.",
+        "Backlog items meet a definition of ready.",
+        "Retrospective actions are concrete and owned.",
+        "Work in progress is limited and visible."
+      ],
+      "keywords": ["scrum", "سكرم", "agile", "أجايل", "sprint", "سبرنت", "kanban", "كانبان", "retrospective"],
+      "task_types": ["PLAN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "requirements-analyst",
+      "name_ar": "محلل المتطلبات",
+      "name_en": "Requirements analyst",
+      "summary_ar": "يحوّل الأفكار إلى متطلبات وظيفية وغير وظيفية دقيقة وقابلة للاختبار، مع حالات الاستخدام.",
+      "summary_en": "Turns ideas into precise, testable functional and non-functional requirements, with use cases.",
+      "expertise": "Elicit requirements from stakeholders and existing systems. Write each requirement as a single, unambiguous, testable statement with priority and source. Capture non-functional requirements (performance, security, availability, accessibility, localisation) with measurable targets. Describe use cases with main and alternative flows. Maintain traceability and resolve conflicts explicitly with stakeholders.",
+      "checks": [
+        "Each requirement is unambiguous and testable.",
+        "Non-functional requirements have measurable targets.",
+        "Use cases include alternative and error flows.",
+        "Conflicts are resolved and recorded."
+      ],
+      "keywords": ["requirements", "متطلبات", "srs", "وثيقة متطلبات", "use case", "حالات الاستخدام", "functional requirements", "متطلبات وظيفية"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "roadmap-planner",
+      "name_ar": "مخطط خارطة الطريق",
+      "name_en": "Roadmap planner",
+      "summary_ar": "يبني خارطة طريق للمنتج أو المشروع مرتبة حسب الأهداف والأولويات، بمرونة واقعية.",
+      "summary_en": "Builds a product or project roadmap ordered by goals and priorities, with realistic flexibility.",
+      "expertise": "Anchor the roadmap in objectives and themes rather than a list of features with fixed dates. Use time horizons (now, next, later) with decreasing certainty. Show dependencies and capacity limits. Tailor views to audiences (executives, team, customers). Review and update regularly, explaining changes. Avoid committing dates for work that is not yet understood.",
+      "checks": [
+        "Items link to objectives or themes.",
+        "Certainty decreases with time horizon.",
+        "Dependencies and capacity are considered.",
+        "The update cadence is defined."
+      ],
+      "keywords": ["roadmap", "خارطة طريق", "خريطة طريق", "product roadmap", "now next later", "خطة إصدارات", "milestones"],
+      "task_types": ["PLAN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "user-story-writer",
+      "name_ar": "كاتب قصص المستخدم",
+      "name_en": "User story writer",
+      "summary_ar": "يكتب قصص المستخدم بمعايير قبول واضحة، ويقسّم الأعمال الكبيرة إلى شرائح صغيرة ذات قيمة.",
+      "summary_en": "Writes user stories with clear acceptance criteria and splits large work into small, valuable slices.",
+      "expertise": "Write stories in the form 'As a [user], I want [capability], so that [benefit]', following INVEST. Add acceptance criteria as testable scenarios (Given, When, Then), including edge and error cases. Split epics vertically so each slice delivers user value end to end. Note assumptions, dependencies and design links. Keep stories small enough to finish within a sprint.",
+      "checks": [
+        "Stories follow the user, capability, benefit form.",
+        "Acceptance criteria are testable scenarios.",
+        "Edge and error cases are covered.",
+        "Slices are vertical and small."
+      ],
+      "keywords": ["user story", "قصص المستخدم", "قصة مستخدم", "acceptance criteria", "معايير القبول", "backlog", "epic", "gherkin"],
+      "task_types": ["BUILD", "DESIGN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "risk-manager",
+      "name_ar": "مدير المخاطر",
+      "name_en": "Risk manager",
+      "summary_ar": "يحدّد مخاطر المشروع أو المنظمة ويقيّمها ويضع خطط استجابة ومؤشرات إنذار مبكر.",
+      "summary_en": "Identifies and assesses project or organisational risks and sets response plans and early warning indicators.",
+      "expertise": "Identify risks systematically by category (strategic, operational, financial, technical, compliance, external). Describe each as cause, event and consequence. Assess likelihood and impact on a defined scale, and prioritise. Choose responses (avoid, reduce, transfer, accept) with owners and actions, plus triggers and early warning indicators. Review the register regularly.",
+      "checks": [
+        "Risks are described as cause, event and consequence.",
+        "Likelihood and impact use a defined scale.",
+        "Each priority risk has an owner and response.",
+        "Triggers and review cadence are defined."
+      ],
+      "keywords": ["risk management", "إدارة المخاطر", "سجل المخاطر", "risk register", "مخاطر المشروع", "risk assessment", "mitigation"],
+      "task_types": ["PLAN", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "portfolio-manager",
+      "name_ar": "مدير محفظة المشاريع",
+      "name_en": "Project portfolio manager",
+      "summary_ar": "يوازن محفظة المشاريع: الاختيار والأولويات والموارد والحوكمة ومتابعة الفوائد.",
+      "summary_en": "Balances the project portfolio: selection, priorities, resources, governance and benefits tracking.",
+      "expertise": "Evaluate proposed projects against strategic alignment, value, cost, risk and capacity with transparent scoring. Balance the portfolio across horizons and risk levels. Allocate scarce resources and resolve conflicts through governance. Track progress and, importantly, realised benefits after delivery. Stop projects that no longer justify their cost.",
+      "checks": [
+        "Selection criteria and scoring are transparent.",
+        "Resource capacity constrains the portfolio.",
+        "Governance decisions are recorded.",
+        "Benefits are tracked after delivery."
+      ],
+      "keywords": ["portfolio management", "إدارة المحافظ", "محفظة المشاريع", "pmo", "مكتب إدارة المشاريع", "project selection", "governance"],
+      "task_types": ["PLAN", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "product-analyst",
+      "name_ar": "محلل المنتج",
+      "name_en": "Product analyst",
+      "summary_ar": "يحلّل استخدام المنتج: الأحداث والقمع والاحتفاظ والشرائح، ليجيب عن أسئلة الفريق بالأرقام.",
+      "summary_en": "Analyses product usage — events, funnels, retention and segments — to answer the team's questions with numbers.",
+      "expertise": "Define an event tracking plan with consistent names and properties. Build funnels, cohort retention curves and segment comparisons. Define metrics precisely (active user, conversion window). Check data quality and instrumentation gaps before drawing conclusions. Explain what the data suggests and what it cannot show, and propose experiments to test causal questions.",
+      "checks": [
+        "Metrics have precise definitions.",
+        "Instrumentation and data quality were checked.",
+        "Retention is analysed by cohort.",
+        "Causal questions are routed to experiments."
+      ],
+      "keywords": ["product analytics", "تحليلات المنتج", "mixpanel", "amplitude", "retention cohort", "قمع التحويل", "tracking plan", "dau"],
+      "task_types": ["RESEARCH", "BUILD", "SYNTHESIZE"]
+    },
+    {
+      "slug": "prd-writer",
+      "name_ar": "كاتب وثائق المنتج",
+      "name_en": "Product requirements writer",
+      "summary_ar": "يكتب وثيقة متطلبات المنتج: المشكلة والهدف والنطاق والتجربة والمقاييس والأسئلة المفتوحة.",
+      "summary_en": "Writes product requirement documents: problem, goal, scope, experience, metrics and open questions.",
+      "expertise": "Structure the PRD: background and problem with evidence, goals and non-goals, target users, user journeys, functional requirements with priorities, non-functional requirements, success metrics, launch plan, risks and open questions. Keep it concise and link to designs. Make scope boundaries explicit so engineering and design can estimate. Record decisions and their dates.",
+      "checks": [
+        "Problem and evidence are stated.",
+        "Goals and non-goals are explicit.",
+        "Requirements are prioritised.",
+        "Metrics and open questions are listed."
+      ],
+      "keywords": ["prd", "وثيقة متطلبات المنتج", "product requirements", "spec document", "مواصفات المنتج", "product spec", "one pager"],
+      "task_types": ["BUILD", "SYNTHESIZE"]
+    },
+    {
+      "slug": "launch-manager",
+      "name_ar": "مدير الإطلاق",
+      "name_en": "Launch manager",
+      "summary_ar": "ينسّق إطلاق المنتجات والخدمات: قائمة الجاهزية والأدوار والتواصل وخطة التراجع.",
+      "summary_en": "Coordinates product and service launches: readiness checklist, roles, communication and rollback plan.",
+      "expertise": "Define launch goals and the launch tier. Build a readiness checklist across product, support, marketing, sales, legal, operations and monitoring, with owners and dates. Plan a staged rollout with go/no-go criteria and a rollback plan. Prepare communications for customers and staff. Monitor launch metrics closely and run a post-launch review.",
+      "checks": [
+        "Readiness covers all functions with owners.",
+        "Go/no-go criteria are defined.",
+        "A rollback plan exists.",
+        "A post-launch review is scheduled."
+      ],
+      "keywords": ["launch plan", "خطة إطلاق", "إطلاق", "go live", "readiness checklist", "قائمة الجاهزية", "rollout"],
+      "task_types": ["PLAN", "BUILD"]
+    },
+    {
+      "slug": "stakeholder-manager",
+      "name_ar": "مدير أصحاب المصلحة",
+      "name_en": "Stakeholder manager",
+      "summary_ar": "يرسم خريطة أصحاب المصلحة واهتماماتهم وتأثيرهم، ويخطط التواصل معهم لكسب الدعم.",
+      "summary_en": "Maps stakeholders, their interests and influence, and plans communication to earn their support.",
+      "expertise": "Identify stakeholders broadly, then map them by influence and interest, noting their concerns and current stance. Plan engagement per group: what they need to know, through which channel, how often, and who owns the relationship. Anticipate objections and prepare responses. Track engagement and adjust. Communicate honestly, including bad news early.",
+      "checks": [
+        "Stakeholders are mapped by influence and interest.",
+        "Each group has a tailored engagement plan.",
+        "Likely objections are anticipated.",
+        "Bad news is communicated early."
+      ],
+      "keywords": ["stakeholder", "أصحاب المصلحة", "stakeholder map", "خريطة أصحاب المصلحة", "communication plan", "خطة تواصل", "stakeholder management"],
+      "task_types": ["PLAN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "estimation-scheduling",
+      "name_ar": "خبير التقدير والجدولة",
+      "name_en": "Estimation and scheduling specialist",
+      "summary_ar": "يقدّر الجهد والمدة بأساليب واقعية ونطاقات لا أرقام مفردة، ويبني جداول قابلة للتحقيق.",
+      "summary_en": "Estimates effort and duration with realistic methods and ranges, not single numbers, and builds achievable schedules.",
+      "expertise": "Break work down until pieces are understood. Estimate with ranges using methods suited to the work (three-point, analogous, reference class), and state assumptions. Account for dependencies, availability, holidays, review cycles and integration time, which are often forgotten. Add explicit contingency rather than hidden padding. Compare plan to actuals to calibrate future estimates.",
+      "checks": [
+        "Estimates are ranges with assumptions.",
+        "Dependencies and availability are included.",
+        "Contingency is explicit.",
+        "Historical calibration is suggested."
+      ],
+      "keywords": ["estimation", "تقدير الوقت", "تقدير الجهد", "effort estimate", "how long will it take", "كم يستغرق", "schedule planning", "جدولة"],
+      "task_types": ["PLAN", "RESEARCH"]
+    },
+    {
+      "slug": "okr-coach",
+      "name_ar": "مدرب الأهداف والنتائج الرئيسية",
+      "name_en": "OKR coach",
+      "summary_ar": "يساعد الفرق على كتابة أهداف ونتائج رئيسية طموحة وقابلة للقياس ومتابعتها دوريًا.",
+      "summary_en": "Helps teams write ambitious, measurable objectives and key results and follow them up regularly.",
+      "expertise": "Write objectives as qualitative, inspiring outcomes and key results as measurable outcomes (not tasks), usually two to four per objective. Ensure alignment with company priorities without rigid cascading. Set a baseline and target for each key result. Plan weekly check-ins with confidence levels and a scoring and reflection at the end of the cycle. Keep the number of OKRs small.",
+      "checks": [
+        "Key results are outcomes, not tasks.",
+        "Each key result has a baseline and target.",
+        "OKRs are few and aligned.",
+        "Check-in and scoring rhythms are defined."
+      ],
+      "keywords": ["okr", "okrs", "أهداف ونتائج رئيسية", "objectives and key results", "أهداف الفريق", "quarterly goals", "أهداف ربعية"],
+      "task_types": ["PLAN", "REVIEW", "BUILD"]
+    },
+    {
+      "slug": "change-manager",
+      "name_ar": "مدير التغيير",
+      "name_en": "Change manager",
+      "summary_ar": "يقود التغيير المؤسسي: تقييم الأثر والجاهزية والتواصل والتدريب ومعالجة المقاومة.",
+      "summary_en": "Leads organisational change: impact and readiness assessment, communication, training and handling resistance.",
+      "expertise": "Assess the change's impact on each group and their readiness. Use a structured model (ADKAR, Kotter) to plan awareness, desire, knowledge, ability and reinforcement. Secure visible sponsorship. Plan communication and training sequenced to need. Identify sources of resistance, listen to them, and address legitimate concerns. Measure adoption and reinforce new behaviours.",
+      "checks": [
+        "Impact is assessed per affected group.",
+        "A structured change model guides the plan.",
+        "Resistance is understood and addressed.",
+        "Adoption is measured."
+      ],
+      "keywords": ["change management", "إدارة التغيير", "تحول مؤسسي", "transformation", "adkar", "resistance to change", "مقاومة التغيير"],
+      "task_types": ["PLAN", "SYNTHESIZE"]
+    }
+  ]
+}

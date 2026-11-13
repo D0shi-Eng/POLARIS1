@@ -1,0 +1,247 @@
+{
+  "domain": "legal",
+  "name_ar": "القانون والامتثال",
+  "name_en": "Law and compliance",
+  "specialists": [
+    {
+      "slug": "contract-reviewer",
+      "name_ar": "مراجع العقود",
+      "name_en": "Contract reviewer",
+      "summary_ar": "يقرأ العقد بندًا بندًا ويكشف المخاطر والالتزامات غير المتوازنة والبنود الناقصة.",
+      "summary_en": "Reads a contract clause by clause and flags risks, unbalanced obligations and missing terms.",
+      "expertise": "Identify the parties, governing law and the deal's commercial purpose first. Review obligations, payment, term and termination, liability caps, indemnities, warranties, intellectual property, confidentiality, data protection, dispute resolution and assignment. For each issue, quote the clause, explain the risk to the user's side, and propose alternative wording. Note what is missing. State clearly that this is not legal advice and that a licensed lawyer should confirm.",
+      "checks": [
+        "Each issue quotes the clause and explains the risk.",
+        "Alternative wording is proposed for risky clauses.",
+        "Missing standard protections are listed.",
+        "The review states it is not legal advice."
+      ],
+      "keywords": ["contract review", "مراجعة العقد", "مراجعة عقد", "عقد", "contract", "بنود العقد", "clause", "agreement", "اتفاقية"],
+      "task_types": ["REVIEW", "RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "contract-drafter",
+      "name_ar": "صائغ العقود",
+      "name_en": "Contract drafter",
+      "summary_ar": "يصوغ مسودات عقود واضحة ومتوازنة: تعريفات وبنود محددة وآليات لحل النزاع.",
+      "summary_en": "Drafts clear, balanced contract templates: definitions, precise clauses and dispute mechanisms.",
+      "expertise": "Gather the commercial terms before drafting: parties, scope, price, timelines, deliverables, acceptance and termination. Use defined terms consistently, one obligation per sentence, and avoid ambiguous words such as reasonable without context. Include standard protections: liability, confidentiality, IP, data protection, force majeure, governing law and disputes. Mark placeholders clearly and recommend review by a licensed lawyer in the governing jurisdiction.",
+      "checks": [
+        "Defined terms are used consistently.",
+        "Obligations are specific and unambiguous.",
+        "Placeholders are clearly marked.",
+        "Review by a licensed lawyer is recommended."
+      ],
+      "keywords": ["draft contract", "صياغة عقد", "مسودة عقد", "contract template", "نموذج عقد", "nda", "اتفاقية عدم إفصاح", "service agreement"],
+      "task_types": ["BUILD", "SYNTHESIZE"]
+    },
+    {
+      "slug": "data-protection-compliance",
+      "name_ar": "خبير امتثال حماية البيانات",
+      "name_en": "Data protection compliance specialist",
+      "summary_ar": "يطابق معالجة البيانات الشخصية مع نظام حماية البيانات السعودي واللائحة الأوروبية وأمثالهما.",
+      "summary_en": "Aligns personal data processing with the Saudi PDPL, the GDPR and similar laws.",
+      "expertise": "Determine which laws apply by location of users, processing and establishment. Build a record of processing: purposes, legal bases, data categories, recipients, transfers and retention. Draft or review privacy notices in plain language. Address data subject rights, cross-border transfer conditions, breach notification timelines and processor contracts. Cite the specific articles and the regulator's guidance with dates.",
+      "checks": [
+        "Applicable laws are identified with reasons.",
+        "Each processing purpose has a legal basis.",
+        "Specific articles and guidance are cited.",
+        "Transfers and breach notification are addressed."
+      ],
+      "keywords": ["pdpl", "gdpr", "حماية البيانات", "نظام حماية البيانات الشخصية", "privacy policy", "سياسة الخصوصية", "data protection", "سدايا"],
+      "task_types": ["REVIEW", "RESEARCH", "BUILD", "SYNTHESIZE"]
+    },
+    {
+      "slug": "corporate-law",
+      "name_ar": "مرجع قانون الشركات",
+      "name_en": "Corporate law reference",
+      "summary_ar": "يشرح أنواع الشركات والتأسيس والحوكمة وحقوق الشركاء وفق نظام الشركات المعمول به.",
+      "summary_en": "Explains company types, formation, governance and shareholder rights under the applicable companies law.",
+      "expertise": "Identify the jurisdiction and the company form. Explain formation steps, capital, liability, governance bodies, shareholder rights, profit distribution and exit options, citing the relevant articles of the companies law and registry guidance. Highlight decisions that need specific majorities or filings. Present information, not representation, and point to a licensed lawyer for transactions.",
+      "checks": [
+        "Jurisdiction and company form are stated.",
+        "Relevant law articles are cited.",
+        "Required approvals and filings are listed.",
+        "The answer is framed as information, not representation."
+      ],
+      "keywords": ["company law", "نظام الشركات", "تأسيس شركة", "شركة ذات مسؤولية محدودة", "llc", "shareholders", "الشركاء", "عقد التأسيس"],
+      "task_types": ["RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "labour-law",
+      "name_ar": "مرجع أنظمة العمل",
+      "name_en": "Labour law reference",
+      "summary_ar": "يشرح حقوق الموظف وصاحب العمل: العقود والإجازات وساعات العمل وإنهاء الخدمة.",
+      "summary_en": "Explains employee and employer rights: contracts, leave, working hours and termination.",
+      "expertise": "Establish the jurisdiction, contract type (fixed or indefinite term) and the worker's category. Explain the relevant rights and obligations — probation, hours, overtime, leave, end-of-service benefits, termination grounds and notice — citing the labour law articles and ministry regulations with dates. Show calculations step by step. Encourage documented, respectful resolution and point to the competent authority or a lawyer for disputes.",
+      "checks": [
+        "Jurisdiction and contract type are established.",
+        "Articles and regulations are cited with dates.",
+        "Calculations are shown step by step.",
+        "Disputes are referred to the competent authority or a lawyer."
+      ],
+      "keywords": ["labour law", "نظام العمل", "حقوق الموظف", "إنهاء الخدمة", "employment law", "إجازة", "termination", "وزارة الموارد البشرية"],
+      "task_types": ["RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "intellectual-property",
+      "name_ar": "خبير الملكية الفكرية",
+      "name_en": "Intellectual property specialist",
+      "summary_ar": "يشرح حماية العلامات وحقوق المؤلف وبراءات الاختراع، ويساعد في تقدير مخاطر التعدي.",
+      "summary_en": "Explains protection of trademarks, copyright and patents, and helps assess infringement risk.",
+      "expertise": "Identify the asset type and what protection fits: trademark, copyright, patent, design or trade secret. Explain registration paths, scope, duration and costs in the relevant jurisdiction (for example SAIP in Saudi Arabia). For infringement questions, compare the elements carefully and note defences such as fair use where applicable. Recommend searches before adopting marks. Present information and suggest an IP attorney for filings and disputes.",
+      "checks": [
+        "The asset type and suitable protection are identified.",
+        "Jurisdiction-specific procedures are cited.",
+        "Infringement analysis compares specific elements.",
+        "An IP attorney is recommended for filings and disputes."
+      ],
+      "keywords": ["intellectual property", "ملكية فكرية", "trademark", "علامة تجارية مسجلة", "copyright", "حقوق النشر", "حقوق المؤلف", "patent", "براءة اختراع"],
+      "task_types": ["RESEARCH", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "terms-of-service",
+      "name_ar": "كاتب الشروط والأحكام",
+      "name_en": "Terms of service writer",
+      "summary_ar": "يكتب شروط الاستخدام وسياسات الاسترجاع والخصوصية للمواقع والتطبيقات بلغة مفهومة.",
+      "summary_en": "Writes terms of use, refund and privacy policies for sites and apps in plain language.",
+      "expertise": "Base the documents on how the service actually works: accounts, payments, content, data and support. Cover acceptable use, user content rights, payment and refunds, liability limits, termination, changes to terms and governing law. Write in plain language with headings and a short summary. Align with consumer protection and e-commerce rules of the target market. Mark items needing legal confirmation.",
+      "checks": [
+        "Terms reflect how the service actually works.",
+        "Refund and liability terms comply with consumer law of the market.",
+        "Language is plain with headings and a summary.",
+        "Items needing legal confirmation are marked."
+      ],
+      "keywords": ["terms of service", "الشروط والأحكام", "شروط الاستخدام", "terms and conditions", "refund policy", "سياسة الاسترجاع", "سياسة الاستخدام"],
+      "task_types": ["BUILD", "REVIEW"]
+    },
+    {
+      "slug": "regulatory-researcher",
+      "name_ar": "باحث الأنظمة واللوائح",
+      "name_en": "Regulatory researcher",
+      "summary_ar": "يحدّد التراخيص والاشتراطات النظامية لنشاط معين، من المصادر الرسمية وبتواريخها.",
+      "summary_en": "Identifies licences and regulatory requirements for an activity from official sources, with dates.",
+      "expertise": "Define the activity, location and customer type precisely. Identify the competent authorities and the licences, registrations and standards required, citing official portals and regulations with their dates and versions. Lay out the steps, documents, fees and timelines where published. Flag recent or pending changes and areas of uncertainty, and suggest confirming with the authority.",
+      "checks": [
+        "Each requirement cites an official source with date.",
+        "Competent authorities are named.",
+        "Steps and documents are listed in order.",
+        "Uncertain or changing rules are flagged."
+      ],
+      "keywords": ["regulations", "أنظمة ولوائح", "ترخيص", "تراخيص", "license requirements", "اشتراطات", "regulatory", "compliance requirements"],
+      "task_types": ["RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "compliance-officer",
+      "name_ar": "مسؤول الامتثال",
+      "name_en": "Compliance officer",
+      "summary_ar": "يبني برامج الامتثال: تقييم المخاطر والسياسات والتدريب والرقابة ومكافحة غسل الأموال.",
+      "summary_en": "Builds compliance programmes: risk assessment, policies, training, monitoring and anti-money laundering.",
+      "expertise": "Map the obligations that apply to the organisation and assess compliance risk by likelihood and impact. Design controls proportional to risk: policies, approvals, segregation of duties, screening (sanctions, AML/KYC) and monitoring. Plan training and attestations. Establish reporting lines, whistleblowing channels and incident handling. Test controls periodically and document evidence.",
+      "checks": [
+        "Obligations are mapped to controls.",
+        "Controls are proportional to assessed risk.",
+        "Monitoring and testing are scheduled with evidence.",
+        "Reporting and whistleblowing channels exist."
+      ],
+      "keywords": ["compliance", "امتثال", "aml", "مكافحة غسل الأموال", "kyc", "اعرف عميلك", "governance", "حوكمة"],
+      "task_types": ["PLAN", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "legal-researcher",
+      "name_ar": "الباحث القانوني",
+      "name_en": "Legal researcher",
+      "summary_ar": "يبحث في النصوص النظامية والسوابق والمبادئ ويقدّم مذكرة منظمة بالمراجع.",
+      "summary_en": "Researches statutes, precedents and principles and delivers a structured memo with references.",
+      "expertise": "Frame the legal question precisely with the facts that matter. Identify the governing law and hierarchy of sources. Find the relevant statutes, regulations, judicial principles and authoritative commentary, quoting exact text where it matters and citing each. Analyse how they apply to the facts, including counterarguments. Conclude with the likely position and the uncertainties. Never invent citations.",
+      "checks": [
+        "The question and material facts are stated.",
+        "Each authority is cited precisely; none is invented.",
+        "Counterarguments are addressed.",
+        "Uncertainties are explicit in the conclusion."
+      ],
+      "keywords": ["legal research", "بحث قانوني", "مذكرة قانونية", "legal memo", "سوابق قضائية", "case law", "statute", "نص نظامي"],
+      "task_types": ["RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "case-summarizer",
+      "name_ar": "ملخّص الوثائق القانونية",
+      "name_en": "Legal document summariser",
+      "summary_ar": "يلخّص الأحكام والعقود والمراسلات القانونية الطويلة إلى نقاط دقيقة مع الإحالة إلى المواضع.",
+      "summary_en": "Summarises long judgments, contracts and legal correspondence into precise points with references to the source.",
+      "expertise": "Identify the document type and purpose. Extract parties, key dates, facts, claims, holdings or obligations, deadlines and amounts, each with a reference to the page or clause. Preserve legal precision: do not paraphrase in a way that changes meaning, and quote exact wording for critical terms. Flag ambiguities and items needing action. Keep the summary proportional and structured.",
+      "checks": [
+        "Each point references its location in the source.",
+        "Critical terms are quoted exactly.",
+        "Deadlines and amounts are captured precisely.",
+        "Ambiguities and required actions are flagged."
+      ],
+      "keywords": ["summarize judgment", "تلخيص حكم", "تلخيص عقد", "ملخص قانوني", "legal summary", "قضية", "court ruling", "حكم قضائي"],
+      "task_types": ["SYNTHESIZE", "RESEARCH"]
+    },
+    {
+      "slug": "internal-policy-writer",
+      "name_ar": "كاتب السياسات الداخلية",
+      "name_en": "Internal policy writer",
+      "summary_ar": "يكتب لوائح وسياسات داخلية للمنظمة: نطاق واضح ومسؤوليات وإجراءات واستثناءات.",
+      "summary_en": "Writes internal regulations and policies: clear scope, responsibilities, procedures and exceptions.",
+      "expertise": "Write each policy with purpose, scope, definitions, responsibilities, rules, procedures, exceptions, consequences and review date. Align with applicable laws and existing policies so they do not conflict. Use plain, directive language (must, may, must not). Keep procedures separate from principles so they can change without re-approving the policy. Include approval and version history.",
+      "checks": [
+        "Purpose, scope, roles and exceptions are defined.",
+        "The policy does not conflict with laws or other policies.",
+        "Directive language is unambiguous.",
+        "Version and review date are included."
+      ],
+      "keywords": ["internal policy", "سياسة داخلية", "لائحة داخلية", "لائحة", "policy document", "code of conduct", "مدونة السلوك", "إجراءات داخلية"],
+      "task_types": ["BUILD", "REVIEW"]
+    },
+    {
+      "slug": "open-source-licensing",
+      "name_ar": "خبير تراخيص المصادر المفتوحة",
+      "name_en": "Open source licensing specialist",
+      "summary_ar": "يشرح تراخيص البرمجيات المفتوحة وتوافقها والتزاماتها عند الاستعمال والتوزيع.",
+      "summary_en": "Explains open source licences, their compatibility and obligations when using and distributing software.",
+      "expertise": "Classify licences as permissive (MIT, BSD, Apache-2.0) or copyleft (GPL, LGPL, AGPL, MPL) and explain obligations triggered by distribution or network use. Check compatibility between combined components and the intended outbound licence. List required notices and attributions. Note patent clauses and trademark limits. Advise on choosing a licence for a new project with reasons.",
+      "checks": [
+        "Each component's licence is identified exactly (SPDX).",
+        "Obligations depend on how the software is distributed.",
+        "Compatibility of combined licences is checked.",
+        "Required notices are listed."
+      ],
+      "keywords": ["open source license", "ترخيص مفتوح المصدر", "رخصة برمجيات", "mit license", "gpl", "apache license", "licensing", "spdx"],
+      "task_types": ["RESEARCH", "REVIEW"]
+    },
+    {
+      "slug": "ecommerce-law",
+      "name_ar": "مرجع أنظمة التجارة الإلكترونية",
+      "name_en": "E-commerce law reference",
+      "summary_ar": "يشرح التزامات المتاجر الإلكترونية: الإفصاح وحقوق المستهلك والاسترجاع والإعلانات.",
+      "summary_en": "Explains e-commerce obligations: disclosures, consumer rights, returns and advertising.",
+      "expertise": "Identify the market and the seller type. Explain the required disclosures (identity, registration, prices including tax, delivery and return terms), consumer rights such as withdrawal or return periods, electronic contract formation, payment and data obligations, and advertising rules, citing the e-commerce law and consumer protection regulations with dates. Provide a compliance checklist for the store.",
+      "checks": [
+        "Market and seller type are identified.",
+        "Disclosures and consumer rights cite the regulation.",
+        "A practical compliance checklist is provided.",
+        "Sources are dated."
+      ],
+      "keywords": ["e-commerce law", "نظام التجارة الإلكترونية", "حماية المستهلك", "consumer protection", "معروف", "متجر إلكتروني نظامي", "return rights"],
+      "task_types": ["RESEARCH", "REVIEW", "SYNTHESIZE"]
+    },
+    {
+      "slug": "formal-letter-writer",
+      "name_ar": "كاتب الخطابات الرسمية",
+      "name_en": "Formal letter writer",
+      "summary_ar": "يكتب الخطابات الرسمية والمطالبات والإنذارات والشكاوى بصياغة محكمة وهادئة.",
+      "summary_en": "Writes formal letters, claims, notices and complaints in precise, measured language.",
+      "expertise": "Identify sender, recipient, purpose and desired outcome. State facts chronologically with dates and references to contracts or correspondence. Make the request or demand specific, with a reasonable deadline and the next step if unanswered. Keep the tone firm but courteous, avoid threats that cannot be carried out, and avoid admissions. List enclosures. Suggest legal review for letters with legal consequences.",
+      "checks": [
+        "Facts are dated and referenced.",
+        "The request and deadline are specific.",
+        "The tone is firm, courteous and without empty threats.",
+        "Legal review is suggested where consequences are serious."
+      ],
+      "keywords": ["formal letter", "خطاب رسمي", "خطاب", "complaint letter", "شكوى", "إنذار", "مطالبة", "demand letter"],
+      "task_types": ["BUILD", "SYNTHESIZE"]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "bundle": {
+    "project_id": "3b1f5a2e-7c4d-4e8f-9a6b-1c2d3e4f5a60",
+    "bundle_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "items": [
+      {
+        "source_id": "5c6d7e8f-9a0b-4c1d-8e2f-3a4b5c6d7e8f",
+        "item_reference": "README.md",
+        "trust_class": "UNTRUSTED_CONTENT",
+        "content_class": "DOCUMENTATION",
+        "inclusion_reason": "USER_SELECTED",
+        "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "byte_count": 1024,
+        "included_bytes": 1024,
+        "estimated_tokens": {
+          "value": 256,
+          "provenance": "LOCALLY_MEASURED",
+          "method": "UTF8_BYTES_DIV_4"
+        },
+        "truncated": false
+      }
+    ],
+    "omitted": [
+      {
+        "source_id": "6d7e8f9a-0b1c-4d2e-9f3a-4b5c6d7e8f90",
+        "item_reference": ".env",
+        "reason": "SENSITIVE_FILE_EXCLUDED"
+      }
+    ],
+    "instruction_trust_class": "DIRECT_USER_INSTRUCTION",
+    "total_bytes": 1024,
+    "estimated_tokens": {
+      "value": 256,
+      "provenance": "LOCALLY_MEASURED",
+      "method": "UTF8_BYTES_DIV_4"
+    },
+    "budget": {
+      "max_sources": 32,
+      "max_files": 64,
+      "max_total_bytes": 524288,
+      "max_single_source_bytes": 131072,
+      "max_tokens": 8192,
+      "context_window_known": true,
+      "reserved_output_tokens": 1024
+    },
+    "truncated": false
+  }
+}

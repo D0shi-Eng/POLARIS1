@@ -1,0 +1,1082 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase06ResultPayloadV1",
+  "description": "The closed set of result payloads the thirty Phase-06 operations return. No result carries a credential value, a raw connector body, a free URL chosen by an agent, or an unlabelled estimate.",
+  "$comment": "ما يعبر: معرّفات وحالات ورموز وأعداد ومبالغ بمصادرها وملخّصات محدودة. القيمة السرّية والجسم الخام يبقيان في المضيف.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/ConnectorListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorRemoveResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorTestResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorCredentialResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorOpenapiImportResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorPresetListResultV1"
+    },
+    {
+      "$ref": "#/$defs/UsageSummaryResultV1"
+    },
+    {
+      "$ref": "#/$defs/UsageListResultV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetListResultV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetRemoveResultV1"
+    },
+    {
+      "$ref": "#/$defs/PricingListResultV1"
+    },
+    {
+      "$ref": "#/$defs/PricingSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/PricingRemoveResultV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityHealthResultV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityEventsResultV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityMetricsResultV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityErrorsResultV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityAlertsResultV1"
+    },
+    {
+      "$ref": "#/$defs/DiagnosticsExportResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigDescribeResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigEffectiveResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigSetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigResetResultV1"
+    }
+  ],
+  "$defs": {
+    "ConnectorListResultV1": {
+      "title": "ConnectorListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connectors",
+        "unreadable"
+      ],
+      "properties": {
+        "connectors": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorViewV1"
+          }
+        },
+        "unreadable": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "ConnectorGetResultV1": {
+      "title": "ConnectorGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector",
+        "operations",
+        "invocations"
+      ],
+      "properties": {
+        "connector": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorViewV1"
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationViewV1"
+          }
+        },
+        "invocations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 20,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorInvocationV1"
+          }
+        }
+      }
+    },
+    "ConnectorResultV1": {
+      "title": "ConnectorResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector"
+      ],
+      "properties": {
+        "connector": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorViewV1"
+        }
+      }
+    },
+    "ConnectorRemoveResultV1": {
+      "title": "ConnectorRemoveResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id",
+        "removed",
+        "tools_removed"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "removed": {
+          "type": "boolean"
+        },
+        "tools_removed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        }
+      }
+    },
+    "ConnectorTestResultV1": {
+      "title": "ConnectorTestResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id",
+        "health"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "probe_operation": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+        },
+        "health": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthRecordV1"
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        }
+      }
+    },
+    "ConnectorCredentialResultV1": {
+      "title": "ConnectorCredentialResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id",
+        "outcome",
+        "auth"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "STORED",
+            "CLEARED",
+            "PROMPT_CANCELLED",
+            "STORE_UNAVAILABLE",
+            "NOT_APPLICABLE",
+            "NOTHING_TO_CLEAR"
+          ]
+        },
+        "auth": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorAuthStateV1"
+        }
+      }
+    },
+    "ConnectorOpenapiImportResultV1": {
+      "title": "ConnectorOpenapiImportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "import_id",
+        "title",
+        "operations",
+        "rejected",
+        "spec_digest",
+        "status"
+      ],
+      "properties": {
+        "import_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "suggested_base_url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorOperationV1"
+          }
+        },
+        "rejected": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 400,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/RejectedOperationV1"
+          }
+        },
+        "spec_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "status": {
+          "const": "PROPOSED"
+        }
+      },
+      "description": "Proposed operations and every rejected one with its reason. Document text is shown as data; nothing is enabled."
+    },
+    "UsageSummaryResultV1": {
+      "title": "UsageSummaryResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "day",
+        "today",
+        "mission",
+        "project",
+        "by_provider",
+        "by_model",
+        "by_connector",
+        "by_category",
+        "show_estimated",
+        "provenance_vocabulary",
+        "note"
+      ],
+      "properties": {
+        "day": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "today": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+        },
+        "mission": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "project": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "by_provider": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+          }
+        },
+        "by_model": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+          }
+        },
+        "by_connector": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+          }
+        },
+        "by_category": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 5,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageTotalsV1"
+          }
+        },
+        "show_estimated": {
+          "type": "boolean"
+        },
+        "provenance_vocabulary": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/CostProvenance"
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "UsageListResultV1": {
+      "title": "UsageListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "records"
+      ],
+      "properties": {
+        "records": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageRecordV1"
+          }
+        }
+      }
+    },
+    "BudgetListResultV1": {
+      "title": "BudgetListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budgets"
+      ],
+      "properties": {
+        "budgets": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "title": "BudgetStatusV1",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "budget",
+              "window",
+              "usage",
+              "limit_display",
+              "used_display"
+            ],
+            "properties": {
+              "budget": {
+                "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetV1"
+              },
+              "window": {
+                "type": "string",
+                "enum": [
+                  "LIFETIME",
+                  "UTC_DAY"
+                ]
+              },
+              "usage": {
+                "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetUseV1"
+              },
+              "limit_display": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "used_display": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              }
+            }
+          }
+        }
+      }
+    },
+    "BudgetSetResultV1": {
+      "title": "BudgetSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget",
+        "limit_display"
+      ],
+      "properties": {
+        "budget": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetV1"
+        },
+        "limit_display": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        }
+      }
+    },
+    "BudgetRemoveResultV1": {
+      "title": "BudgetRemoveResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget_id",
+        "removed"
+      ],
+      "properties": {
+        "budget_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "removed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PricingListResultV1": {
+      "title": "PricingListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entries"
+      ],
+      "properties": {
+        "entries": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 400,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingViewV1"
+          }
+        }
+      }
+    },
+    "PricingSetResultV1": {
+      "title": "PricingSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry"
+      ],
+      "properties": {
+        "entry": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingViewV1"
+        }
+      }
+    },
+    "PricingRemoveResultV1": {
+      "title": "PricingRemoveResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pricing_id",
+        "removed"
+      ],
+      "properties": {
+        "pricing_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "removed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ObservabilityHealthResultV1": {
+      "title": "ObservabilityHealthResultV1",
+      "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthOverviewV1"
+    },
+    "ObservabilityEventsResultV1": {
+      "title": "ObservabilityEventsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events",
+        "label"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ObsEventV1"
+          }
+        },
+        "label": {
+          "const": "STRUCTURED EVENTS — DIAGNOSTIC, NOT AUDIT"
+        }
+      }
+    },
+    "ObservabilityMetricsResultV1": {
+      "title": "ObservabilityMetricsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metrics",
+        "queue_depths"
+      ],
+      "properties": {
+        "metrics": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/MetricsSnapshotV1"
+        },
+        "queue_depths": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/QueueDepthsV1"
+        }
+      }
+    },
+    "ObservabilityErrorsResultV1": {
+      "title": "ObservabilityErrorsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "errors_by_code",
+        "overflow",
+        "distinct_keys",
+        "scope"
+      ],
+      "properties": {
+        "errors_by_code": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ErrorGroupV1"
+          }
+        },
+        "overflow": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "distinct_keys": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200
+        },
+        "scope": {
+          "const": "SINCE_START"
+        }
+      }
+    },
+    "ObservabilityAlertsResultV1": {
+      "title": "ObservabilityAlertsResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alerts"
+      ],
+      "properties": {
+        "alerts": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/AlertV1"
+          }
+        }
+      }
+    },
+    "DiagnosticsExportResultV1": {
+      "title": "DiagnosticsExportResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "bytes",
+        "level",
+        "sections",
+        "redactions",
+        "document"
+      ],
+      "properties": {
+        "file_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^polaris-diagnostics-[0-9]{14}\\.json$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4194304
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "MINIMAL",
+            "STANDARD",
+            "DETAILED"
+          ]
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 12,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          }
+        },
+        "redactions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "document": {
+          "title": "DiagnosticsDocumentV1",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "generated_at",
+            "level",
+            "label",
+            "versions",
+            "health",
+            "recent_reason_codes",
+            "redactions"
+          ],
+          "properties": {
+            "schema": {
+              "const": "polaris.diagnostics.v1"
+            },
+            "generated_at": {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            "level": {
+              "type": "string",
+              "enum": [
+                "MINIMAL",
+                "STANDARD",
+                "DETAILED"
+              ]
+            },
+            "label": {
+              "const": "LOCAL DIAGNOSTICS — REDACTED, NO SECRETS"
+            },
+            "versions": {
+              "title": "DiagnosticsVersionsV1",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "app",
+                "ipc_protocol",
+                "contract",
+                "storage_schema",
+                "config_schema"
+              ],
+              "properties": {
+                "app": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "ipc_protocol": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 10
+                },
+                "contract": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 10
+                },
+                "storage_schema": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "config_schema": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "health": {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthOverviewV1"
+            },
+            "recent_reason_codes": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 500,
+              "items": {
+                "title": "ReasonCountV1",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "component",
+                  "reason_code",
+                  "count"
+                ],
+                "properties": {
+                  "component": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/Component"
+                  },
+                  "reason_code": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                }
+              }
+            },
+            "config_summary": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 200,
+              "items": {
+                "title": "ConfigSummaryItemV1",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "key",
+                  "value",
+                  "source"
+                ],
+                "properties": {
+                  "key": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+                  },
+                  "value": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+                  },
+                  "source": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/ValueSource"
+                  }
+                }
+              }
+            },
+            "sensitive": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 200,
+              "items": {
+                "$ref": "./desktop-p06-domain.schema.json#/$defs/SensitiveStatusV1"
+              }
+            },
+            "metrics": {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/MetricsSnapshotV1"
+            },
+            "queue_depths": {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/QueueDepthsV1"
+            },
+            "alerts": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 200,
+              "items": {
+                "$ref": "./desktop-p06-domain.schema.json#/$defs/AlertV1"
+              }
+            },
+            "connectors": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 200,
+              "items": {
+                "title": "DiagnosticsConnectorV1",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "connector_id",
+                  "provider",
+                  "category",
+                  "egress_class",
+                  "enabled",
+                  "operations"
+                ],
+                "properties": {
+                  "connector_id": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+                  },
+                  "provider": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorProvider"
+                  },
+                  "category": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCategory"
+                  },
+                  "egress_class": {
+                    "$ref": "./desktop-p06-domain.schema.json#/$defs/EgressClass"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "operations": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 32
+                  }
+                }
+              }
+            },
+            "performance": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "redactions": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        }
+      },
+      "description": "A bounded, redacted local diagnostics document. It carries codes, states and counts; no secret, header, prompt, page or connector payload."
+    },
+    "ConfigDescribeResultV1": {
+      "title": "ConfigDescribeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sections",
+        "status",
+        "layers"
+      ],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "minItems": 19,
+          "maxItems": 19,
+          "items": {
+            "title": "ConfigSectionV1",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section",
+              "label_key",
+              "settings"
+            ],
+            "properties": {
+              "section": {
+                "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigSection"
+              },
+              "label_key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "settings": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 32,
+                "items": {
+                  "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingDescriptorV1"
+                }
+              }
+            }
+          }
+        },
+        "status": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigStatusV1"
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+          }
+        }
+      }
+    },
+    "ConfigEffectiveResultV1": {
+      "title": "ConfigEffectiveResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "values",
+        "status",
+        "sensitive"
+      ],
+      "properties": {
+        "scope": {
+          "title": "ConfigScopeV1",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "project_id",
+            "mission_id"
+          ],
+          "properties": {
+            "project_id": {
+              "anyOf": [
+                {
+                  "$ref": "./common/ids.schema.json#/$defs/Uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "mission_id": {
+              "anyOf": [
+                {
+                  "$ref": "./common/ids.schema.json#/$defs/Uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "values": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ResolvedValueV1"
+          }
+        },
+        "status": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigStatusV1"
+        },
+        "sensitive": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/SensitiveStatusV1"
+          }
+        }
+      }
+    },
+    "ConfigSetResultV1": {
+      "title": "ConfigSetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "layer",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        },
+        "layer": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+        },
+        "value": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ResolvedValueV1"
+        }
+      }
+    },
+    "ConfigResetResultV1": {
+      "title": "ConfigResetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "layer",
+        "removed",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        },
+        "layer": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+        },
+        "removed": {
+          "type": "boolean"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/ResolvedValueV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ConnectorPresetListResultV1": {
+      "title": "ConnectorPresetListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "presets"
+      ],
+      "properties": {
+        "presets": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 64,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorPresetV1"
+          }
+        }
+      }
+    }
+  }
+}

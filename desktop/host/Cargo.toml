@@ -1,0 +1,18 @@
+# مساحة عمل المضيف الأصلي. الفصل بين core و app مقصود:
+# core لا يعرف Tauri ولا نافذة ولا نظام تشغيل بعينه، فيُختبر على أي مضيف؛
+# و app هو الربط الرقيق الوحيد بالإطار، وهو وحده ما يحتاج Windows وWebView2.
+[workspace]
+members = ["providers", "core", "app", "maint", "win", "harness"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.89"
+publish = false
+license = "AGPL-3.0-or-later"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+boon = "0.6"

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopRequestPayloadV1",
+  "description": "The closed set of request payloads the five Phase-01 desktop operations accept. Every payload is a closed object; there is no Record<string, unknown> escape hatch and no arbitrary JSON anywhere in the set.",
+  "$comment": "الاتحاد هنا يعطي المجموعة اسمًا وملفًا واحدًا. سلطة الربط بين العملية وحمولتها ليست هنا بل في IPCEnvelopeV1: هناك يُقيَّد كل operation بحمولته بالضبط، وهنا تُعرَّف الأشكال وتُولَّد أنواعها.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/DesktopBootstrapRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopRuntimeStatusRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopCapabilityAvailabilityRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopSettingsDescribeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DesktopSettingsReadRequestV1"
+    }
+  ],
+  "$defs": {
+    "DesktopBootstrapRequestV1": {
+      "title": "DesktopBootstrapRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {},
+      "description": "Bootstrap takes no parameters. It is an empty closed object rather than an absent payload: the envelope already requires `payload`, and a closed empty object states that nothing may be smuggled in beside it. The contract version travels on the envelope, so the payload does not restate it."
+    },
+    "DesktopRuntimeStatusRequestV1": {
+      "title": "DesktopRuntimeStatusRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {},
+      "description": "Runtime status takes no parameters, for the same reason as bootstrap."
+    },
+    "DesktopCapabilityAvailabilityRequestV1": {
+      "title": "DesktopCapabilityAvailabilityRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_ids"
+      ],
+      "properties": {
+        "capability_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./common/ids.schema.json#/$defs/Slug"
+          },
+          "description": "A bounded, explicit query. There is deliberately no 'all capabilities' wildcard: an unbounded query is a small dispatcher."
+        }
+      }
+    },
+    "DesktopSettingsDescribeRequestV1": {
+      "title": "DesktopSettingsDescribeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "section_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./desktop-settings.schema.json#/$defs/SettingSectionId"
+          },
+          "description": "Restricts the description to the named sections. Absent means the whole tree, which is bounded by the host's own section catalogue and not by the caller."
+        }
+      }
+    },
+    "DesktopSettingsReadRequestV1": {
+      "title": "DesktopSettingsReadRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_id"
+      ],
+      "properties": {
+        "section_id": {
+          "$ref": "./desktop-settings.schema.json#/$defs/SettingSectionId"
+        },
+        "setting_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./desktop-settings.schema.json#/$defs/SettingId"
+          },
+          "description": "Restricts the read to named settings inside the section. Absent means the whole section."
+        }
+      },
+      "description": "Reads one named section. A read spanning sections is not expressible, so a single request can never become a settings dump."
+    }
+  }
+}

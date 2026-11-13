@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase05ResultPayloadV1",
+  "description": "The closed set of result payloads the twelve Phase-05 operations return. No result carries a page body, pixels, a free file path, a credential, or hidden model reasoning.",
+  "$comment": "ما يعبر: معرّفات وحالات وأصناف وبصمات ونصوص محدودة. المحتوى الخام يبقى في المضيف.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/MemoryListResultV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryDeleteResultV1"
+    },
+    {
+      "$ref": "#/$defs/BrowserSessionListResultV1"
+    },
+    {
+      "$ref": "#/$defs/BrowserSessionGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/SessionCancelResultV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerSessionListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerSessionGetResultV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerWindowListResultV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerTargetGrantResultV1"
+    },
+    {
+      "$ref": "#/$defs/ComputerTargetRevokeResultV1"
+    }
+  ],
+  "$defs": {
+    "MemoryListResultV1": {
+      "title": "MemoryListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memories",
+        "label"
+      ],
+      "properties": {
+        "memories": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryViewV1"
+          }
+        },
+        "label": {
+          "const": "MEMORY — UNTRUSTED / NON-AUTHORITATIVE"
+        }
+      },
+      "description": "Memory entries and the constant label that says none of them is truth."
+    },
+    "MemoryGetResultV1": {
+      "title": "MemoryGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory",
+        "conflicts"
+      ],
+      "properties": {
+        "memory": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryDetailViewV1"
+        },
+        "conflicts": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/MemoryConflictViewV1"
+          }
+        }
+      },
+      "description": "One memory entry and every conflict it takes part in."
+    },
+    "MemoryDeleteResultV1": {
+      "title": "MemoryDeleteResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id",
+        "deleted",
+        "status"
+      ],
+      "properties": {
+        "memory_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "status": {
+          "const": "DELETED"
+        }
+      },
+      "description": "Whether this call deleted the entry. A second delete reports false."
+    },
+    "BrowserSessionListResultV1": {
+      "title": "BrowserSessionListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessions"
+      ],
+      "properties": {
+        "sessions": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/BrowserSessionViewV1"
+          }
+        }
+      },
+      "description": "Browser sessions."
+    },
+    "BrowserSessionGetResultV1": {
+      "title": "BrowserSessionGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session",
+        "actions",
+        "downloads"
+      ],
+      "properties": {
+        "session": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/BrowserSessionViewV1"
+        },
+        "actions": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/BrowserActionViewV1"
+          }
+        },
+        "downloads": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/DownloadViewV1"
+          }
+        }
+      },
+      "description": "One browser session with its history."
+    },
+    "SessionCancelResultV1": {
+      "title": "SessionCancelResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id",
+        "state"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/SessionState"
+        }
+      },
+      "description": "The session state after the stop."
+    },
+    "ComputerSessionListResultV1": {
+      "title": "ComputerSessionListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessions"
+      ],
+      "properties": {
+        "sessions": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/ComputerSessionViewV1"
+          }
+        }
+      },
+      "description": "Computer sessions."
+    },
+    "ComputerSessionGetResultV1": {
+      "title": "ComputerSessionGetResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session",
+        "actions",
+        "observations"
+      ],
+      "properties": {
+        "session": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/ComputerSessionViewV1"
+        },
+        "actions": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/ComputerActionViewV1"
+          }
+        },
+        "observations": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/ObservationViewV1"
+          }
+        }
+      },
+      "description": "One computer session with its actions and bounded observation digests."
+    },
+    "ComputerWindowListResultV1": {
+      "title": "ComputerWindowListResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "windows",
+        "grants"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "windows": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/DesktopWindowViewV1"
+          }
+        },
+        "grants": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "./desktop-p05-domain.schema.json#/$defs/TargetViewV1"
+          }
+        }
+      },
+      "description": "Whether desktop control exists on this host, the visible windows, and one mission grants."
+    },
+    "ComputerTargetGrantResultV1": {
+      "title": "ComputerTargetGrantResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant"
+      ],
+      "properties": {
+        "grant": {
+          "$ref": "./desktop-p05-domain.schema.json#/$defs/TargetViewV1"
+        }
+      },
+      "description": "The grant, with the identity the host read."
+    },
+    "ComputerTargetRevokeResultV1": {
+      "title": "ComputerTargetRevokeResultV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "revoked"
+      ],
+      "properties": {
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "revoked": {
+          "type": "boolean"
+        }
+      },
+      "description": "Whether this call revoked the grant."
+    }
+  }
+}

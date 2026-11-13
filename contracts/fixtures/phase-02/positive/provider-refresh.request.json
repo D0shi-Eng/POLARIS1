@@ -1,0 +1,6 @@
+{
+  "provider_ids": [
+    "lm-studio",
+    "ollama"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisCallerIdentity",
+  "description": "Who is asking. Never optional at a trust boundary.",
+  "$comment": "هوية المستدعي إلزامية عند كل حد ثقة. لا يجوز اختزالها في user_id.",
+  "$defs": {
+    "CallerType": {
+      "title": "CallerType",
+      "type": "string",
+      "enum": [
+        "CORE_UI",
+        "USER",
+        "AGENT",
+        "PLUGIN",
+        "SYSTEM"
+      ],
+      "description": "Class of principal. Closed set: an unknown caller type is a contract violation, not an extension point."
+    },
+    "TrustTier": {
+      "title": "TrustTier",
+      "type": "string",
+      "enum": [
+        "TIER_0_TRUSTED",
+        "TIER_1_LIMITED",
+        "TIER_2_UNTRUSTED"
+      ],
+      "description": "Disclosure tier. Internal policy reasoning is withheld from TIER_2_UNTRUSTED callers."
+    },
+    "PrincipalRef": {
+      "title": "PrincipalRef",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "caller_type",
+        "principal_id"
+      ],
+      "properties": {
+        "caller_type": {
+          "$ref": "#/$defs/CallerType"
+        },
+        "principal_id": {
+          "$ref": "./ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Non-recursive reference to a principal. Used for one delegation hop."
+    },
+    "CallerIdentity": {
+      "title": "CallerIdentity",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "caller_type",
+        "principal_id",
+        "trust_tier",
+        "session_id"
+      ],
+      "properties": {
+        "caller_type": {
+          "$ref": "#/$defs/CallerType"
+        },
+        "principal_id": {
+          "$ref": "./ids.schema.json#/$defs/Uuid"
+        },
+        "trust_tier": {
+          "$ref": "#/$defs/TrustTier"
+        },
+        "session_id": {
+          "$ref": "./ids.schema.json#/$defs/Uuid"
+        },
+        "on_behalf_of": {
+          "$ref": "#/$defs/PrincipalRef",
+          "description": "Delegation is explicit and exactly one hop deep. Deeper chains require a contract revision, not nesting."
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "AGENT و PLUGIN لا يجوز أن يكونا Tier-0.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "caller_type": {
+                "enum": [
+                  "AGENT",
+                  "PLUGIN"
+                ]
+              }
+            },
+            "required": [
+              "caller_type"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "trust_tier": {
+                "enum": [
+                  "TIER_1_LIMITED",
+                  "TIER_2_UNTRUSTED"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$comment": "الوكيل والإضافة يعملان دائمًا نيابةً عن مبدأ معروف.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "caller_type": {
+                "enum": [
+                  "AGENT",
+                  "PLUGIN"
+                ]
+              }
+            },
+            "required": [
+              "caller_type"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "on_behalf_of"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

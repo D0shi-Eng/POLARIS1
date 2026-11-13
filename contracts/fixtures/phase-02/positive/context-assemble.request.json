@@ -1,0 +1,9 @@
+{
+  "project_id": "3b1f5a2e-7c4d-4e8f-9a6b-1c2d3e4f5a60",
+  "source_ids": [
+    "5c6d7e8f-9a0b-4c1d-8e2f-3a4b5c6d7e8f",
+    "6d7e8f9a-0b1c-4d2e-9f3a-4b5c6d7e8f90"
+  ],
+  "instruction": "Summarise",
+  "max_tokens": 4096
+}

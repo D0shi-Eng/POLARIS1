@@ -1,0 +1,2 @@
+POLARIS W1 fixture OUTSIDE file. Must remain untouched.
+CANARY_OUTSIDE=11c9a730-outside-untouched

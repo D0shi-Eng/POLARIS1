@@ -1,0 +1,109 @@
+{
+  "models": [
+    {
+      "model_id": "lm-studio:fixture-model-7b",
+      "provider_id": "lm-studio",
+      "provider_model_id": "fixture-model-7b",
+      "display_name": {
+        "provenance": "UNKNOWN"
+      },
+      "kind": "CHAT",
+      "family": {
+        "provenance": "UNKNOWN"
+      },
+      "vendor": {
+        "value": "fixture-lab",
+        "provenance": "PROVIDER_REPORTED"
+      },
+      "architecture": {
+        "value": "fixture-arch",
+        "provenance": "PROVIDER_REPORTED"
+      },
+      "quantization": {
+        "value": "Q4_K_M",
+        "provenance": "PROVIDER_REPORTED"
+      },
+      "parameter_count": {
+        "provenance": "UNKNOWN"
+      },
+      "context_window": {
+        "value": 32768,
+        "provenance": "PROVIDER_REPORTED"
+      },
+      "max_output_tokens": {
+        "provenance": "UNKNOWN"
+      },
+      "loaded_state": {
+        "value": "NOT_LOADED",
+        "provenance": "PROVIDER_REPORTED"
+      },
+      "capabilities": [
+        {
+          "capability": "TEXT_INPUT",
+          "support": "SUPPORTED",
+          "provenance": "PROVIDER_REPORTED"
+        },
+        {
+          "capability": "TEXT_OUTPUT",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "VISION_INPUT",
+          "support": "UNSUPPORTED",
+          "provenance": "PROVIDER_REPORTED"
+        },
+        {
+          "capability": "AUDIO_INPUT",
+          "support": "SUPPORTED",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "AUDIO_OUTPUT",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "TOOLS",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "JSON",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "JSON_SCHEMA",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "EMBEDDINGS",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "REASONING",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        {
+          "capability": "STREAMING",
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        }
+      ],
+      "locality": "LOCAL",
+      "enabled": true,
+      "availability": "AVAILABLE",
+      "stale": false,
+      "is_default": true,
+      "provider_enabled": true,
+      "provider_health": "HEALTHY",
+      "first_seen_at": "2026-09-17T10:00:00Z",
+      "last_seen_at": "2026-09-17T10:00:00Z"
+    }
+  ],
+  "preferences": {}
+}

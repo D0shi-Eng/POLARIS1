@@ -1,0 +1,1323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase08RequestPayloadV1",
+  "description": "The closed set of request payloads the Phase-08 operations accept. No payload runs a command, runs Python, drives the browser, writes into a mission workspace, reads an OAuth token or sends a message: those have one caller, the trusted mission runtime, and one path, the tool gateway.",
+  "$comment": "لا تنفيذ من العارض: لا أمر ولا Python ولا تصفّح ولا كتابة في مساحة مهمّة ولا رمز OAuth.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/WorkspaceListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/WorkspacePreviewRequestV1"
+    },
+    {
+      "$ref": "#/$defs/WorkspaceExportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentStageRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentDiscardRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentArtifactStageRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AttachmentBindRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ArtifactListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ArtifactGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionStatusRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionRunsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ExecutionRuntimePrepareRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionModelSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleSaveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleEnableRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleDeleteRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ScheduleRunNowRequestV1"
+    },
+    {
+      "$ref": "#/$defs/OauthListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/OauthConnectRequestV1"
+    },
+    {
+      "$ref": "#/$defs/OauthDisconnectRequestV1"
+    },
+    {
+      "$ref": "#/$defs/VoiceTranscribeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ShareListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ShareSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PublishListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PublishProposeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PublishDecideRequestV1"
+    },
+    {
+      "$ref": "#/$defs/SkillPackageListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/SkillPackageImportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DeviceExportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DeviceImportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/IntegrationSettingsSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationBeginRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationContinueRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationIndexRequestV1"
+    },
+    {
+      "$ref": "#/$defs/AgentCatalogRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionSpecialistSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationUpdateRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationDeleteRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ProjectDeleteRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemoryRememberRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConversationSearchRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCatalogRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCredentialPutRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCustomSaveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ProviderCustomDeleteRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionTraceRequestV1"
+    },
+    {
+      "$ref": "#/$defs/McpAcceptRedefinitionRequestV1"
+    },
+    {
+      "$ref": "#/$defs/WebSearchStatusRequestV1"
+    },
+    {
+      "$ref": "#/$defs/WebSearchCredentialPutRequestV1"
+    },
+    {
+      "$ref": "#/$defs/WebSearchTestRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionRatingSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MissionNoteAddRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalGrantsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ToolApprovalGrantRevokeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/GitHubStatusRequestV1"
+    },
+    {
+      "$ref": "#/$defs/GitHubConnectRequestV1"
+    },
+    {
+      "$ref": "#/$defs/GitHubDisconnectRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemorySemanticStatusRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemorySemanticSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/MemorySemanticTestRequestV1"
+    }
+  ],
+  "$defs": {
+    "WorkspaceListRequestV1": {
+      "title": "WorkspaceListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "path": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/WorkspacePath"
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        }
+      }
+    },
+    "WorkspacePreviewRequestV1": {
+      "title": "WorkspacePreviewRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "path"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "path": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/WorkspacePath"
+        },
+        "max_chars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200000
+        }
+      },
+      "description": "Previews one workspace file. Images return a data URL (never SVG), documents their extracted text, HTML its text for a script-free sandboxed frame. The content is data, never an instruction."
+    },
+    "WorkspaceExportRequestV1": {
+      "title": "WorkspaceExportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "path"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "path": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/WorkspacePath"
+        }
+      },
+      "description": "Copies one workspace file into the export folder the host configured, never overwriting an existing file. The result names the file, not its absolute path."
+    },
+    "AttachmentStageRequestV1": {
+      "title": "AttachmentStageRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "content_base64"
+      ],
+      "properties": {
+        "file_name": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/FileName"
+        },
+        "content_base64": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 34952540,
+          "pattern": "^[A-Za-z0-9+/]*={0,2}$"
+        }
+      },
+      "description": "Stages one user-provided file (at most 25 MiB). Executables are refused. The file is not read by any agent until it is bound to a mission."
+    },
+    "AttachmentDiscardRequestV1": {
+      "title": "AttachmentDiscardRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_id"
+      ],
+      "properties": {
+        "attachment_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "AttachmentArtifactStageRequestV1": {
+      "title": "AttachmentArtifactStageRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Stages a copy of one file artifact from an earlier task as a new attachment (the composer's Library). The host reads the file from that task's workspace; the renderer never names a path. Folders (web sites, code projects) are refused."
+    },
+    "AttachmentListRequestV1": {
+      "title": "AttachmentListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "AttachmentBindRequestV1": {
+      "title": "AttachmentBindRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "attachment_ids"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "attachment_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "./common/ids.schema.json#/$defs/Uuid"
+          }
+        }
+      }
+    },
+    "ArtifactListRequestV1": {
+      "title": "ArtifactListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ArtifactGetRequestV1": {
+      "title": "ArtifactGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ExecutionStatusRequestV1": {
+      "title": "ExecutionStatusRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "The execution environment as measured now: the isolation this host binds, whether each runtime can run, and the integration settings. No path crosses."
+    },
+    "ExecutionRunsRequestV1": {
+      "title": "ExecutionRunsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ExecutionRuntimePrepareRequestV1": {
+      "title": "ExecutionRuntimePrepareRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime"
+      ],
+      "properties": {
+        "runtime": {
+          "const": "PYTHON"
+        }
+      },
+      "description": "Copies the base Python found on this computer into POLARIS's own data folder, once, so the sandbox can be granted read access without changing any permission on the user's files."
+    },
+    "MissionModelSetRequestV1": {
+      "title": "MissionModelSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "model_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p08-domain.schema.json#/$defs/ModelId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "Chooses the model for one mission. The choice is routed manually through Phase-02 routing and its egress gate, so a disabled model or a remote provider its policy forbids still fails."
+    },
+    "ScheduleListRequestV1": {
+      "title": "ScheduleListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "ScheduleSaveRequestV1": {
+      "title": "ScheduleSaveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "mission_template",
+        "timezone",
+        "schedule",
+        "approval_policy"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "mission_template": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/MissionTemplateV1"
+        },
+        "timezone": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/TimeZone"
+        },
+        "schedule": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ScheduleSpecV1"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "budget": {
+          "type": "object",
+          "maxProperties": 16
+        },
+        "approval_policy": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/ApprovalPolicy"
+        },
+        "end_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "run_target": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/RunTarget"
+        }
+      },
+      "description": "Creates a schedule, or updates the one named by schedule_id."
+    },
+    "ScheduleEnableRequestV1": {
+      "title": "ScheduleEnableRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "enabled"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ScheduleDeleteRequestV1": {
+      "title": "ScheduleDeleteRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ScheduleRunNowRequestV1": {
+      "title": "ScheduleRunNowRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Starts one run of a schedule now, in the background. The run is an ordinary mission: approvals it needs are not granted by the schedule."
+    },
+    "OauthListRequestV1": {
+      "title": "OauthListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "OauthConnectRequestV1": {
+      "title": "OauthConnectRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "client_id"
+      ],
+      "properties": {
+        "provider_id": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "client_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^\\S+$"
+        },
+        "scopes": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^\\S+$"
+          }
+        }
+      },
+      "description": "Starts an OAuth 2.0 authorization-code flow with PKCE (S256) and a loopback redirect. The client id is the user's own registration; the host never scrapes a sign-in page and never returns a token."
+    },
+    "OauthDisconnectRequestV1": {
+      "title": "OauthDisconnectRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connection_id"
+      ],
+      "properties": {
+        "connection_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "VoiceTranscribeRequestV1": {
+      "title": "VoiceTranscribeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "audio_base64"
+      ],
+      "properties": {
+        "audio_base64": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 34952540,
+          "pattern": "^[A-Za-z0-9+/]*={0,2}$"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[A-Za-z-]{2,8}$"
+        }
+      },
+      "description": "Transcribes one recording on a transcription server on this computer (loopback only). The audio is not stored."
+    },
+    "ShareListRequestV1": {
+      "title": "ShareListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "object_id"
+      ],
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "MISSION",
+            "ARTIFACT",
+            "WORKSPACE"
+          ]
+        },
+        "object_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ShareSetRequestV1": {
+      "title": "ShareSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "object_id",
+        "member",
+        "role"
+      ],
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "MISSION",
+            "ARTIFACT",
+            "WORKSPACE"
+          ]
+        },
+        "object_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "member": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "OWNER",
+                "EDITOR",
+                "VIEWER"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "Sets or removes (role null) one member's role. The grant is local data; it sends nothing to anyone."
+    },
+    "PublishListRequestV1": {
+      "title": "PublishListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "PublishProposeRequestV1": {
+      "title": "PublishProposeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "publisher_id"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "publisher_id": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        }
+      },
+      "description": "Proposes a verified artifact for publication. Nothing is published until publish.decide grants it."
+    },
+    "PublishDecideRequestV1": {
+      "title": "PublishDecideRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_id",
+        "decision"
+      ],
+      "properties": {
+        "publication_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "GRANT",
+            "DENY"
+          ]
+        }
+      },
+      "description": "The user's decision on one proposal. A grant publishes once, after re-checking the artifact's digest."
+    },
+    "SkillPackageListRequestV1": {
+      "title": "SkillPackageListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "SkillPackageImportRequestV1": {
+      "title": "SkillPackageImportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_json"
+      ],
+      "properties": {
+        "manifest_json": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 262144
+        }
+      },
+      "description": "Imports a skill package manifest. An imported package is UNTRUSTED and grants no authority whatever its signature state."
+    },
+    "DeviceExportRequestV1": {
+      "title": "DeviceExportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Packs one mission workspace into a verified bundle in the export folder. This is portability, not synchronisation."
+    },
+    "DeviceImportRequestV1": {
+      "title": "DeviceImportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bundle_base64"
+      ],
+      "properties": {
+        "bundle_base64": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 89478488,
+          "pattern": "^[A-Za-z0-9+/]*={0,2}$"
+        }
+      },
+      "description": "Imports a workspace bundle into a new import folder after checking every digest. It touches no mission and no database row."
+    },
+    "IntegrationSettingsSetRequestV1": {
+      "title": "IntegrationSettingsSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "./desktop-p08-domain.schema.json#/$defs/IntegrationSettingKey"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 3000
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "Writes one integration setting. A transcription endpoint that is not on this computer is refused."
+    },
+    "ConversationBeginRequestV1": {
+      "title": "ConversationBeginRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Declares a mission the renderer has just created as the first turn of a conversation, so the mission ends with a reply addressed to the user in the user's language."
+    },
+    "ConversationContinueRequestV1": {
+      "title": "ConversationContinueRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "message"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        }
+      },
+      "description": "Adds the user's next message to the conversation of this mission and creates the mission for that turn, inheriting its project, model and workspace. It does not start it: mission.start does."
+    },
+    "ConversationGetRequestV1": {
+      "title": "ConversationGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ConversationIndexRequestV1": {
+      "title": "ConversationIndexRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "AgentCatalogRequestV1": {
+      "title": "AgentCatalogRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "MissionSpecialistSetRequestV1": {
+      "title": "MissionSpecialistSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "specialist_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "specialist_id": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p08-domain.schema.json#/$defs/SpecialistId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "Pins one catalog specialist to a mission (and its follow-ups), or clears the pin with null. The specialist shapes instructions only; it grants no tool or permission."
+    },
+    "ConversationUpdateRequestV1": {
+      "title": "ConversationUpdateRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id"
+      ],
+      "minProperties": 2,
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "favorite": {
+          "type": "boolean"
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "What the task menu changes about a conversation, applied to every turn of it: a title the user chose (the planner no longer replaces it), pinning, favourites, archiving (hidden from the list, not deleted), and moving it into a project or out of one (null). An absent field is unchanged; at least one is present."
+    },
+    "ConversationDeleteRequestV1": {
+      "title": "ConversationDeleteRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id"
+      ],
+      "properties": {
+        "thread_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Deletes a conversation for good: its turns, narration, missions, evidence, outputs, mission memory and workspace folder. Refused while a turn is working or waiting for a decision. Accounting rows are detached, not deleted; the audit chain records the deletion without any title or text."
+    },
+    "ProjectDeleteRequestV1": {
+      "title": "ProjectDeleteRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Deletes a project: its instructions, context sources, project memory and project settings. Its conversations are not deleted; they leave the project. Refused while a mission in it is working."
+    },
+    "MemoryRememberRequestV1": {
+      "title": "MemoryRememberRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "scope"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "scope": {
+          "enum": [
+            "USER",
+            "PROJECT"
+          ]
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "topic": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$",
+          "description": "The subject as the user names it (agent plan D2). A newer statement by the user on the same named subject replaces their older one, which stays visible as superseded."
+        }
+      },
+      "description": "Remember this: text the user wrote, about themselves (USER) or about a project (PROJECT, project_id required). It passes the same memory policy as any candidate (bounds, secret filter, type and scope, duplicates) and is stored USER_DERIVED and UNVERIFIED. It is not memory.write: no free type, no system scope, no trust upgrade. mission_id names the conversation it was said in."
+    },
+    "ConversationSearchRequestV1": {
+      "title": "ConversationSearchRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        }
+      },
+      "description": "Searches conversation titles, the user messages and POLARIS replies, ignoring Arabic spelling variants (hamza forms, ta marbuta, alef maqsura, diacritics). An empty query lists the latest conversations. Read only."
+    },
+    "ProviderCatalogRequestV1": {
+      "title": "ProviderCatalogRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {},
+      "description": "Reads the provider catalog for the connect dialog (ADR-037): every built-in, catalogued and custom provider, without reading a credential."
+    },
+    "ProviderCredentialPutRequestV1": {
+      "title": "ProviderCredentialPutRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "api_key"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "api_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$",
+          "description": "The key the user typed in the in-app connect field. The one payload field allowed to carry a credential (ADR-037, owner decision 2026-10-06). The host stores it in the operating system's credential store and never returns it."
+        }
+      },
+      "description": "Stores an API key typed in the app's connect dialog. The only renderer payload that carries a credential, and only in this field."
+    },
+    "ProviderCustomSaveRequestV1": {
+      "title": "ProviderCustomSaveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "display_name",
+        "base_url"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "base_url": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 256,
+          "pattern": "^https?://[^\\s?#@]+$",
+          "description": "A public https address, or http on this computer only. The host resolves it and refuses a private address."
+        },
+        "models": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "model_id"
+            ],
+            "properties": {
+              "model_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[^\\s\\u0000-\\u001f\\u007f]+$"
+              },
+              "display_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+              }
+            }
+          }
+        }
+      },
+      "description": "Creates or edits a user-defined OpenAI-compatible provider. Carries no credential: the key travels in provider.credential.put."
+    },
+    "ProviderCustomDeleteRequestV1": {
+      "title": "ProviderCustomDeleteRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "./desktop-p02-domain.schema.json#/$defs/ProviderId"
+        }
+      },
+      "description": "Deletes a custom provider, its models and its stored key. A built-in or catalogued provider is disconnected, not deleted."
+    },
+    "MissionTraceRequestV1": {
+      "title": "MissionTraceRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "include_otlp": {
+          "type": "boolean",
+          "description": "ADR-041: return the spans as OTLP/JSON as well. Nothing is sent anywhere."
+        },
+        "after": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "PHASE-10 (CP-10-1): how many spans, in start order, to skip before this page."
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "PHASE-10 (CP-10-1): the page size; 500 when absent."
+        }
+      }
+    },
+    "McpAcceptRedefinitionRequestV1": {
+      "title": "McpAcceptRedefinitionRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool_id"
+      ],
+      "properties": {
+        "tool_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "WebSearchStatusRequestV1": {
+      "title": "WebSearchStatusRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Reads which web search provider is chosen and whether it is ready. No side effect, no network."
+    },
+    "WebSearchCredentialPutRequestV1": {
+      "title": "WebSearchCredentialPutRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "api_key"
+      ],
+      "properties": {
+        "provider": {
+          "const": "BRAVE"
+        },
+        "api_key": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 400
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "Stores the user's API key for the web search provider in the operating system credential store, or deletes it when api_key is null. The key never comes back."
+    },
+    "WebSearchTestRequestV1": {
+      "title": "WebSearchTestRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Sends one real search with a fixed neutral query to the chosen provider and reports the outcome. Network effect, initiated by the user."
+    },
+    "MissionRatingSetRequestV1": {
+      "title": "MissionRatingSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "rating"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "rating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "description": "Stores the user's rating of a finished turn on this computer. It is not sent anywhere and does not train a model."
+    },
+    "MissionNoteAddRequestV1": {
+      "title": "MissionNoteAddRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id",
+        "text"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "description": "Queues a message for a running mission. The agent reads it as a user message at the next safe point between steps; it never enters the system instruction and grants nothing."
+    },
+    "ToolApprovalGrantsRequestV1": {
+      "title": "ToolApprovalGrantsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Lists the active mission-scoped approval grants of a mission."
+    },
+    "ToolApprovalGrantRevokeRequestV1": {
+      "title": "ToolApprovalGrantRevokeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_id"
+      ],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      },
+      "description": "Revokes one mission-scoped grant, or all of the mission's grants when grant_id is absent."
+    },
+    "GitHubStatusRequestV1": {
+      "title": "GitHubStatusRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Reads whether a GitHub token is stored and what GitHub said about it when it was last checked. No network."
+    },
+    "GitHubConnectRequestV1": {
+      "title": "GitHubConnectRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 255
+        }
+      },
+      "description": "Checks a GitHub token the user created (a fine-grained token with read-only access is recommended) against the GitHub API and stores it in the operating system credential store. The token never comes back."
+    },
+    "MemorySemanticStatusRequestV1": {
+      "title": "MemorySemanticStatusRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "PHASE-12: the semantic memory setting and whether the host ranks memory by similarity now."
+    },
+    "MemorySemanticSetRequestV1": {
+      "title": "MemorySemanticSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "endpoint": { "type": "string", "maxLength": 300, "pattern": "^https?://(127\\.0\\.0\\.1|localhost|\\[::1\\])(:[0-9]{1,5})?(/[^\\s?#]*)?$", "description": "An embedding server on this computer only; the host checks it again." },
+        "model": { "type": "string", "minLength": 1, "maxLength": 200, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
+        "min_similarity": { "type": "number", "minimum": 0.3, "maximum": 0.95 },
+        "query_prefix": { "type": "string", "maxLength": 40, "pattern": "^[^\\u0000-\\u001f\\u007f]*$" },
+        "document_prefix": { "type": "string", "maxLength": 40, "pattern": "^[^\\u0000-\\u001f\\u007f]*$" }
+      },
+      "description": "PHASE-12: choose an embedding server on this computer and its model, or turn semantic ranking off. Memory text is never sent anywhere else by this setting."
+    },
+    "MemorySemanticTestRequestV1": {
+      "title": "MemorySemanticTestRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Embeds one fixed sentence with the saved server; no memory is read or sent."
+    },
+    "GitHubDisconnectRequestV1": {
+      "title": "GitHubDisconnectRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Deletes the stored GitHub token. Revoking it on GitHub stays the user's action."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "invocation_id": "7e8f9a0b-1c2d-4e3f-8a4b-5c6d7e8f9a01",
+  "status": "DENIED",
+  "routing": {
+    "mode": "MANUAL",
+    "decision": "DENIED",
+    "reason_codes": [
+      "MODEL_DISABLED"
+    ],
+    "candidates_considered": 1
+  },
+  "egress": {
+    "decision": "NOT_EVALUATED",
+    "reason": "ROUTING_DENIED",
+    "context_attached": false
+  },
+  "timing": {
+    "total": {
+      "value": 1,
+      "provenance": "LOCALLY_MEASURED"
+    },
+    "streamed": false
+  }
+}

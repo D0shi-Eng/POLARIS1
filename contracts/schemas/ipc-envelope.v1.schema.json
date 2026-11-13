@@ -1,0 +1,3783 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IPCEnvelopeV1",
+  "description": "The single framing for every trust-crossing message between the POLARIS desktop surface and the trusted native core. Three closed message shapes; there is no fourth and no open extension point.",
+  "$comment": "اتحاد مميّز صريح بثلاثة أشكال. كل شكل مغلق، فلا يمكن لرسالة أن تحمل حقول شكل آخر. مُميِّز صريح على message_type حتى تُنسب أخطاء الرفض إلى الشكل المقصود لا إلى كل الفروع.",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/RequestEnvelope"
+    },
+    {
+      "$ref": "#/$defs/ResponseEnvelope"
+    },
+    {
+      "$ref": "#/$defs/EventEnvelope"
+    }
+  ],
+  "$defs": {
+    "Operation": {
+      "title": "Operation",
+      "type": "string",
+      "enum": [
+        "capability.describe",
+        "capability.invoke",
+        "policy.evaluate",
+        "audit.append",
+        "model.complete",
+        "system.ping",
+        "desktop.bootstrap",
+        "desktop.runtime.status",
+        "desktop.capability.availability",
+        "desktop.settings.describe",
+        "desktop.settings.read",
+        "provider.list",
+        "provider.configure",
+        "provider.credential.set",
+        "provider.credential.clear",
+        "provider.refresh",
+        "model.list",
+        "model.configure",
+        "model.preferences.set",
+        "model.invoke",
+        "model.cancel",
+        "project.list",
+        "project.get",
+        "project.create",
+        "project.update",
+        "project.archive",
+        "context.add",
+        "context.remove",
+        "context.preview",
+        "context.assemble",
+        "mission.list",
+        "mission.get",
+        "mission.create",
+        "mission.start",
+        "mission.cancel",
+        "mission.resume",
+        "task.list",
+        "agent.list",
+        "claim.list",
+        "evidence.list",
+        "skill.list",
+        "skill.get",
+        "skill.configure",
+        "tool.list",
+        "tool.get",
+        "tool.activity.list",
+        "mcp.list",
+        "mcp.register",
+        "mcp.configure",
+        "mcp.refresh",
+        "approval.list",
+        "tool.approval.respond",
+        "memory.list",
+        "memory.get",
+        "memory.delete",
+        "browser.session.list",
+        "browser.session.get",
+        "browser.session.cancel",
+        "computer.session.list",
+        "computer.session.get",
+        "computer.session.cancel",
+        "computer.window.list",
+        "computer.target.grant",
+        "computer.target.revoke",
+        "connector.list",
+        "connector.get",
+        "connector.register",
+        "connector.configure",
+        "connector.remove",
+        "connector.test",
+        "connector.credential.set",
+        "connector.credential.clear",
+        "connector.openapi.import",
+        "connector.openapi.approve",
+        "connector.preset.list",
+        "connector.preset.register",
+        "usage.summary",
+        "usage.list",
+        "budget.list",
+        "budget.set",
+        "budget.remove",
+        "pricing.list",
+        "pricing.set",
+        "pricing.remove",
+        "observability.health",
+        "observability.events",
+        "observability.metrics",
+        "observability.errors",
+        "observability.alerts",
+        "diagnostics.export",
+        "config.describe",
+        "config.effective",
+        "config.set",
+        "config.reset",
+        "workspace.list",
+        "workspace.preview",
+        "workspace.export",
+        "attachment.stage",
+        "attachment.discard",
+        "attachment.artifact.stage",
+        "attachment.list",
+        "attachment.bind",
+        "artifact.list",
+        "artifact.get",
+        "execution.status",
+        "execution.runs",
+        "execution.runtime.prepare",
+        "mission.model.set",
+        "schedule.list",
+        "schedule.save",
+        "schedule.enable",
+        "schedule.delete",
+        "schedule.run_now",
+        "oauth.list",
+        "oauth.connect",
+        "oauth.disconnect",
+        "voice.transcribe",
+        "share.list",
+        "share.set",
+        "publish.list",
+        "publish.propose",
+        "publish.decide",
+        "skill.package.list",
+        "skill.package.import",
+        "device.export",
+        "device.import",
+        "integration.settings.set",
+        "conversation.begin",
+        "conversation.continue",
+        "conversation.get",
+        "conversation.index",
+        "agent.catalog",
+        "mission.specialist.set",
+        "conversation.update",
+        "conversation.delete",
+        "project.delete",
+        "memory.remember",
+        "conversation.search",
+        "mission.trace",
+        "mcp.tool.accept_redefinition",
+        "provider.catalog",
+        "provider.credential.put",
+        "provider.custom.save",
+        "provider.custom.delete",
+        "web.search.status",
+        "web.search.credential.put",
+        "web.search.test",
+        "mission.rating.set",
+        "mission.note.add",
+        "tool.approval.grants",
+        "tool.approval.grant.revoke",
+        "github.status",
+        "github.connect",
+        "github.disconnect",
+        "memory.semantic.status",
+        "memory.semantic.set",
+        "memory.semantic.test"
+      ],
+      "description": "Closed operation set. An arbitrary operation name is unrepresentable, not merely rejected at runtime. The five desktop.* members were added additively at 1.1 (ADR-017); the nineteen provider.*, model.*, project.* and context.* members were added additively at 1.2 (ADR-019); the ten mission.*, task.*, agent.*, claim.* and evidence.* members were added additively at 1.3 (ADR-021); the twelve skill.*, tool.*, mcp.* and approval.* members were added additively at 1.4 (ADR-023); the twelve memory.*, browser.session.*, computer.session.*, computer.window.* and computer.target.* members were added additively at 1.5 (ADR-025). The twenty-eight connector.*, usage.*, budget.*, pricing.*, observability.*, diagnostics.* and config.* members were added additively at 1.6 (ADR-026). The thirty-two workspace.*, attachment.*, artifact.*, execution.*, mission.model.set, schedule.*, oauth.*, voice.transcribe, share.*, publish.*, skill.package.*, device.* and integration.settings.set members were added additively at 1.7 (ADR-028), and the four conversation.* members were added additively at 1.7 later (ADR-029), and agent.catalog and mission.specialist.set later still (ADR-030). The set is no more open than it was at 1.0. The four provider.catalog, provider.credential.put, provider.custom.save and provider.custom.delete members were added additively at 1.7 later still (ADR-037). The ten web.search.*, mission.rating.set, mission.note.add, tool.approval.grants, tool.approval.grant.revoke and github.* members were added additively at 1.7 later still (ADR-042)."
+    },
+    "RequestEnvelope": {
+      "title": "RequestEnvelope",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "protocol_version",
+        "message_type",
+        "message_id",
+        "correlation_id",
+        "session_id",
+        "caller_identity",
+        "timestamp",
+        "operation",
+        "payload"
+      ],
+      "properties": {
+        "contract_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "protocol_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "message_type": {
+          "const": "REQUEST"
+        },
+        "message_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "correlation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CorrelationId"
+        },
+        "causation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CausationId"
+        },
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "caller_identity": {
+          "$ref": "./common/caller-identity.schema.json#/$defs/CallerIdentity"
+        },
+        "timestamp": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "operation": {
+          "$ref": "#/$defs/Operation"
+        },
+        "payload": {
+          "type": "object"
+        },
+        "idempotency_key": {
+          "$ref": "./common/ids.schema.json#/$defs/IdempotencyKey"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "العمليات ذات الأثر الجانبي تتطلب مفتاح Idempotency ثابتًا عبر إعادة المحاولة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "enum": [
+                  "capability.invoke",
+                  "audit.append",
+                  "provider.configure",
+                  "provider.credential.set",
+                  "provider.credential.clear",
+                  "provider.refresh",
+                  "model.configure",
+                  "model.preferences.set",
+                  "model.invoke",
+                  "model.cancel",
+                  "project.create",
+                  "project.update",
+                  "project.archive",
+                  "context.add",
+                  "context.remove",
+                  "mission.create",
+                  "mission.start",
+                  "mission.cancel",
+                  "mission.resume",
+                  "skill.configure",
+                  "mcp.register",
+                  "mcp.configure",
+                  "mcp.refresh",
+                  "tool.approval.respond",
+                  "memory.delete",
+                  "browser.session.cancel",
+                  "computer.session.cancel",
+                  "computer.target.grant",
+                  "computer.target.revoke",
+                  "connector.register",
+                  "connector.configure",
+                  "connector.remove",
+                  "connector.test",
+                  "connector.credential.set",
+                  "connector.credential.clear",
+                  "connector.openapi.import",
+                  "connector.openapi.approve",
+                  "connector.preset.register",
+                  "budget.set",
+                  "budget.remove",
+                  "pricing.set",
+                  "pricing.remove",
+                  "diagnostics.export",
+                  "config.set",
+                  "config.reset",
+                  "workspace.export",
+                  "attachment.stage",
+                  "attachment.discard",
+                  "attachment.artifact.stage",
+                  "attachment.bind",
+                  "execution.runtime.prepare",
+                  "mission.model.set",
+                  "schedule.save",
+                  "schedule.enable",
+                  "schedule.delete",
+                  "schedule.run_now",
+                  "oauth.connect",
+                  "oauth.disconnect",
+                  "voice.transcribe",
+                  "share.set",
+                  "publish.propose",
+                  "publish.decide",
+                  "skill.package.import",
+                  "device.export",
+                  "device.import",
+                  "integration.settings.set",
+                  "conversation.begin",
+                  "conversation.continue",
+                  "provider.credential.put",
+                  "provider.custom.save",
+                  "provider.custom.delete",
+                  "web.search.credential.put",
+                  "web.search.test",
+                  "mission.rating.set",
+                  "mission.note.add",
+                  "tool.approval.grant.revoke",
+                  "github.connect",
+                  "github.disconnect",
+                  "memory.semantic.set",
+                  "memory.semantic.test",
+                  "conversation.update",
+                  "conversation.delete",
+                  "project.delete",
+                  "memory.remember",
+                  "mission.specialist.set",
+                  "mcp.tool.accept_redefinition"
+                ]
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "idempotency_key"
+            ]
+          }
+        },
+        {
+          "$comment": "ربط كل عملية سطح مكتب بحمولتها بالضبط. بلا هذا الربط يبقى payload كائنًا مفتوحًا، ويصير الحدّ الموثوق بابًا يقبل أي JSON تحت اسم عملية معروفة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "desktop.bootstrap"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-request.v1.schema.json#/$defs/DesktopBootstrapRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "desktop.runtime.status"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-request.v1.schema.json#/$defs/DesktopRuntimeStatusRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "desktop.capability.availability"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-request.v1.schema.json#/$defs/DesktopCapabilityAvailabilityRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "desktop.settings.describe"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-request.v1.schema.json#/$defs/DesktopSettingsDescribeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "desktop.settings.read"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-request.v1.schema.json#/$defs/DesktopSettingsReadRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProviderListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.configure"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProviderConfigureRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.credential.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProviderCredentialSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.credential.clear"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProviderCredentialClearRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.refresh"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProviderRefreshRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "model.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ModelListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "model.configure"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ModelConfigureRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "model.preferences.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ModelPreferencesSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "model.invoke"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ModelInvokeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "model.cancel"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ModelCancelRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProjectListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProjectGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.create"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProjectCreateRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.update"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProjectUpdateRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.archive"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ProjectArchiveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "context.add"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ContextAddRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "context.remove"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ContextRemoveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "context.preview"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ContextPreviewRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "context.assemble"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p02-request.v1.schema.json#/$defs/ContextAssembleRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.create"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionCreateRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.start"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionStartRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.cancel"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionCancelRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.resume"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/MissionResumeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "task.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/TaskListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "agent.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/AgentListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "claim.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/ClaimListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "evidence.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p03-request.v1.schema.json#/$defs/EvidenceListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط skill.list بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "skill.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/SkillListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط skill.get بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "skill.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/SkillGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط skill.configure بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "skill.configure"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/SkillConfigureRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.list بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/ToolListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.get بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/ToolGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.activity.list بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.activity.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/ToolActivityListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mcp.list بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mcp.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/McpListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mcp.register بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mcp.register"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/McpRegisterRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mcp.configure بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mcp.configure"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/McpConfigureRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mcp.refresh بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mcp.refresh"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/McpRefreshRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط approval.list بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "approval.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/ApprovalListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.approval.respond بحمولتها. الحمولة مغلقة، ولا تحمل اسم أداة غير مسجَّل ولا حجج تنفيذ.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.approval.respond"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p04-request.v1.schema.json#/$defs/ToolApprovalRespondRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.list بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/MemoryListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.get بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/MemoryGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.delete بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.delete"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/MemoryDeleteRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط browser.session.list بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "browser.session.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/BrowserSessionListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط browser.session.get بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "browser.session.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/BrowserSessionGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط browser.session.cancel بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "browser.session.cancel"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/BrowserSessionCancelRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.session.list بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.session.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerSessionListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.session.get بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.session.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerSessionGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.session.cancel بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.session.cancel"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerSessionCancelRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.window.list بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.window.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerWindowListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.target.grant بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.target.grant"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerTargetGrantRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط computer.target.revoke بحمولتها. الحمولة مغلقة: لا وجهة ويب، ولا إدخال، ولا مسار ملف حرّ، ولا ترقية ذاكرة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "computer.target.revoke"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p05-request.v1.schema.json#/$defs/ComputerTargetRevokeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.list بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.get بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.register بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.register"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorRegisterRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.configure بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.configure"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorConfigureRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.remove بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.remove"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorRemoveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.test بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.test"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorTestRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.credential.set بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.credential.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorCredentialSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.credential.clear بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.credential.clear"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorCredentialClearRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.openapi.import بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.openapi.import"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorOpenapiImportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.openapi.approve بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.openapi.approve"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorOpenapiApproveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.preset.list بحمولتها. الحمولة مغلقة: لا عنوان ولا ترويسة ولا سرّ من العارض.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.preset.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorPresetListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط connector.preset.register بحمولتها. الحمولة مغلقة: لا عنوان ولا ترويسة ولا سرّ من العارض.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "connector.preset.register"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConnectorPresetRegisterRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط usage.summary بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "usage.summary"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/UsageSummaryRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط usage.list بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "usage.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/UsageListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط budget.list بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "budget.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/BudgetListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط budget.set بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "budget.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/BudgetSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط budget.remove بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "budget.remove"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/BudgetRemoveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط pricing.list بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "pricing.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/PricingListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط pricing.set بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "pricing.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/PricingSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط pricing.remove بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "pricing.remove"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/PricingRemoveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط observability.health بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "observability.health"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ObservabilityHealthRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط observability.events بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "observability.events"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ObservabilityEventsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط observability.metrics بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "observability.metrics"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ObservabilityMetricsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط observability.errors بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "observability.errors"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ObservabilityErrorsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط observability.alerts بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "observability.alerts"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ObservabilityAlertsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط diagnostics.export بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "diagnostics.export"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/DiagnosticsExportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط config.describe بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "config.describe"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConfigDescribeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط config.effective بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "config.effective"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConfigEffectiveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط config.set بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "config.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConfigSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط config.reset بحمولتها. الحمولة مغلقة: لا نداء موصل، ولا سرّ، ولا عنوان حرّ يختاره وكيل.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "config.reset"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p06-request.v1.schema.json#/$defs/ConfigResetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط workspace.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "workspace.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WorkspaceListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط workspace.preview بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "workspace.preview"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WorkspacePreviewRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط workspace.export بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "workspace.export"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WorkspaceExportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط attachment.stage بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "attachment.stage"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AttachmentStageRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط attachment.artifact.stage بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "attachment.artifact.stage"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AttachmentArtifactStageRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط attachment.discard بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "attachment.discard"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AttachmentDiscardRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط attachment.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "attachment.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AttachmentListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط attachment.bind بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "attachment.bind"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AttachmentBindRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط artifact.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "artifact.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ArtifactListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط artifact.get بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "artifact.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ArtifactGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط execution.status بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "execution.status"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ExecutionStatusRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط execution.runs بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "execution.runs"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ExecutionRunsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط execution.runtime.prepare بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "execution.runtime.prepare"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ExecutionRuntimePrepareRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mission.model.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.model.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MissionModelSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط schedule.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "schedule.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ScheduleListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط schedule.save بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "schedule.save"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ScheduleSaveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط schedule.enable بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "schedule.enable"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ScheduleEnableRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط schedule.delete بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "schedule.delete"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ScheduleDeleteRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط schedule.run_now بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "schedule.run_now"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ScheduleRunNowRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط oauth.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "oauth.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/OauthListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط oauth.connect بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "oauth.connect"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/OauthConnectRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط oauth.disconnect بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "oauth.disconnect"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/OauthDisconnectRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط voice.transcribe بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "voice.transcribe"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/VoiceTranscribeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط share.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "share.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ShareListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط share.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "share.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ShareSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط publish.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "publish.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/PublishListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط publish.propose بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "publish.propose"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/PublishProposeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط publish.decide بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "publish.decide"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/PublishDecideRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط skill.package.list بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "skill.package.list"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/SkillPackageListRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط skill.package.import بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "skill.package.import"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/SkillPackageImportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط device.export بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "device.export"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/DeviceExportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط device.import بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "device.import"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/DeviceImportRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط integration.settings.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "integration.settings.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/IntegrationSettingsSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.begin بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.begin"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationBeginRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.continue بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.continue"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationContinueRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.get بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.get"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationGetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.index بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.index"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationIndexRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط agent.catalog بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "agent.catalog"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/AgentCatalogRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mission.specialist.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.specialist.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MissionSpecialistSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.update بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.update"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationUpdateRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.delete بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.delete"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationDeleteRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط project.delete بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "project.delete"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ProjectDeleteRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.remember بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.remember"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MemoryRememberRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط conversation.search بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "conversation.search"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ConversationSearchRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mission.trace بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.trace"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MissionTraceRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mcp.tool.accept_redefinition بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mcp.tool.accept_redefinition"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/McpAcceptRedefinitionRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط provider.catalog بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.catalog"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ProviderCatalogRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط provider.credential.put بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.credential.put"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ProviderCredentialPutRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط provider.custom.save بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.custom.save"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ProviderCustomSaveRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط provider.custom.delete بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "provider.custom.delete"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ProviderCustomDeleteRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط web.search.status بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "web.search.status"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WebSearchStatusRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط web.search.credential.put بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "web.search.credential.put"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WebSearchCredentialPutRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط web.search.test بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "web.search.test"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/WebSearchTestRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mission.rating.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.rating.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MissionRatingSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط mission.note.add بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "mission.note.add"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MissionNoteAddRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.approval.grants بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.approval.grants"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ToolApprovalGrantsRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط tool.approval.grant.revoke بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "tool.approval.grant.revoke"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/ToolApprovalGrantRevokeRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط github.status بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "github.status"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/GitHubStatusRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط github.connect بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "github.connect"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/GitHubConnectRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط github.disconnect بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "github.disconnect"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/GitHubDisconnectRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.semantic.status بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.semantic.status"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MemorySemanticStatusRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.semantic.set بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.semantic.set"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MemorySemanticSetRequestV1"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "ربط memory.semantic.test بحمولتها. الحمولة مغلقة.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "const": "memory.semantic.test"
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "payload": {
+                "$ref": "./desktop-p08-request.v1.schema.json#/$defs/MemorySemanticTestRequestV1"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ResponseEnvelope": {
+      "title": "ResponseEnvelope",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "protocol_version",
+        "message_type",
+        "message_id",
+        "request_id",
+        "correlation_id",
+        "session_id",
+        "caller_identity",
+        "timestamp"
+      ],
+      "properties": {
+        "contract_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "protocol_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "message_type": {
+          "const": "RESPONSE"
+        },
+        "message_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "request_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid",
+          "description": "message_id of the REQUEST being answered."
+        },
+        "correlation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CorrelationId"
+        },
+        "causation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CausationId"
+        },
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "caller_identity": {
+          "$ref": "./common/caller-identity.schema.json#/$defs/CallerIdentity"
+        },
+        "timestamp": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "result": {
+          "type": "object"
+        },
+        "error": {
+          "$ref": "./common/error.schema.json#/$defs/ContractError"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "نتيجة أو خطأ، لا كلاهما.",
+          "if": {
+            "type": "object",
+            "required": [
+              "result"
+            ]
+          },
+          "then": {
+            "not": {
+              "type": "object",
+              "required": [
+                "error"
+              ]
+            }
+          }
+        },
+        {
+          "$comment": "غياب النتيجة يوجب وجود الخطأ.",
+          "if": {
+            "not": {
+              "type": "object",
+              "required": [
+                "result"
+              ]
+            }
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "error"
+            ]
+          }
+        }
+      ]
+    },
+    "EventEnvelope": {
+      "title": "EventEnvelope",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "protocol_version",
+        "message_type",
+        "message_id",
+        "correlation_id",
+        "session_id",
+        "caller_identity",
+        "timestamp",
+        "event_name",
+        "payload"
+      ],
+      "properties": {
+        "contract_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "protocol_version": {
+          "$ref": "./common/ids.schema.json#/$defs/ContractVersion"
+        },
+        "message_type": {
+          "const": "EVENT"
+        },
+        "message_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "correlation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CorrelationId"
+        },
+        "causation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/CausationId"
+        },
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "caller_identity": {
+          "$ref": "./common/caller-identity.schema.json#/$defs/CallerIdentity"
+        },
+        "timestamp": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "event_name": {
+          "$ref": "./common/ids.schema.json#/$defs/Slug"
+        },
+        "payload": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "discriminator": {
+    "propertyName": "message_type"
+  }
+}

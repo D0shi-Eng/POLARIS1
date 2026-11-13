@@ -1,0 +1,86 @@
+{
+  "providers": [
+    {
+      "provider_id": "openai",
+      "kind": "OPENAI",
+      "display_name": "OpenAI API",
+      "display_name_key": "provider.name.openai",
+      "endpoint_type": "OPENAI_COMPATIBLE",
+      "auth_mode": "API_KEY",
+      "locality": "REMOTE",
+      "network_class": "REMOTE_EGRESS",
+      "endpoint": "https://api.openai.com",
+      "endpoint_configurable": false,
+      "enabled": false,
+      "configured": false,
+      "key_status": {
+        "required": true,
+        "configured": true,
+        "source": "NONE",
+        "store_available": true,
+        "environment_variable": "OPENAI_API_KEY"
+      },
+      "capabilities": {
+        "supports_streaming": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_model_listing": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_health_check": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_chat": {
+          "support": "SUPPORTED",
+          "provenance": "STATIC_DESCRIPTOR"
+        },
+        "supports_embeddings": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_vision": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_input": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_audio_output": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_tools": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_json_schema": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_system_prompt": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        },
+        "supports_reasoning_control": {
+          "support": "UNKNOWN",
+          "provenance": "UNKNOWN"
+        }
+      },
+      "health": {
+        "state": "AUTH_REQUIRED",
+        "reason_code": "CREDENTIAL_MISSING",
+        "installation": "NOT_APPLICABLE",
+        "runtime": "NOT_APPLICABLE"
+      },
+      "models": {
+        "discovered": 0,
+        "enabled": 0,
+        "available": 0
+      }
+    }
+  ]
+}

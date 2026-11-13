@@ -1,0 +1,286 @@
+{
+  "contract_version": "1.3",
+  "phase": "PHASE-03",
+  "envelope_contract": "IPCEnvelopeV1",
+  "implementation_status": "IMPLEMENTED",
+  "operations": [
+    {
+      "operation": "mission.list",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionListRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionListResultV1",
+      "owner": "MissionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "mission.get",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionGetRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionGetResultV1",
+      "owner": "MissionService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "mission.create",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionCreateRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionCreateResultV1",
+      "owner": "MissionService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CREATE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "mission.start",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionStartRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionStartResultV1",
+      "owner": "MissionOrchestrationService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "mission.cancel",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionCancelRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionCancelResultV1",
+      "owner": "MissionOrchestrationService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "mission.resume",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/MissionResumeRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/MissionResumeResultV1",
+      "owner": "MissionOrchestrationService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "task.list",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/TaskListRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/TaskListResultV1",
+      "owner": "TaskGraphService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "agent.list",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/AgentListRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/AgentListResultV1",
+      "owner": "AgentRuntimeService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "claim.list",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/ClaimListRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/ClaimListResultV1",
+      "owner": "ClaimService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    },
+    {
+      "operation": "evidence.list",
+      "envelope_version": "1.3",
+      "request_schema": "desktop-p03-request.v1.schema.json#/$defs/EvidenceListRequestV1",
+      "response_schema": "desktop-p03-result.v1.schema.json#/$defs/EvidenceListResultV1",
+      "owner": "EvidenceService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-03"
+    }
+  ]
+}

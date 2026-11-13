@@ -1,0 +1,49 @@
+{
+  "contract_version": "1.0",
+  "decision_id": "88888888-8888-4888-8888-888888888888",
+  "invocation_id": "77777777-7777-4777-8777-777777777777",
+  "correlation_id": "11111111-1111-4111-8111-111111111111",
+  "causation_id": "77777777-7777-4777-8777-777777777777",
+  "result": "ALLOW",
+  "obligations": [
+    {
+      "type": "REQUIRE_CONFINEMENT",
+      "requirements": {
+        "confinement": "CONFINED",
+        "filesystem_scope": "EXPLICIT_GRANT",
+        "process_tree": "CONFINED_KILL_ON_CLOSE",
+        "network": "NONE",
+        "handle_inheritance": "EXPLICIT_ONLY",
+        "environment": "EXPLICIT_ONLY",
+        "granted_paths": [
+          {
+            "kind": "FILESYSTEM_PATH",
+            "locator": "D:\\POLARIS\\README.md",
+            "scope": "EXACT"
+          }
+        ],
+        "max_wall_clock_ms": 5000,
+        "max_output_bytes": 1048576
+      }
+    },
+    {
+      "type": "AUDIT",
+      "level": "STANDARD"
+    },
+    {
+      "type": "MAX_BYTES",
+      "max_bytes": 1048576
+    }
+  ],
+  "reason_codes": [],
+  "display_reason": "Reading a file inside the granted project scope is permitted.",
+  "internal_reason": "rule fs.read.project_scope matched resource D:\\POLARIS\\**",
+  "policy_ref": {
+    "policy_version": "0.1.0",
+    "policy_epoch": 7
+  },
+  "cacheability": {
+    "cacheable": false
+  },
+  "decided_at": "2026-09-01T09:00:00Z"
+}

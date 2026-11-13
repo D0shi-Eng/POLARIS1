@@ -1,0 +1,22 @@
+POLARIS
+Copyright (C) 2026 The POLARIS contributors.
+
+This product is licensed under the GNU Affero General Public License, version 3
+or (at your option) any later version (SPDX: AGPL-3.0-or-later). See LICENSE.
+
+Network use: if you modify POLARIS and let users interact with it over a network,
+section 13 of the AGPL requires you to offer those users the Corresponding Source
+of your modified version.
+
+This product includes third-party software under permissive and weak-copyleft
+licences (MIT, Apache-2.0, BSD, ISC, Zlib, Unicode-3.0, MPL-2.0 and others). The
+complete list, generated from the shipped dependency graph, is in
+THIRD_PARTY_NOTICES.md. MPL-2.0 components are used unmodified; their source is
+available from the locations listed there.
+
+POLARIS talks to AI model providers only when the user configures them. It does
+not include, bundle or redistribute any AI model weights. Local model servers
+(such as Ollama or LM Studio) are separate products installed and licensed by the
+user.
+
+No trademark rights are granted by this notice or by the licence; see TRADEMARK.md.

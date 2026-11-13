@@ -1,0 +1,2480 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase06DomainV1",
+  "description": "Phase-06 domain vocabulary: connectors, usage and cost with provenance, budgets, structured observability, health, and the typed configuration control plane. No definition here carries a credential value; a secret crosses the boundary only as a configured flag, a source and a reference.",
+  "$comment": "المفردات مغلقة. لا قيمة سرّ، ولا جسم استجابة خام، ولا عنوان يختاره وكيل.",
+  "$defs": {
+    "ConnectorId": {
+      "$ref": "./common/ids.schema.json#/$defs/Uuid",
+      "description": "A connector identifier issued by the host at registration."
+    },
+    "OperationId": {
+      "title": "OperationId",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{0,63}$",
+      "description": "A registered connector operation. An agent chooses one of these; it never names a URL."
+    },
+    "ConnectorCategory": {
+      "title": "ConnectorCategory",
+      "type": "string",
+      "enum": [
+        "EMAIL",
+        "CALENDAR",
+        "FILES",
+        "MESSAGING",
+        "PROJECT_MANAGEMENT",
+        "CODE_HOSTING",
+        "DATABASE",
+        "CUSTOM_API"
+      ]
+    },
+    "ConnectorProvider": {
+      "title": "ConnectorProvider",
+      "type": "string",
+      "enum": [
+        "polaris.rest",
+        "polaris.workspace"
+      ],
+      "description": "The adapter family. polaris.rest is the generic REST connector; polaris.workspace reads the sources of one project."
+    },
+    "AuthMode": {
+      "title": "AuthMode",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "API_KEY",
+        "BEARER_TOKEN",
+        "BASIC",
+        "OAUTH2"
+      ],
+      "description": "OAUTH2 is part of the vocabulary and refused at registration in this build: no official flow is implemented."
+    },
+    "KeySource": {
+      "title": "KeySource",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "CREDENTIAL_STORE",
+        "ENVIRONMENT"
+      ],
+      "description": "Where the host resolves the connector key at call time. The value never crosses the boundary."
+    },
+    "OperationAction": {
+      "title": "OperationAction",
+      "type": "string",
+      "enum": [
+        "READ",
+        "WRITE",
+        "DELETE",
+        "SEND",
+        "PUBLISH",
+        "CREATE_EXTERNAL_RESOURCE",
+        "MODIFY_EXTERNAL_RESOURCE"
+      ],
+      "description": "Every action other than READ is an EXTERNAL_SIDE_EFFECT that waits for a bound approval."
+    },
+    "EgressClass": {
+      "title": "EgressClass",
+      "type": "string",
+      "enum": [
+        "PUBLIC_HTTPS",
+        "LOOPBACK",
+        "NONE"
+      ],
+      "description": "PUBLIC_HTTPS reaches public addresses resolved and checked at connect time; LOOPBACK is the literal loopback interface only; NONE is a local connector with no network."
+    },
+    "HttpMethod": {
+      "title": "HttpMethod",
+      "type": "string",
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ]
+    },
+    "ParamLocation": {
+      "title": "ParamLocation",
+      "type": "string",
+      "enum": [
+        "PATH",
+        "QUERY",
+        "BODY"
+      ]
+    },
+    "ParamKind": {
+      "title": "ParamKind",
+      "type": "string",
+      "enum": [
+        "STRING",
+        "INTEGER",
+        "BOOLEAN",
+        "ENUM"
+      ]
+    },
+    "ConnectorStatus": {
+      "title": "ConnectorStatus",
+      "type": "string",
+      "enum": [
+        "REGISTERED",
+        "ENABLED",
+        "DISABLED"
+      ]
+    },
+    "ProvenanceOrigin": {
+      "title": "ProvenanceOrigin",
+      "type": "string",
+      "enum": [
+        "USER_REGISTERED",
+        "OPENAPI_IMPORT",
+        "BUILT_IN_PRESET"
+      ]
+    },
+    "InvocationOutcome": {
+      "title": "InvocationOutcome",
+      "type": "string",
+      "enum": [
+        "SUCCEEDED",
+        "FAILED",
+        "DENIED",
+        "CANCELLED",
+        "REPLAYED",
+        "OUTCOME_UNKNOWN"
+      ]
+    },
+    "HealthState": {
+      "title": "HealthState",
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "HEALTHY",
+        "DEGRADED",
+        "UNHEALTHY",
+        "UNAVAILABLE"
+      ],
+      "description": "UNKNOWN until measured in this session; a measurement from a previous start is never shown as present health."
+    },
+    "HealthSubject": {
+      "title": "HealthSubject",
+      "type": "string",
+      "enum": [
+        "PROVIDER",
+        "CONNECTOR",
+        "STORAGE",
+        "BROWSER",
+        "COMPUTER",
+        "MEMORY",
+        "TOOL_GATEWAY",
+        "AGENT_RUNTIME",
+        "CONFIG"
+      ]
+    },
+    "CostProvenance": {
+      "title": "CostProvenance",
+      "type": "string",
+      "enum": [
+        "PROVIDER_REPORTED",
+        "LOCALLY_MEASURED",
+        "ESTIMATED",
+        "UNKNOWN"
+      ],
+      "description": "ESTIMATED comes from a price the user entered with its source and is never an invoice; UNKNOWN carries no amount."
+    },
+    "UsageCategory": {
+      "title": "UsageCategory",
+      "type": "string",
+      "enum": [
+        "MODEL",
+        "TOOL",
+        "BROWSER",
+        "COMPUTER",
+        "CONNECTOR"
+      ]
+    },
+    "BudgetScope": {
+      "title": "BudgetScope",
+      "type": "string",
+      "enum": [
+        "MISSION",
+        "PROJECT",
+        "DAY",
+        "PROVIDER",
+        "CONNECTOR"
+      ]
+    },
+    "BudgetDimension": {
+      "title": "BudgetDimension",
+      "type": "string",
+      "enum": [
+        "COST_MICROS",
+        "MODEL_TOKENS",
+        "EXTERNAL_CALLS"
+      ]
+    },
+    "BudgetMode": {
+      "title": "BudgetMode",
+      "type": "string",
+      "enum": [
+        "SOFT",
+        "HARD"
+      ],
+      "description": "HARD blocks the next call before any effect; SOFT warns and permits."
+    },
+    "BudgetState": {
+      "title": "BudgetState",
+      "type": "string",
+      "enum": [
+        "WITHIN",
+        "NEAR_LIMIT",
+        "AT_LIMIT",
+        "EXCEEDED"
+      ]
+    },
+    "PricingTarget": {
+      "title": "PricingTarget",
+      "type": "string",
+      "enum": [
+        "MODEL",
+        "CONNECTOR"
+      ]
+    },
+    "PricingUnit": {
+      "title": "PricingUnit",
+      "type": "string",
+      "enum": [
+        "PER_MILLION_INPUT_TOKENS",
+        "PER_MILLION_OUTPUT_TOKENS",
+        "PER_CALL"
+      ]
+    },
+    "Currency": {
+      "title": "Currency",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "An ISO 4217 code. No amount is ever converted between currencies."
+    },
+    "DecimalText": {
+      "title": "DecimalText",
+      "type": "string",
+      "pattern": "^[0-9]{1,12}(\\.[0-9]{1,6})?$",
+      "description": "An exact non-negative decimal. Money never travels as a binary float."
+    },
+    "AlertKind": {
+      "title": "AlertKind",
+      "type": "string",
+      "enum": [
+        "BUDGET_NEAR_LIMIT",
+        "BUDGET_EXCEEDED",
+        "PROVIDER_UNHEALTHY",
+        "CONNECTOR_UNHEALTHY",
+        "ERROR_SPIKE",
+        "STORAGE_ISSUE",
+        "NO_PROGRESS_LOOP",
+        "TURNS_ABOVE_EXPECTED",
+        "MISSION_OVERTIME",
+        "INJECTION_DETECTED",
+        "TAMPER_DETECTED",
+        "HONEYTOKEN_READ"
+      ]
+    },
+    "AlertSeverity": {
+      "title": "AlertSeverity",
+      "type": "string",
+      "enum": [
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ]
+    },
+    "AlertState": {
+      "title": "AlertState",
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "RESOLVED"
+      ]
+    },
+    "Severity": {
+      "title": "Severity",
+      "type": "string",
+      "enum": [
+        "DEBUG",
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ]
+    },
+    "Component": {
+      "title": "Component",
+      "type": "string",
+      "enum": [
+        "CONNECTOR_GATEWAY",
+        "CONNECTOR",
+        "MODEL",
+        "TOOL",
+        "BROWSER",
+        "COMPUTER",
+        "MEMORY",
+        "MISSION",
+        "BUDGET",
+        "COST",
+        "CONFIG",
+        "STORAGE",
+        "HEALTH",
+        "DIAGNOSTICS"
+      ]
+    },
+    "EventCategory": {
+      "title": "EventCategory",
+      "type": "string",
+      "enum": [
+        "INVOCATION",
+        "POLICY",
+        "BUDGET",
+        "RATE_LIMIT",
+        "RETRY",
+        "HEALTH",
+        "CONFIG",
+        "LIFECYCLE",
+        "SECURITY",
+        "DIAGNOSTICS"
+      ]
+    },
+    "EventProvenance": {
+      "title": "EventProvenance",
+      "type": "string",
+      "enum": [
+        "LOCALLY_MEASURED",
+        "PROVIDER_REPORTED",
+        "CONNECTOR_REPORTED"
+      ]
+    },
+    "ConfigLayer": {
+      "title": "ConfigLayer",
+      "type": "string",
+      "enum": [
+        "USER",
+        "PROJECT",
+        "MISSION",
+        "SECURITY"
+      ],
+      "description": "DEFAULT lives in code and is not writable."
+    },
+    "ValueSource": {
+      "title": "ValueSource",
+      "type": "string",
+      "enum": [
+        "DEFAULT",
+        "USER",
+        "PROJECT",
+        "MISSION",
+        "SECURITY_CLAMP"
+      ]
+    },
+    "SettingKind": {
+      "title": "SettingKind",
+      "type": "string",
+      "enum": [
+        "BOOLEAN",
+        "INTEGER",
+        "DECIMAL",
+        "ENUM",
+        "STRING",
+        "DURATION",
+        "BYTES",
+        "LIST"
+      ]
+    },
+    "SettingState": {
+      "title": "SettingState",
+      "type": "string",
+      "enum": [
+        "EDITABLE",
+        "LOCKED",
+        "UNAVAILABLE_THIS_PHASE"
+      ]
+    },
+    "Applies": {
+      "title": "Applies",
+      "type": "string",
+      "enum": [
+        "NEXT_OPERATION",
+        "NEXT_MISSION",
+        "IMMEDIATELY"
+      ]
+    },
+    "ConfigSection": {
+      "title": "ConfigSection",
+      "type": "string",
+      "enum": [
+        "GENERAL",
+        "APPEARANCE",
+        "LANGUAGE",
+        "MODELS",
+        "PROVIDERS",
+        "AGENTS",
+        "SKILLS",
+        "TOOLS",
+        "MCP",
+        "MEMORY",
+        "BROWSER",
+        "COMPUTER",
+        "CONNECTORS",
+        "PRIVACY",
+        "SECURITY",
+        "BUDGETS",
+        "COST",
+        "OBSERVABILITY",
+        "ADVANCED"
+      ]
+    },
+    "SettingKey": {
+      "title": "SettingKey",
+      "type": "string",
+      "pattern": "^[a-z]+\\.[a-z0-9_]{2,80}$"
+    },
+    "SettingValue": {
+      "title": "SettingValue",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string",
+          "maxLength": 400
+        },
+        {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        }
+      ],
+      "description": "A typed value in its plain JSON form: boolean, integer, decimal or code as text, or a list of short strings. The host parses it against the setting's kind and bounds."
+    },
+    "ConfigState": {
+      "title": "ConfigState",
+      "type": "string",
+      "enum": [
+        "OK",
+        "UNSUPPORTED_VERSION",
+        "UNREADABLE"
+      ]
+    },
+    "ReasonCode": {
+      "title": "ReasonCode",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{1,80}$"
+    },
+    "OperationParamV1": {
+      "title": "OperationParamV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "location",
+        "kind",
+        "required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,39}$"
+        },
+        "location": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ParamLocation"
+        },
+        "kind": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ParamKind"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "max_length": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        }
+      }
+    },
+    "IdempotencySupportV1": {
+      "title": "IdempotencySupportV1",
+      "oneOf": [
+        {
+          "title": "IdempotencyNone",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "const": "NONE"
+            }
+          }
+        },
+        {
+          "title": "IdempotencyHeader",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "header"
+          ],
+          "properties": {
+            "mode": {
+              "const": "HEADER"
+            },
+            "header": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9-]{0,63}$"
+            }
+          }
+        }
+      ]
+    },
+    "JsonPointer": {
+      "title": "JsonPointer",
+      "type": "string",
+      "pattern": "^/[^\\s]{0,119}$"
+    },
+    "ConnectorOperationV1": {
+      "title": "ConnectorOperationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_id",
+        "title",
+        "action",
+        "method",
+        "path"
+      ],
+      "properties": {
+        "operation_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "action": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationAction"
+        },
+        "method": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HttpMethod"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/[A-Za-z0-9._~{}/-]{0,199}$"
+        },
+        "params": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 16,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationParamV1"
+          }
+        },
+        "idempotency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/IdempotencySupportV1"
+        },
+        "resource_id_pointer": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/JsonPointer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_fields": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/JsonPointer"
+          }
+        },
+        "cost_pointer": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/JsonPointer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_currency": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "list_pointer": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/JsonPointer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "PHASE-05: a JSON pointer to a list in the response; its items reach the agent as bounded untrusted data."
+        },
+        "item_fields": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/JsonPointer"
+          },
+          "description": "PHASE-05: the fields read from each list item."
+        }
+      },
+      "description": "One registered operation: a fixed path template on the connector's base URL, a fixed method and typed arguments. It names no host and no header."
+    },
+    "ConnectorProvenanceV1": {
+      "title": "ConnectorProvenanceV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "import_id",
+        "spec_digest",
+        "registered_at"
+      ],
+      "properties": {
+        "origin": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ProvenanceOrigin"
+        },
+        "import_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spec_digest": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "registered_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "ConnectorCapabilityV1": {
+      "title": "ConnectorCapabilityV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_id",
+        "action",
+        "title"
+      ],
+      "properties": {
+        "operation_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+        },
+        "action": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationAction"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      }
+    },
+    "ConnectorDescriptorV1": {
+      "title": "ConnectorDescriptorV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id",
+        "provider",
+        "display_name_key",
+        "display_name",
+        "description_key",
+        "version",
+        "category",
+        "capabilities",
+        "auth_mode",
+        "effects",
+        "risk_class",
+        "supports_read",
+        "supports_write",
+        "supports_webhook",
+        "supports_polling",
+        "supports_search",
+        "supports_files",
+        "enabled",
+        "status",
+        "provenance",
+        "egress_class"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "provider": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorProvider"
+        },
+        "display_name_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "description_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCategory"
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCapabilityV1"
+          }
+        },
+        "auth_mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AuthMode"
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 10,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolEffect"
+          }
+        },
+        "risk_class": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/RiskClass"
+        },
+        "supports_read": {
+          "type": "boolean"
+        },
+        "supports_write": {
+          "type": "boolean"
+        },
+        "supports_webhook": {
+          "type": "boolean"
+        },
+        "supports_polling": {
+          "type": "boolean"
+        },
+        "supports_search": {
+          "type": "boolean"
+        },
+        "supports_files": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorStatus"
+        },
+        "provenance": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorProvenanceV1"
+        },
+        "egress_class": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/EgressClass"
+        }
+      }
+    },
+    "ConnectorAuthStateV1": {
+      "title": "ConnectorAuthStateV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "required",
+        "configured",
+        "source",
+        "store_available"
+      ],
+      "properties": {
+        "mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AuthMode"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/KeySource"
+        },
+        "reference": {
+          "type": "string",
+          "pattern": "^secret://connectors/[0-9a-f-]{36}/default$"
+        },
+        "environment_variable": {
+          "type": "string",
+          "pattern": "^POLARIS_CONNECTOR_[A-Z0-9_]{1,40}$"
+        },
+        "last_updated": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "store_available": {
+          "type": "boolean"
+        }
+      },
+      "description": "Whether a key is configured, where it comes from and when it was last set. There is no value field and no length field."
+    },
+    "HealthRecordV1": {
+      "title": "HealthRecordV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "subject_id",
+        "state",
+        "reason_code",
+        "measured_this_session"
+      ],
+      "properties": {
+        "subject": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthSubject"
+        },
+        "subject_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "state": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthState"
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        },
+        "measured_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "measured_this_session": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RestViewV1": {
+      "title": "RestViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_url",
+        "egress_class",
+        "allowed_paths",
+        "allowed_methods",
+        "timeout_ms",
+        "max_response_bytes",
+        "requests_per_minute",
+        "max_concurrent"
+      ],
+      "properties": {
+        "base_url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "egress_class": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/EgressClass"
+        },
+        "allowed_paths": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "allowed_methods": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/HttpMethod"
+          }
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 60000
+        },
+        "max_response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 4194304
+        },
+        "requests_per_minute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "max_concurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      }
+    },
+    "WorkspaceConfigV1": {
+      "title": "WorkspaceConfigV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ConnectorViewV1": {
+      "title": "ConnectorViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "descriptor",
+        "auth",
+        "health",
+        "operation_count",
+        "registered_at"
+      ],
+      "properties": {
+        "descriptor": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorDescriptorV1"
+        },
+        "auth": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorAuthStateV1"
+        },
+        "health": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthRecordV1"
+        },
+        "last_activity_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "operation_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "rest": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/RestViewV1"
+        },
+        "workspace": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/WorkspaceConfigV1"
+        },
+        "registered_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "OperationViewV1": {
+      "title": "OperationViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "tool_id",
+        "side_effect",
+        "retry_safe"
+      ],
+      "properties": {
+        "operation": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorOperationV1"
+        },
+        "tool_id": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolId"
+        },
+        "side_effect": {
+          "type": "boolean"
+        },
+        "retry_safe": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ConnectorInvocationV1": {
+      "title": "ConnectorInvocationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocation_id",
+        "connector_id",
+        "operation_id",
+        "action",
+        "status",
+        "attempts",
+        "resource_refs",
+        "summary",
+        "latency_ms",
+        "started_at"
+      ],
+      "properties": {
+        "invocation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "operation_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "action": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationAction"
+        },
+        "status": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/InvocationOutcome"
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "http_status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 999
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        },
+        "result_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "resource_refs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 1200
+        },
+        "latency_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "started_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "One connector call as recorded: a bounded summary of untrusted content, never the raw body."
+    },
+    "RejectedOperationV1": {
+      "title": "RejectedOperationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "path",
+        "reason"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "reason": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        }
+      }
+    },
+    "CostV1": {
+      "title": "CostV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "micros",
+        "currency",
+        "provenance",
+        "pricing_source"
+      ],
+      "properties": {
+        "micros": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/CostProvenance"
+        },
+        "pricing_source": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "An amount in millionths of a currency unit with its provenance. UNKNOWN has no amount.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provenance": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "micros": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CostBucketV1": {
+      "title": "CostBucketV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "provenance",
+        "micros",
+        "calls"
+      ],
+      "properties": {
+        "currency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+        },
+        "provenance": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/CostProvenance"
+        },
+        "micros": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "UsageTotalsV1": {
+      "title": "UsageTotalsV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "calls",
+        "input_tokens_reported",
+        "output_tokens_reported",
+        "calls_without_reported_tokens",
+        "wall_ms",
+        "external_requests",
+        "costs",
+        "calls_with_unknown_cost"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 320
+        },
+        "calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "input_tokens_reported": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "output_tokens_reported": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "calls_without_reported_tokens": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "wall_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "external_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "costs": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 64,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/CostBucketV1"
+          }
+        },
+        "calls_with_unknown_cost": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "description": "Totals kept apart by currency and provenance: an estimate and a report are never summed into one number."
+    },
+    "UsageRecordV1": {
+      "title": "UsageRecordV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_id",
+        "recorded_at",
+        "category",
+        "subject_id",
+        "mission_id",
+        "project_id",
+        "provider_id",
+        "model_id",
+        "connector_id",
+        "tool_id",
+        "input_tokens",
+        "output_tokens",
+        "cached_tokens",
+        "tokens_provenance",
+        "wall_ms",
+        "external_requests",
+        "cost"
+      ],
+      "properties": {
+        "record_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "recorded_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageCategory"
+        },
+        "subject_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "mission_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connector_id": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tool_id": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p04-domain.schema.json#/$defs/ToolId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cached_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tokens_provenance": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/CostProvenance"
+        },
+        "wall_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "external_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cost": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/CostV1"
+        }
+      }
+    },
+    "BudgetV1": {
+      "title": "BudgetV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget_id",
+        "scope",
+        "scope_key",
+        "dimension",
+        "limit",
+        "currency",
+        "mode",
+        "warn_ratio_pct",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "budget_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "scope": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetScope"
+        },
+        "scope_key": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 200
+        },
+        "dimension": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetDimension"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetMode"
+        },
+        "warn_ratio_pct": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "BudgetUseV1": {
+      "title": "BudgetUseV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget_id",
+        "scope",
+        "scope_key",
+        "dimension",
+        "mode",
+        "limit",
+        "used",
+        "reserved",
+        "unmetered_calls",
+        "state"
+      ],
+      "properties": {
+        "budget_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "scope": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetScope"
+        },
+        "scope_key": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 200
+        },
+        "dimension": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetDimension"
+        },
+        "mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetMode"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "reserved": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+        },
+        "unmetered_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetState"
+        }
+      }
+    },
+    "PricingEntryV1": {
+      "title": "PricingEntryV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pricing_id",
+        "target_kind",
+        "target_id",
+        "unit",
+        "amount_micros",
+        "currency",
+        "source_note",
+        "created_at"
+      ],
+      "properties": {
+        "pricing_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "target_kind": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingTarget"
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "unit": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingUnit"
+        },
+        "amount_micros": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000000
+        },
+        "currency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+        },
+        "source_note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      }
+    },
+    "PricingViewV1": {
+      "title": "PricingViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry",
+        "amount",
+        "provenance"
+      ],
+      "properties": {
+        "entry": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingEntryV1"
+        },
+        "amount": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/DecimalText"
+        },
+        "provenance": {
+          "const": "ESTIMATED"
+        }
+      },
+      "description": "A user-entered price. Every cost computed from it is ESTIMATED, never an invoice."
+    },
+    "ObsEventV1": {
+      "title": "ObsEventV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "timestamp",
+        "component",
+        "category",
+        "severity",
+        "operation",
+        "result",
+        "provenance"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "timestamp": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "component": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Component"
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/EventCategory"
+        },
+        "severity": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Severity"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "operation": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,120}$"
+        },
+        "result": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]{1,40}$"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        },
+        "provenance": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/EventProvenance"
+        }
+      },
+      "description": "A structured diagnostic event: codes only. No prompt text, secret, header, page content or connector payload can be represented."
+    },
+    "HistogramV1": {
+      "title": "HistogramV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buckets",
+        "count",
+        "sum_ms",
+        "max_ms"
+      ],
+      "properties": {
+        "buckets": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sum_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "max_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "LatencyViewV1": {
+      "title": "LatencyViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component",
+        "bucket_bounds_ms",
+        "histogram"
+      ],
+      "properties": {
+        "component": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Component"
+        },
+        "bucket_bounds_ms": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "histogram": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HistogramV1"
+        },
+        "mean_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "ErrorGroupV1": {
+      "title": "ErrorGroupV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component",
+        "reason_code",
+        "count"
+      ],
+      "properties": {
+        "component": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Component"
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "MetricCountersV1": {
+      "title": "MetricCountersV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mission_count",
+        "mission_success_count",
+        "mission_failed_count",
+        "model_calls",
+        "tool_calls",
+        "connector_calls",
+        "approval_requests",
+        "approval_denials",
+        "browser_actions",
+        "computer_actions",
+        "memory_writes",
+        "errors"
+      ],
+      "properties": {
+        "mission_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "mission_success_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "mission_failed_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "model_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "tool_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "connector_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "approval_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "approval_denials": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "browser_actions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "computer_actions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "memory_writes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "MetricsSnapshotV1": {
+      "title": "MetricsSnapshotV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "counters",
+        "latency",
+        "errors_by_code",
+        "error_overflow",
+        "distinct_error_keys"
+      ],
+      "properties": {
+        "scope": {
+          "const": "SINCE_START"
+        },
+        "counters": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/MetricCountersV1"
+        },
+        "latency": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 14,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/LatencyViewV1"
+          }
+        },
+        "errors_by_code": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ErrorGroupV1"
+          }
+        },
+        "error_overflow": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "distinct_error_keys": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200
+        }
+      }
+    },
+    "QueueDepthsV1": {
+      "title": "QueueDepthsV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "running_missions",
+        "running_model_requests",
+        "pending_approvals",
+        "connector_requests_in_flight"
+      ],
+      "properties": {
+        "running_missions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "running_model_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pending_approvals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "connector_requests_in_flight": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "AlertV1": {
+      "title": "AlertV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alert_id",
+        "kind",
+        "severity",
+        "subject",
+        "reason_code",
+        "first_at",
+        "last_at",
+        "occurrences",
+        "state"
+      ],
+      "properties": {
+        "alert_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "kind": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AlertKind"
+        },
+        "severity": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AlertSeverity"
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "reason_code": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ReasonCode"
+        },
+        "first_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "occurrences": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AlertState"
+        }
+      }
+    },
+    "HealthOverviewV1": {
+      "title": "HealthOverviewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "measured_at",
+        "overall",
+        "components"
+      ],
+      "properties": {
+        "measured_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "overall": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthState"
+        },
+        "components": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 200,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/HealthRecordV1"
+          }
+        }
+      }
+    },
+    "ResolvedValueV1": {
+      "title": "ResolvedValueV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "value",
+        "source",
+        "clamped",
+        "present_layers",
+        "ignored_layers"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        },
+        "value": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+        },
+        "source": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ValueSource"
+        },
+        "clamped": {
+          "type": "boolean"
+        },
+        "present_layers": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+          }
+        },
+        "ignored_layers": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+          }
+        },
+        "clamp": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+        }
+      },
+      "description": "One effective value and where it came from. ignored_layers lists a project or mission value that tried to widen a security-bearing setting."
+    },
+    "SettingBoundsV1": {
+      "title": "SettingBoundsV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max",
+        "min_decimal",
+        "max_decimal",
+        "allowed",
+        "max_length",
+        "max_items"
+      ],
+      "properties": {
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min_decimal": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 30
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_decimal": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 30
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "max_length": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_items": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "SettingDescriptorV1": {
+      "title": "SettingDescriptorV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "kind",
+        "state",
+        "default",
+        "layers",
+        "security_bearing",
+        "ceiling",
+        "applies",
+        "consumer",
+        "label_key",
+        "hint_key",
+        "bounds"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        },
+        "kind": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKind"
+        },
+        "state": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingState"
+        },
+        "default": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+          }
+        },
+        "security_bearing": {
+          "type": "boolean"
+        },
+        "ceiling": {
+          "anyOf": [
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "applies": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Applies"
+        },
+        "consumer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "label_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "hint_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "bounds": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingBoundsV1"
+        }
+      },
+      "description": "A typed setting: its kind, bounds, the layers that may write it, whether it bears security, its build ceiling and the host component that reads it. It carries no current value."
+    },
+    "ConfigStatusV1": {
+      "title": "ConfigStatusV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "schema_version",
+        "found_version",
+        "unreadable_rows",
+        "config_version"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigState"
+        },
+        "schema_version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "found_version": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "unreadable_rows": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "config_version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "SensitiveStatusV1": {
+      "title": "SensitiveStatusV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "configured",
+        "source",
+        "reference"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "pattern": "^(provider|connector):[A-Za-z0-9._-]{1,80}$"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/KeySource"
+        },
+        "reference": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_updated": {
+          "anyOf": [
+            {
+              "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "description": "A sensitive setting shown as configured, source and last update only. There is no reveal path."
+    },
+    "PresetId": {
+      "title": "PresetId",
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+    },
+    "ConnectorPresetOperationV1": {
+      "title": "ConnectorPresetOperationV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_id",
+        "title",
+        "action"
+      ],
+      "properties": {
+        "operation_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "action": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationAction"
+        }
+      }
+    },
+    "ConnectorPresetV1": {
+      "title": "ConnectorPresetV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset_id",
+        "display_name",
+        "category",
+        "description",
+        "base_url",
+        "auth_mode",
+        "setup_hint",
+        "docs_url",
+        "operations"
+      ],
+      "properties": {
+        "preset_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PresetId"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCategory"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "base_url": {
+          "type": "string",
+          "pattern": "^https://[a-z0-9.-]+$"
+        },
+        "auth_mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AuthMode"
+        },
+        "setup_hint": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "docs_url": {
+          "type": "string",
+          "pattern": "^https://[^\\s]{1,300}$"
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorPresetOperationV1"
+          }
+        }
+      },
+      "description": "A built-in connector preset: the service's official base URL and documented read operations. It carries no credential and no connection state."
+    }
+  }
+}

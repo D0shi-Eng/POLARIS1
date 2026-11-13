@@ -1,0 +1,53 @@
+{
+  "contract_version": "1.0",
+  "capability_id": "polaris.net.fetch_document",
+  "capability_version": "0.1.0",
+  "display_name": "Fetch a document over brokered egress",
+  "description": "Representable today; the Egress PEP that would enforce it does not exist yet (W1 finding 1).",
+  "source": {
+    "origin": "FIRST_PARTY",
+    "publisher_id": "polaris.core"
+  },
+  "input_schema_ref": "capabilities/net/fetch.input.v1.json",
+  "output_schema_ref": "capabilities/net/fetch.output.v1.json",
+  "effect_declaration_semantics": "REQUESTED_PRIVILEGE",
+  "requested_effects": [
+    {
+      "action": "network.fetch",
+      "destination": {
+        "host": "api.polaris.example",
+        "port": 443,
+        "protocol": "HTTPS"
+      },
+      "data_classification": "INTERNAL"
+    }
+  ],
+  "risk_class": "MEDIUM",
+  "execution_requirements": {
+    "confinement": "CONFINED",
+    "filesystem_scope": "NONE",
+    "process_tree": "CONFINED_KILL_ON_CLOSE",
+    "network": "BROKERED_EGRESS",
+    "handle_inheritance": "EXPLICIT_ONLY",
+    "environment": "EXPLICIT_ONLY",
+    "allowed_destinations": [
+      {
+        "host": "api.polaris.example",
+        "port": 443,
+        "protocol": "HTTPS"
+      }
+    ],
+    "max_wall_clock_ms": 10000
+  },
+  "idempotency": {
+    "semantics": "BEST_EFFORT",
+    "retry_safe": true,
+    "key_derivation": "ARGUMENT_DIGEST"
+  },
+  "platform_requirements": [
+    "ANY"
+  ],
+  "provenance": {
+    "signed": false
+  }
+}

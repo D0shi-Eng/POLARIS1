@@ -1,0 +1,65 @@
+# POLARIS — what never enters the repository.
+# Build outputs and dependencies are reproducible; evidence, local data and transfer
+# folders are machine-specific and may carry environment details.
+
+# dependencies and build outputs
+node_modules/
+dist/
+build-tests/
+target/
+target-e2e/
+target-probe/
+target-ui/
+.vite/
+coverage/
+contracts/generated/.codegen-stage/
+tools/**/bin/
+*.exe
+*.msi
+*.dll
+*.pdb
+
+# measurement evidence, release candidates and raw native records (local only)
+evidence/
+release/
+*.local.json
+*.local.txt
+*.log
+.p0*run*.log
+
+# local working folders
+_transfer/
+_to_delete/
+graphify-out/
+Claude outputs/
+.claude/
+.serena/
+
+# internal phase records: build and security runbooks, native paths, incident notes
+docs/phases/
+
+# local stores, vaults, secrets and keys
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+vault/
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.snk
+
+# editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# remediation 2026-10-12: local toolchain copy and rollback archive (machine-local, never in the repo)
+_local/
+_rollback/

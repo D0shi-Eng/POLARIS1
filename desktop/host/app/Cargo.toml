@@ -1,0 +1,64 @@
+[package]
+name = "polaris-host"
+description = "POLARIS desktop native host (Tauri v2 binding)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+name = "polaris_host_lib"
+path = "src/lib.rs"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "polaris-desktop"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+polaris-host-core = { path = "../core" }
+polaris-host-providers = { path = "../providers" }
+# Phase-08: الصندوق والمتصفّح وفتح عنوان التفويض (ويندوز). خارج ويندوز الحزمة فارغة.
+polaris-host-win = { path = "../win" }
+serde.workspace = true
+serde_json.workspace = true
+tauri = { version = "2", features = [] }
+# مكتبة صغيرة ذات غرض واحد: وسم لغة نظام التشغيل. البديل كان استدعاء Win32
+# مباشرةً في طبقة الربط، وهو أكبر وأقل قابلية للنقل لمكسب أصغر.
+sys-locale = "0.3"
+
+# ADR-019 D6: Credential Manager ونافذة إدخال النظام. نفس الإصدار الموجود أصلًا في
+# شجرة التبعيات عبر الإطار، بأضيق مجموعة ميزات تكفي هذه الدوال.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Graphics_Gdi",
+  "Win32_Security",
+  "Win32_Security_Credentials",
+  "Win32_System_Com",
+  "Win32_System_Diagnostics_ToolHelp",
+  "Win32_System_Threading",
+  # Phase-05: جرد النوافذ والتقاطها والإدخال إليها. ملف FFI واحد مُسمّى يستعملها.
+  "Win32_Storage_Xps",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_WindowsAndMessaging",
+  # ADR-042: إشعار النظام بفقاعة منطقة الإعلام. ملف FFI واحد مُسمّى يستعملها (notify_win32.rs).
+  "Win32_UI_Shell",
+] }
+
+[features]
+# أداة قياس E2E تُترجَم خارج بناء المنتج. الميزة مطفأة افتراضيًا، فالأمر
+# e2e.report غير موجود في الثنائي الذي يُسلَّم للمستخدم، لا محجوبًا وقت التشغيل.
+e2e = []
+# اختبار الدخان التشخيصي لمنفذ Win32 على نافذة التجهيزة. لا يدخل أيّ بناء ولا المجموعة القانونية.
+win32-smoke = []
+# الواجهة المحزومة. بلا هذه الميزة يُصدر سكربت بناء tauri `cfg(dev)`، فيُضمَّن
+# `devUrl` في الثنائي حتى في ملف `release`، ويفتح المنتج localhost بدل ملفات
+# `frontendDist` (العيب P01_PRODUCT_BINARY_BUILT_IN_TAURI_DEV_MODE).
+# ليست افتراضية عمدًا: `tauri dev` يبني بدونها فيبقى خادم Vite متاحًا للتطوير،
+# و`tauri build` يمرّرها بنفسه، ومشغّل المطابقة يمرّرها صراحةً.
+custom-protocol = ["tauri/custom-protocol"]

@@ -1,0 +1,38 @@
+{
+  "name": "@polaris/desktop-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "description": "POLARIS Phase-01 desktop renderer: presentation, orchestration and the typed IPC client",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "generate": "node scripts/generate-contract-bundle.mjs",
+    "generate:check": "node scripts/generate-contract-bundle.mjs --check",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "vite build",
+    "test": "npm run build:tests && node --test \"build-tests/tests/*.test.js\"",
+    "verify": "npm run generate && npm run typecheck && npm run build && npm run test",
+    "build:tests": "tsc -p tsconfig.test.json && node scripts/prepare-tests.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "2.9.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.9.1",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "22.10.5",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "@vitejs/plugin-react": "4.3.4",
+    "jsdom": "25.0.1",
+    "typescript": "5.7.3",
+    "vite": "6.4.6"
+  }
+}

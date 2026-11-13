@@ -1,0 +1,342 @@
+{
+  "contract_version": "1.4",
+  "phase": "PHASE-04",
+  "envelope_contract": "IPCEnvelopeV1",
+  "implementation_status": "IMPLEMENTED",
+  "operations": [
+    {
+      "operation": "skill.list",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/SkillListRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/SkillListResultV1",
+      "owner": "SkillRegistryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "skill.get",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/SkillGetRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/SkillGetResultV1",
+      "owner": "SkillRegistryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "skill.configure",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/SkillConfigureRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/SkillConfigureResultV1",
+      "owner": "SkillRegistryService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "WRITE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "tool.list",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/ToolListRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/ToolListResultV1",
+      "owner": "ToolRegistryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "tool.get",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/ToolGetRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/ToolGetResultV1",
+      "owner": "ToolRegistryService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "tool.activity.list",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/ToolActivityListRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/ToolActivityListResultV1",
+      "owner": "ToolActivityService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "mcp.list",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/McpListRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/McpListResultV1",
+      "owner": "McpServerService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "mcp.register",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/McpRegisterRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/McpRegisterResultV1",
+      "owner": "McpServerService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CREATE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "mcp.configure",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/McpConfigureRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/McpConfigureResultV1",
+      "owner": "McpServerService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "WRITE_LOCAL_DATA",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "mcp.refresh",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/McpRefreshRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/McpRefreshResultV1",
+      "owner": "McpDiscoveryService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "NETWORK_PROBE",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "approval.list",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/ApprovalListRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/ApprovalListResultV1",
+      "owner": "ToolApprovalService",
+      "effect": "READ_ONLY",
+      "effect_class": "READ",
+      "idempotency": "NOT_REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    },
+    {
+      "operation": "tool.approval.respond",
+      "envelope_version": "1.4",
+      "request_schema": "desktop-p04-request.v1.schema.json#/$defs/ToolApprovalRespondRequestV1",
+      "response_schema": "desktop-p04-result.v1.schema.json#/$defs/ToolApprovalRespondResultV1",
+      "owner": "ToolApprovalService",
+      "effect": "SIDE_EFFECTING",
+      "effect_class": "CONTROL",
+      "idempotency": "REQUIRED",
+      "trust_boundary": "RENDERER_TO_NATIVE_HOST",
+      "caller_class": "DESKTOP_RENDERER",
+      "caller_identity_authority": "NATIVE_TRANSPORT",
+      "error_categories": [
+        "IPC_UNAVAILABLE",
+        "IPC_TIMEOUT",
+        "UNSUPPORTED_OPERATION",
+        "INVALID_RESPONSE",
+        "INTERNAL_ERROR",
+        "NATIVE_SERVICE_UNAVAILABLE",
+        "CONFIG_UNAVAILABLE",
+        "FEATURE_NOT_AVAILABLE",
+        "PERMISSION_DENIED"
+      ],
+      "availability": {
+        "state": "AVAILABLE"
+      },
+      "routing_status": "ROUTED",
+      "phase_introduced": "PHASE-04"
+    }
+  ]
+}

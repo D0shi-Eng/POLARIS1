@@ -1,0 +1,2 @@
+POLARIS W1 fixture input file.
+CANARY_ALLOWED_READ=8f2a1c94-allowed-input

@@ -1,0 +1,27 @@
+# عُدّة القياس الأصلية لـPhase-08: تبني المضيف الحقيقي بمنافذ ويندوز الحقيقية (صندوق AppContainer،
+# وEdge في كائن مهمّة) فوق مجلد بيانات تملكه، وتقيس الصندوق والمتصفّح والمخرجات والنموذج المحلي
+# الحقيقي ومهامّ المعيار وA..E والمجدول والإلغاء وإعادة التشغيل، وتكتب أدلّة خامًا.
+# ليست جزءًا من المنتج ولا تُحزَم معه.
+[package]
+name = "polaris-p08-harness"
+description = "POLARIS Phase-08 native measurement harness (not shipped)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "polaris-p08-native"
+path = "src/main.rs"
+
+[dependencies]
+polaris-host-core = { path = "../core" }
+polaris-host-providers = { path = "../providers" }
+polaris-host-win = { path = "../win" }
+serde_json.workspace = true
+base64 = "0.22"
+
+[target.'cfg(windows)'.dependencies]
+# قراءة مفتاح حفظه المالك في POLARIS، للقياس على مزوّد بعيد حقيقي (POLARIS_P08_REAL_KEYS=1). قراءة فقط.
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security_Credentials"] }

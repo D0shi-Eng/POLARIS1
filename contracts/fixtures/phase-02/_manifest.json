@@ -1,0 +1,548 @@
+{
+  "positive": [
+    {
+      "file": "provider-list.request.json",
+      "operation": "provider.list",
+      "direction": "REQUEST",
+      "claim": "no parameters: the list is bounded by the host catalogue"
+    },
+    {
+      "file": "provider-list.result.json",
+      "operation": "provider.list",
+      "direction": "RESULT",
+      "claim": "a measured local provider and an unconfigured remote one; no credential value anywhere"
+    },
+    {
+      "file": "provider-configure.request.json",
+      "operation": "provider.configure",
+      "direction": "REQUEST",
+      "claim": "a loopback endpoint for a local provider"
+    },
+    {
+      "file": "provider-configure.result.json",
+      "operation": "provider.configure",
+      "direction": "RESULT",
+      "claim": "the configured provider"
+    },
+    {
+      "file": "provider-credential-set.request.json",
+      "operation": "provider.credential.set",
+      "direction": "REQUEST",
+      "claim": "the request names a provider and nothing else"
+    },
+    {
+      "file": "provider-credential.result.json",
+      "operation": "provider.credential.set",
+      "direction": "RESULT",
+      "claim": "a stored credential is reported as a reference"
+    },
+    {
+      "file": "provider-credential-clear.request.json",
+      "operation": "provider.credential.clear",
+      "direction": "REQUEST",
+      "claim": "clear names a provider"
+    },
+    {
+      "file": "provider-refresh.request.json",
+      "operation": "provider.refresh",
+      "direction": "REQUEST",
+      "claim": "an explicit bounded list"
+    },
+    {
+      "file": "provider-refresh.result.json",
+      "operation": "provider.refresh",
+      "direction": "RESULT",
+      "claim": "an unreachable local server is measured and stated"
+    },
+    {
+      "file": "model-list.request.json",
+      "operation": "model.list",
+      "direction": "REQUEST",
+      "claim": "a filter, not a query language"
+    },
+    {
+      "file": "model-list.result.json",
+      "operation": "model.list",
+      "direction": "RESULT",
+      "claim": "a discovered model with unknown facts left unknown"
+    },
+    {
+      "file": "model-configure.request.json",
+      "operation": "model.configure",
+      "direction": "REQUEST",
+      "claim": "enable one model"
+    },
+    {
+      "file": "model-configure.result.json",
+      "operation": "model.configure",
+      "direction": "RESULT",
+      "claim": "the model after the change"
+    },
+    {
+      "file": "model-preferences.request.json",
+      "operation": "model.preferences.set",
+      "direction": "REQUEST",
+      "claim": "clearing the default is explicit null"
+    },
+    {
+      "file": "model-preferences.result.json",
+      "operation": "model.preferences.set",
+      "direction": "RESULT",
+      "claim": "no default model"
+    },
+    {
+      "file": "model-invoke.request.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "claim": "a default-model invocation with project context"
+    },
+    {
+      "file": "model-invoke-manual.request.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "claim": "a manual invocation naming a model"
+    },
+    {
+      "file": "model-invoke-completed.result.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "claim": "a completed invocation: tainted output, reported usage, measured timing"
+    },
+    {
+      "file": "model-invoke-denied.result.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "claim": "a denied invocation carries no output"
+    },
+    {
+      "file": "model-cancel.request.json",
+      "operation": "model.cancel",
+      "direction": "REQUEST",
+      "claim": "cancel names one invocation"
+    },
+    {
+      "file": "model-cancel.result.json",
+      "operation": "model.cancel",
+      "direction": "RESULT",
+      "claim": "cancellation acknowledged"
+    },
+    {
+      "file": "project-list.request.json",
+      "operation": "project.list",
+      "direction": "REQUEST",
+      "claim": "an Arabic search string is plain text"
+    },
+    {
+      "file": "project-list.result.json",
+      "operation": "project.list",
+      "direction": "RESULT",
+      "claim": "a real project record"
+    },
+    {
+      "file": "project-get.request.json",
+      "operation": "project.get",
+      "direction": "REQUEST",
+      "claim": "one project"
+    },
+    {
+      "file": "project-get.result.json",
+      "operation": "project.get",
+      "direction": "RESULT",
+      "claim": "the project with its sources and the model it would use"
+    },
+    {
+      "file": "project-create.request.json",
+      "operation": "project.create",
+      "direction": "REQUEST",
+      "claim": "an Arabic project with a workspace reference"
+    },
+    {
+      "file": "project-mutation.result.json",
+      "operation": "project.create",
+      "direction": "RESULT",
+      "claim": "the stored project"
+    },
+    {
+      "file": "project-update.request.json",
+      "operation": "project.update",
+      "direction": "REQUEST",
+      "claim": "optimistic update with a model binding and a cleared workspace"
+    },
+    {
+      "file": "project-archive.request.json",
+      "operation": "project.archive",
+      "direction": "REQUEST",
+      "claim": "archive, not delete"
+    },
+    {
+      "file": "context-add-file.request.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "claim": "a workspace-relative file"
+    },
+    {
+      "file": "context-add-note.request.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "claim": "a text note"
+    },
+    {
+      "file": "context-source.result.json",
+      "operation": "context.add",
+      "direction": "RESULT",
+      "claim": "the stored source"
+    },
+    {
+      "file": "context-remove.request.json",
+      "operation": "context.remove",
+      "direction": "REQUEST",
+      "claim": "remove one source"
+    },
+    {
+      "file": "context-preview.request.json",
+      "operation": "context.preview",
+      "direction": "REQUEST",
+      "claim": "preview one source"
+    },
+    {
+      "file": "context-preview.result.json",
+      "operation": "context.preview",
+      "direction": "RESULT",
+      "claim": "the preview is labelled untrusted content"
+    },
+    {
+      "file": "context-assemble.request.json",
+      "operation": "context.assemble",
+      "direction": "REQUEST",
+      "claim": "a bounded assembly"
+    },
+    {
+      "file": "context-assemble.result.json",
+      "operation": "context.assemble",
+      "direction": "RESULT",
+      "claim": "metadata only, with an explicit omission"
+    }
+  ],
+  "negative": [
+    {
+      "file": "provider-configure.remote-endpoint.json",
+      "operation": "provider.configure",
+      "direction": "REQUEST",
+      "reason": "an arbitrary remote endpoint cannot be supplied by the renderer",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/endpoint"
+    },
+    {
+      "file": "provider-configure.lan-endpoint.json",
+      "operation": "provider.configure",
+      "direction": "REQUEST",
+      "reason": "a LAN endpoint is not loopback",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/endpoint"
+    },
+    {
+      "file": "provider-configure.no-change.json",
+      "operation": "provider.configure",
+      "direction": "REQUEST",
+      "reason": "a configure request that changes nothing is malformed",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "provider-configure.api-key-field.json",
+      "operation": "provider.configure",
+      "direction": "REQUEST",
+      "reason": "no field can carry a credential",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "provider-credential-set.secret-field.json",
+      "operation": "provider.credential.set",
+      "direction": "REQUEST",
+      "reason": "the credential request carries no value",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "provider-refresh.empty.json",
+      "operation": "provider.refresh",
+      "direction": "REQUEST",
+      "reason": "refresh names at least one provider",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/provider_ids"
+    },
+    {
+      "file": "provider-refresh.unbounded.json",
+      "operation": "provider.refresh",
+      "direction": "REQUEST",
+      "reason": "refresh is bounded to sixteen providers",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/provider_ids"
+    },
+    {
+      "file": "model-invoke.manual-without-model.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "manual routing must name a model",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.default-with-model.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "default routing may not name a model",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.system-role.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "the renderer cannot author a system turn",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/messages/0/role"
+    },
+    {
+      "file": "model-invoke.url-field.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "no destination can be named in an invocation",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.context-without-project.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "context sources require a project",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.unbounded-timeout.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "timeouts are bounded",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/timeout_ms"
+    },
+    {
+      "file": "model-invoke.bad-model-id.json",
+      "operation": "model.invoke",
+      "direction": "REQUEST",
+      "reason": "model ids cannot carry markup",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/model_id"
+    },
+    {
+      "file": "project-create.empty-name.json",
+      "operation": "project.create",
+      "direction": "REQUEST",
+      "reason": "a project has a name",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/name"
+    },
+    {
+      "file": "project-create.control-char.json",
+      "operation": "project.create",
+      "direction": "REQUEST",
+      "reason": "names are plain text",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/name"
+    },
+    {
+      "file": "project-update.no-version.json",
+      "operation": "project.update",
+      "direction": "REQUEST",
+      "reason": "updates are optimistic and need the expected version",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "project-update.no-change.json",
+      "operation": "project.update",
+      "direction": "REQUEST",
+      "reason": "an update that changes nothing is malformed",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "context-add.parent-traversal.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "reason": "parent segments are unrepresentable",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/reference"
+    },
+    {
+      "file": "context-add.absolute-path.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "reason": "absolute paths are unrepresentable",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/reference"
+    },
+    {
+      "file": "context-add.stream-name.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "reason": "alternate data streams are unrepresentable",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/reference"
+    },
+    {
+      "file": "context-add.system-context.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "reason": "the renderer cannot add system context",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/source_type"
+    },
+    {
+      "file": "context-add.note-with-reference.json",
+      "operation": "context.add",
+      "direction": "REQUEST",
+      "reason": "a note is not a file",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "context-assemble.too-many-sources.json",
+      "operation": "context.assemble",
+      "direction": "REQUEST",
+      "reason": "assembly is bounded",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/source_ids"
+    },
+    {
+      "file": "model-list.unknown-claimed-supported.json",
+      "operation": "model.list",
+      "direction": "RESULT",
+      "reason": "a capability cannot be claimed without a source",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/models/0/capabilities/3/provenance"
+    },
+    {
+      "file": "model-list.invented-context-window.json",
+      "operation": "model.list",
+      "direction": "RESULT",
+      "reason": "a value with an unknown source is a fabrication",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/models/0/context_window/provenance"
+    },
+    {
+      "file": "model-list.eleven-capabilities-required.json",
+      "operation": "model.list",
+      "direction": "RESULT",
+      "reason": "every capability is stated, even as unknown",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/models/0/capabilities"
+    },
+    {
+      "file": "provider-list.key-value-field.json",
+      "operation": "provider.list",
+      "direction": "RESULT",
+      "reason": "no field can carry a credential value",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/providers/0/key_status"
+    },
+    {
+      "file": "provider-list.local-remote-class.json",
+      "operation": "provider.list",
+      "direction": "RESULT",
+      "reason": "a local provider never uses the remote network class",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/providers/0/network_class"
+    },
+    {
+      "file": "provider-list.remote-configurable.json",
+      "operation": "provider.list",
+      "direction": "RESULT",
+      "reason": "a remote endpoint is never configurable",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/providers/0/endpoint_configurable"
+    },
+    {
+      "file": "provider-list.configured-without-source.json",
+      "operation": "provider.list",
+      "direction": "RESULT",
+      "reason": "a configured credential names its source and reference",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/providers/0/key_status"
+    },
+    {
+      "file": "provider-refresh.estimated-latency.json",
+      "operation": "provider.refresh",
+      "direction": "RESULT",
+      "reason": "a latency is measured or absent",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/results/0/health/latency/provenance"
+    },
+    {
+      "file": "provider-refresh.measured-without-time.json",
+      "operation": "provider.refresh",
+      "direction": "RESULT",
+      "reason": "a measured health state needs its instant",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/results/0/health"
+    },
+    {
+      "file": "model-invoke.completed-without-output.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "reason": "a completed invocation has output",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.denied-with-output.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "reason": "a denied invocation has no output",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "model-invoke.output-with-authority.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "reason": "model output never carries authority",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/output/authority"
+    },
+    {
+      "file": "model-invoke.selected-without-model.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "reason": "a selected route names its model",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/routing"
+    },
+    {
+      "file": "model-invoke.failed-without-error.json",
+      "operation": "model.invoke",
+      "direction": "RESULT",
+      "reason": "a failure names its normalised code",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/"
+    },
+    {
+      "file": "context-assemble.measured-tokens.json",
+      "operation": "context.assemble",
+      "direction": "RESULT",
+      "reason": "an estimate cannot be labelled measured",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/bundle/items/0/estimated_tokens/provenance"
+    },
+    {
+      "file": "context-preview.trusted-preview.json",
+      "operation": "context.preview",
+      "direction": "RESULT",
+      "reason": "file content is never a trusted instruction",
+      "expect_code": "VALIDATION_ERROR",
+      "expect_pointer": "/preview_trust_class"
+    }
+  ]
+}

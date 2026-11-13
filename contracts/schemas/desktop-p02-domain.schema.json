@@ -1,0 +1,1514 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisPhase02Domain",
+  "description": "Phase-02 provider, model, project and context vocabulary shared by the Phase-02 request and result payloads. Every object is closed; every unknown fact is representable as UNKNOWN and nothing else.",
+  "$comment": "مفردات Phase-02. لا قيمة مخمّنة: كل حقيقة تحمل مصدرها، والمجهول قيمة صريحة.",
+  "$defs": {
+    "ProviderId": {
+      "title": "ProviderId",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,47}$",
+      "description": "Identifier of a registered provider instance. Only ids the host registered are ever routed; an unknown id is refused by the host, not merely absent."
+    },
+    "ModelId": {
+      "title": "ModelId",
+      "type": "string",
+      "maxLength": 249,
+      "pattern": "^[a-z][a-z0-9-]{1,47}:[\\x21\\x23-\\x26\\x28-\\x3b\\x3d\\x3f-\\x5b\\x5d-\\x5f\\x61-\\x7e]{1,200}$",
+      "description": "Stable model identity: <provider_id>:<provider_model_id>. Quotes, angle brackets, backslash, backtick and whitespace are unrepresentable."
+    },
+    "ProviderModelId": {
+      "title": "ProviderModelId",
+      "type": "string",
+      "pattern": "^[\\x21\\x23-\\x26\\x28-\\x3b\\x3d\\x3f-\\x5b\\x5d-\\x5f\\x61-\\x7e]{1,200}$",
+      "description": "The identifier the provider itself uses."
+    },
+    "Provenance": {
+      "title": "Provenance",
+      "type": "string",
+      "enum": [
+        "PROVIDER_REPORTED",
+        "LOCALLY_MEASURED",
+        "STATIC_DESCRIPTOR",
+        "ESTIMATED",
+        "UNKNOWN"
+      ],
+      "description": "Where a fact comes from. An estimated or reported value is never presented as measured."
+    },
+    "Support": {
+      "title": "Support",
+      "type": "string",
+      "enum": [
+        "SUPPORTED",
+        "UNSUPPORTED",
+        "UNKNOWN"
+      ],
+      "description": "UNKNOWN is a first-class answer and is never treated as SUPPORTED."
+    },
+    "CapabilityClaim": {
+      "title": "CapabilityClaim",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "support",
+        "provenance"
+      ],
+      "properties": {
+        "support": {
+          "$ref": "#/$defs/Support"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "مدعوم أو غير مدعوم بلا مصدر ادعاءٌ بلا دليل، والمجهول لا مصدر له.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "support": {
+                "const": "UNKNOWN"
+              }
+            },
+            "required": [
+              "support"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "not": {
+                  "const": "UNKNOWN"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "FactInteger": {
+      "title": "FactInteger",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provenance"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000000000
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "قيمة بلا مصدر معروف غير قابلة للتمثيل، والمجهول لا يحمل قيمة.",
+          "if": {
+            "type": "object",
+            "required": [
+              "value"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "not": {
+                  "const": "UNKNOWN"
+                }
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "FactText": {
+      "title": "FactText",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provenance"
+      ],
+      "properties": {
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "قيمة بلا مصدر معروف غير قابلة للتمثيل، والمجهول لا يحمل قيمة.",
+          "if": {
+            "type": "object",
+            "required": [
+              "value"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "not": {
+                  "const": "UNKNOWN"
+                }
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ProviderKind": {
+      "title": "ProviderKind",
+      "type": "string",
+      "enum": [
+        "LOCAL_OPENAI_COMPATIBLE",
+        "OLLAMA",
+        "LM_STUDIO",
+        "OPENAI",
+        "ANTHROPIC",
+        "GOOGLE",
+        "OPENROUTER",
+        "OPENAI_COMPATIBLE_API",
+        "CUSTOM_OPENAI_COMPATIBLE",
+        "CLAUDE_CLI",
+        "CODEX_CLI"
+      ],
+      "description": "Closed provider classes. A new class is an explicit registration, not a string. OPENAI_COMPATIBLE_API and CUSTOM_OPENAI_COMPATIBLE were added by ADR-037. CLAUDE_CLI and CODEX_CLI (2026-11-12) reach a remote model through a command-line tool installed on this computer."
+    },
+    "Locality": {
+      "title": "Locality",
+      "type": "string",
+      "enum": [
+        "LOCAL",
+        "REMOTE"
+      ],
+      "description": "Whether requests leave this computer."
+    },
+    "AuthMode": {
+      "title": "AuthMode",
+      "type": "string",
+      "enum": [
+        "NO_AUTH_LOCAL",
+        "API_KEY",
+        "OPTIONAL_API_KEY",
+        "CLI_LOGIN"
+      ],
+      "description": "Only officially supported authentication. OAuth is not modelled until a provider offers a supported desktop flow. CLI_LOGIN: the command-line tool holds its own sign-in; the host never reads or stores a credential for it."
+    },
+    "EndpointType": {
+      "title": "EndpointType",
+      "type": "string",
+      "enum": [
+        "OPENAI_COMPATIBLE",
+        "OLLAMA_NATIVE",
+        "ANTHROPIC_MESSAGES",
+        "GOOGLE_GENERATIVE_LANGUAGE",
+        "LOCAL_CLI"
+      ],
+      "description": "Protocol family. LOCAL_CLI: a local command-line process that makes the remote connection itself."
+    },
+    "NetworkClass": {
+      "title": "NetworkClass",
+      "type": "string",
+      "enum": [
+        "LOOPBACK_PROVIDER_ACCESS",
+        "REMOTE_EGRESS"
+      ],
+      "description": "LOOPBACK_PROVIDER_ACCESS reaches 127.0.0.1 or ::1 only. REMOTE_EGRESS reaches the provider's fixed https host only."
+    },
+    "ProviderCapabilities": {
+      "title": "ProviderCapabilities",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supports_streaming",
+        "supports_model_listing",
+        "supports_health_check",
+        "supports_chat",
+        "supports_embeddings",
+        "supports_vision",
+        "supports_audio_input",
+        "supports_audio_output",
+        "supports_tools",
+        "supports_json_schema",
+        "supports_system_prompt",
+        "supports_reasoning_control"
+      ],
+      "properties": {
+        "supports_streaming": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_model_listing": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_health_check": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_chat": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_embeddings": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_vision": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_audio_input": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_audio_output": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_tools": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_json_schema": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_system_prompt": {
+          "$ref": "#/$defs/CapabilityClaim"
+        },
+        "supports_reasoning_control": {
+          "$ref": "#/$defs/CapabilityClaim"
+        }
+      },
+      "description": "Protocol-level capabilities. Per-model capabilities are read from the model."
+    },
+    "HealthState": {
+      "title": "HealthState",
+      "type": "string",
+      "enum": [
+        "HEALTHY",
+        "DEGRADED",
+        "UNREACHABLE",
+        "AUTH_REQUIRED",
+        "AUTH_FAILED",
+        "RATE_LIMITED",
+        "MISCONFIGURED",
+        "UNKNOWN"
+      ],
+      "description": "Measured provider health. A timeout is UNKNOWN, not UNREACHABLE."
+    },
+    "HealthReason": {
+      "title": "HealthReason",
+      "type": "string",
+      "enum": [
+        "OK",
+        "NOT_CHECKED",
+        "PROVIDER_DISABLED",
+        "ENDPOINT_NOT_CONFIGURED",
+        "CREDENTIAL_MISSING",
+        "CREDENTIAL_STORE_UNAVAILABLE",
+        "ENDPOINT_REJECTED",
+        "CREDENTIAL_REJECTED",
+        "CONNECTION_REFUSED",
+        "NETWORK_UNREACHABLE",
+        "NAME_RESOLUTION_FAILED",
+        "TLS_FAILURE",
+        "PROVIDER_TIMEOUT",
+        "RATE_LIMITED",
+        "SERVER_ERROR",
+        "PROTOCOL_MISMATCH",
+        "RESPONSE_INVALID",
+        "EGRESS_DENIED"
+      ],
+      "description": "Machine reason for the health state."
+    },
+    "InstallationState": {
+      "title": "InstallationState",
+      "type": "string",
+      "enum": [
+        "DETECTED",
+        "NOT_DETECTED",
+        "NOT_APPLICABLE",
+        "UNKNOWN"
+      ],
+      "description": "Presence in the known default locations only; NOT_DETECTED is not NOT_INSTALLED."
+    },
+    "RuntimeState": {
+      "title": "RuntimeState",
+      "type": "string",
+      "enum": [
+        "RUNNING",
+        "NOT_RUNNING",
+        "NOT_APPLICABLE",
+        "UNKNOWN"
+      ],
+      "description": "Whether a local server answered on its endpoint at the last check."
+    },
+    "MeasuredMilliseconds": {
+      "title": "MeasuredMilliseconds",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "provenance"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600000
+        },
+        "provenance": {
+          "const": "LOCALLY_MEASURED"
+        }
+      },
+      "description": "A duration measured on this host."
+    },
+    "ProviderHealth": {
+      "title": "ProviderHealth",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "reason_code",
+        "installation",
+        "runtime"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/HealthState"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/HealthReason"
+        },
+        "checked_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "latency": {
+          "$ref": "#/$defs/MeasuredMilliseconds"
+        },
+        "installation": {
+          "$ref": "#/$defs/InstallationState"
+        },
+        "runtime": {
+          "$ref": "#/$defs/RuntimeState"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "حالة مقيسة تتطلب لحظة القياس.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "reason_code": {
+                "not": {
+                  "enum": [
+                    "NOT_CHECKED",
+                    "PROVIDER_DISABLED",
+                    "ENDPOINT_NOT_CONFIGURED",
+                    "CREDENTIAL_MISSING",
+                    "CREDENTIAL_STORE_UNAVAILABLE"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "reason_code"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "checked_at"
+            ]
+          }
+        }
+      ]
+    },
+    "CredentialSource": {
+      "title": "CredentialSource",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "CREDENTIAL_STORE",
+        "ENVIRONMENT"
+      ],
+      "description": "Where the host found a credential. The value itself never crosses."
+    },
+    "CredentialState": {
+      "title": "CredentialState",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "configured",
+        "source",
+        "store_available"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "#/$defs/CredentialSource"
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^secret://providers/[a-z][a-z0-9-]{1,47}/default$"
+        },
+        "store_available": {
+          "type": "boolean"
+        },
+        "environment_variable": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 64,
+          "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+        }
+      },
+      "description": "Credential facts only. There is no field that could carry a credential value.",
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "configured": {
+                "const": false
+              }
+            },
+            "required": [
+              "configured"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "const": "NONE"
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "enum": [
+                  "CREDENTIAL_STORE",
+                  "ENVIRONMENT"
+                ]
+              }
+            },
+            "required": [
+              "reference"
+            ]
+          }
+        }
+      ]
+    },
+    "ModelCounts": {
+      "title": "ModelCounts",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discovered",
+        "enabled",
+        "available"
+      ],
+      "properties": {
+        "discovered": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "enabled": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "available": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        }
+      }
+    },
+    "ProviderDescriptorView": {
+      "title": "ProviderDescriptorView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "kind",
+        "display_name",
+        "display_name_key",
+        "endpoint_type",
+        "auth_mode",
+        "locality",
+        "network_class",
+        "endpoint_configurable",
+        "enabled",
+        "configured",
+        "key_status",
+        "capabilities",
+        "health",
+        "models"
+      ],
+      "properties": {
+        "provider_id": {
+          "$ref": "#/$defs/ProviderId"
+        },
+        "kind": {
+          "$ref": "#/$defs/ProviderKind"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "display_name_key": {
+          "$ref": "./desktop-settings.schema.json#/$defs/DisplayKey"
+        },
+        "endpoint_type": {
+          "$ref": "#/$defs/EndpointType"
+        },
+        "auth_mode": {
+          "$ref": "#/$defs/AuthMode"
+        },
+        "locality": {
+          "$ref": "#/$defs/Locality"
+        },
+        "network_class": {
+          "$ref": "#/$defs/NetworkClass"
+        },
+        "endpoint": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 256,
+          "pattern": "^https?://[A-Za-z0-9.\\[\\]:-]+(/[A-Za-z0-9._~/-]*)?$",
+          "description": "Display form. Local endpoints are loopback only."
+        },
+        "endpoint_configurable": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "key_status": {
+          "$ref": "#/$defs/CredentialState"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/ProviderCapabilities"
+        },
+        "health": {
+          "$ref": "#/$defs/ProviderHealth"
+        },
+        "models": {
+          "$ref": "#/$defs/ModelCounts"
+        }
+      },
+      "description": "Facts about one provider. Nothing here is guessed, and nothing here is secret.",
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "locality": {
+                "const": "LOCAL"
+              }
+            },
+            "required": [
+              "locality"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "network_class": {
+                "const": "LOOPBACK_PROVIDER_ACCESS"
+              },
+              "auth_mode": {
+                "enum": [
+                  "NO_AUTH_LOCAL",
+                  "OPTIONAL_API_KEY"
+                ]
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "network_class": {
+                "const": "REMOTE_EGRESS"
+              },
+              "endpoint_configurable": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ModelCapability": {
+      "title": "ModelCapability",
+      "type": "string",
+      "enum": [
+        "TEXT_INPUT",
+        "TEXT_OUTPUT",
+        "VISION_INPUT",
+        "AUDIO_INPUT",
+        "AUDIO_OUTPUT",
+        "TOOLS",
+        "JSON",
+        "JSON_SCHEMA",
+        "EMBEDDINGS",
+        "REASONING",
+        "STREAMING"
+      ],
+      "description": "Bounded capability vocabulary. There is no free-string capability."
+    },
+    "ModelCapabilityClaim": {
+      "title": "ModelCapabilityClaim",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "support",
+        "provenance"
+      ],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/ModelCapability"
+        },
+        "support": {
+          "$ref": "#/$defs/Support"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "مدعوم أو غير مدعوم بلا مصدر ادعاءٌ بلا دليل، والمجهول لا مصدر له.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "support": {
+                "const": "UNKNOWN"
+              }
+            },
+            "required": [
+              "support"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "const": "UNKNOWN"
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "provenance": {
+                "not": {
+                  "const": "UNKNOWN"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ModelKind": {
+      "title": "ModelKind",
+      "type": "string",
+      "enum": [
+        "CHAT",
+        "EMBEDDING",
+        "UNKNOWN"
+      ],
+      "description": "What the provider reports the model is for."
+    },
+    "LoadedState": {
+      "title": "LoadedState",
+      "type": "string",
+      "enum": [
+        "LOADED",
+        "NOT_LOADED",
+        "UNKNOWN"
+      ],
+      "description": "Whether a local runtime reports the model as loaded. Polaris never loads or unloads a model itself."
+    },
+    "ModelAvailability": {
+      "title": "ModelAvailability",
+      "type": "string",
+      "enum": [
+        "AVAILABLE",
+        "MISSING",
+        "PROVIDER_UNREACHABLE",
+        "UNKNOWN"
+      ],
+      "description": "AVAILABLE: present in the latest listing. MISSING: listed before, absent now; its configuration is kept. PROVIDER_UNREACHABLE: the last refresh could not list."
+    },
+    "Pricing": {
+      "title": "Pricing",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_price_usd",
+        "output_price_usd",
+        "unit",
+        "provenance"
+      ],
+      "properties": {
+        "input_price_usd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "output_price_usd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "unit": {
+          "const": "PER_TOKEN"
+        },
+        "provenance": {
+          "const": "PROVIDER_REPORTED"
+        }
+      },
+      "description": "Provider-reported price per token, as the decimal string the provider sent. Never computed or estimated here."
+    },
+    "LoadedFact": {
+      "title": "LoadedFact",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "provenance"
+      ],
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/LoadedState"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      }
+    },
+    "ModelView": {
+      "title": "ModelView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "provider_id",
+        "provider_model_id",
+        "display_name",
+        "kind",
+        "family",
+        "vendor",
+        "architecture",
+        "quantization",
+        "parameter_count",
+        "context_window",
+        "max_output_tokens",
+        "loaded_state",
+        "capabilities",
+        "locality",
+        "enabled",
+        "availability",
+        "stale",
+        "is_default",
+        "provider_enabled",
+        "provider_health",
+        "first_seen_at",
+        "last_seen_at"
+      ],
+      "properties": {
+        "model_id": {
+          "$ref": "#/$defs/ModelId"
+        },
+        "provider_id": {
+          "$ref": "#/$defs/ProviderId"
+        },
+        "provider_model_id": {
+          "$ref": "#/$defs/ProviderModelId"
+        },
+        "display_name": {
+          "$ref": "#/$defs/FactText"
+        },
+        "kind": {
+          "$ref": "#/$defs/ModelKind"
+        },
+        "family": {
+          "$ref": "#/$defs/FactText"
+        },
+        "vendor": {
+          "$ref": "#/$defs/FactText"
+        },
+        "architecture": {
+          "$ref": "#/$defs/FactText"
+        },
+        "quantization": {
+          "$ref": "#/$defs/FactText"
+        },
+        "parameter_count": {
+          "$ref": "#/$defs/FactText"
+        },
+        "context_window": {
+          "$ref": "#/$defs/FactInteger"
+        },
+        "max_output_tokens": {
+          "$ref": "#/$defs/FactInteger"
+        },
+        "loaded_state": {
+          "$ref": "#/$defs/LoadedFact"
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "items": {
+            "$ref": "#/$defs/ModelCapabilityClaim"
+          }
+        },
+        "pricing": {
+          "$ref": "#/$defs/Pricing"
+        },
+        "locality": {
+          "$ref": "#/$defs/Locality"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "availability": {
+          "$ref": "#/$defs/ModelAvailability"
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "provider_enabled": {
+          "type": "boolean"
+        },
+        "provider_health": {
+          "$ref": "#/$defs/HealthState"
+        },
+        "first_seen_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_seen_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A discovered model. DISCOVERED, ENABLED, AVAILABLE and LOADED are four separate facts."
+    },
+    "RoutingMode": {
+      "title": "RoutingMode",
+      "type": "string",
+      "enum": [
+        "MANUAL",
+        "DEFAULT_MODEL",
+        "CAPABILITY_MATCH"
+      ],
+      "description": "Phase-02 routing modes. There is no automatic quality, cost or ensemble routing."
+    },
+    "ModelPreferences": {
+      "title": "ModelPreferences",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "default_model_id": {
+          "$ref": "#/$defs/ModelId"
+        },
+        "review_model_id": {
+          "$ref": "#/$defs/ModelId"
+        },
+        "monitor_model_id": {
+          "$ref": "#/$defs/ModelId",
+          "description": "ADR-041: the model the user chose for the reasoning-blind action monitor. Absent: no monitor, and tier-3 actions keep their human approval."
+        },
+        "reasoning_effort": {
+          "$ref": "#/$defs/ReasoningEffortLevel",
+          "description": "The reasoning effort the user chose for every provider and model. Absent: each provider's default."
+        }
+      }
+    },
+    "Language": {
+      "title": "Language",
+      "type": "string",
+      "enum": [
+        "ar",
+        "en",
+        "de",
+        "fr",
+        "ru",
+        "zh",
+        "ko",
+        "ja",
+        "es"
+      ],
+      "description": "Project language, one of the nine architectural locales."
+    },
+    "ProjectStatus": {
+      "title": "ProjectStatus",
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED"
+      ],
+      "description": "Normal removal is archival. Permanent deletion is not offered in Phase-02."
+    },
+    "ProjectName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]*$",
+      "description": "Display name."
+    },
+    "ProjectDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 2000,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]*$",
+      "description": "Free description. It is data, never an instruction."
+    },
+    "WorkspaceRoot": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 512,
+      "pattern": "^(?:[A-Za-z]:\\\\|/)[^\\u0000-\\u001f\\u007f<>\"|?*]*$",
+      "description": "An absolute local directory. A context scope reference, never a filesystem grant."
+    },
+    "ProjectView": {
+      "title": "ProjectView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "name",
+        "description",
+        "status",
+        "language",
+        "version",
+        "created_at",
+        "updated_at",
+        "context_source_count"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "name": {
+          "$ref": "#/$defs/ProjectName"
+        },
+        "description": {
+          "$ref": "#/$defs/ProjectDescription"
+        },
+        "status": {
+          "$ref": "#/$defs/ProjectStatus"
+        },
+        "language": {
+          "$ref": "#/$defs/Language"
+        },
+        "workspace_root": {
+          "$ref": "#/$defs/WorkspaceRoot"
+        },
+        "default_model_id": {
+          "$ref": "#/$defs/ModelId"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000000
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "context_source_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        }
+      }
+    },
+    "SourceType": {
+      "title": "SourceType",
+      "type": "string",
+      "enum": [
+        "WORKSPACE_ROOT",
+        "FILE",
+        "FOLDER",
+        "TEXT_NOTE",
+        "SYSTEM_CONTEXT",
+        "USER_INSTRUCTION"
+      ],
+      "description": "Context source type."
+    },
+    "AddableSourceType": {
+      "title": "AddableSourceType",
+      "type": "string",
+      "enum": [
+        "FILE",
+        "FOLDER",
+        "TEXT_NOTE",
+        "USER_INSTRUCTION"
+      ],
+      "description": "What the renderer may add. WORKSPACE_ROOT is created by the host from the project; SYSTEM_CONTEXT is host-generated and can never be supplied by the renderer."
+    },
+    "TrustClass": {
+      "title": "TrustClass",
+      "type": "string",
+      "enum": [
+        "DIRECT_USER_INSTRUCTION",
+        "USER_AUTHORIZED_RESOURCE",
+        "UNTRUSTED_CONTENT",
+        "SYSTEM_GENERATED",
+        "MODEL_GENERATED"
+      ],
+      "description": "USER_AUTHORIZED_RESOURCE is not a trusted instruction: permission to read a file does not make its content authoritative."
+    },
+    "ContentClass": {
+      "title": "ContentClass",
+      "type": "string",
+      "enum": [
+        "SOURCE_CODE",
+        "DOCUMENTATION",
+        "CONFIGURATION",
+        "DATA",
+        "IMAGE",
+        "AUDIO",
+        "BINARY",
+        "UNKNOWN"
+      ],
+      "description": "Content classification. Only text classes are ever read as text."
+    },
+    "SourceAvailability": {
+      "title": "SourceAvailability",
+      "type": "string",
+      "enum": [
+        "AVAILABLE",
+        "MISSING",
+        "CHANGED",
+        "OUT_OF_SCOPE",
+        "NOT_READABLE",
+        "UNKNOWN"
+      ],
+      "description": "Measured availability of a source at its last check."
+    },
+    "RelativeReference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?:\\.|[^.\\\\/\\u0000-\\u001f\\u007f<>\"|?*:][^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]*|\\.[^.\\\\/\\u0000-\\u001f\\u007f<>\"|?*:][^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]*|\\.\\.[^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]+)(?:[\\\\/](?:\\.|[^.\\\\/\\u0000-\\u001f\\u007f<>\"|?*:][^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]*|\\.[^.\\\\/\\u0000-\\u001f\\u007f<>\"|?*:][^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]*|\\.\\.[^\\\\/\\u0000-\\u001f\\u007f<>\"|?*:]+))*$",
+      "description": "A path relative to the workspace root. Absolute paths, parent segments and stream names are unrepresentable."
+    },
+    "ContextSourceView": {
+      "title": "ContextSourceView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "project_id",
+        "source_type",
+        "reference",
+        "display_name",
+        "trust_class",
+        "content_class",
+        "added_at",
+        "availability"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType"
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "trust_class": {
+          "$ref": "#/$defs/TrustClass"
+        },
+        "content_class": {
+          "$ref": "#/$defs/ContentClass"
+        },
+        "added_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_seen_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "availability": {
+          "$ref": "#/$defs/SourceAvailability"
+        },
+        "digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1099511627776
+        }
+      }
+    },
+    "TokenEstimate": {
+      "title": "TokenEstimate",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "provenance",
+        "method"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000000
+        },
+        "provenance": {
+          "enum": [
+            "ESTIMATED",
+            "PROVIDER_REPORTED"
+          ]
+        },
+        "method": {
+          "enum": [
+            "UTF8_BYTES_DIV_4",
+            "PROVIDER_TOKENIZER"
+          ]
+        }
+      },
+      "description": "A token count with its provenance. An estimate is labelled ESTIMATED."
+    },
+    "InclusionReason": {
+      "title": "InclusionReason",
+      "type": "string",
+      "enum": [
+        "USER_SELECTED",
+        "FOLDER_MEMBER",
+        "WORKSPACE_MEMBER"
+      ],
+      "description": "Why an item is in the bundle."
+    },
+    "OmissionReason": {
+      "title": "OmissionReason",
+      "type": "string",
+      "enum": [
+        "BUDGET_EXCEEDED",
+        "MAX_FILES_EXCEEDED",
+        "NOT_TEXT",
+        "INVALID_ENCODING",
+        "SENSITIVE_FILE_EXCLUDED",
+        "OUT_OF_SCOPE",
+        "MISSING",
+        "NOT_READABLE",
+        "REPARSE_POINT",
+        "SOURCE_REMOVED",
+        "UNKNOWN_SOURCE",
+        "TOO_LARGE_TO_READ"
+      ],
+      "description": "Why a candidate was left out. Nothing is left out silently."
+    },
+    "ContextItem": {
+      "title": "ContextItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "item_reference",
+        "trust_class",
+        "content_class",
+        "inclusion_reason",
+        "digest",
+        "byte_count",
+        "included_bytes",
+        "estimated_tokens",
+        "truncated"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "item_reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "trust_class": {
+          "$ref": "#/$defs/TrustClass"
+        },
+        "content_class": {
+          "$ref": "#/$defs/ContentClass"
+        },
+        "inclusion_reason": {
+          "$ref": "#/$defs/InclusionReason"
+        },
+        "digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1099511627776
+        },
+        "included_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1073741824
+        },
+        "estimated_tokens": {
+          "$ref": "#/$defs/TokenEstimate"
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OmittedItem": {
+      "title": "OmittedItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "item_reference",
+        "reason"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "item_reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+        },
+        "reason": {
+          "$ref": "#/$defs/OmissionReason"
+        }
+      }
+    },
+    "ContextBudget": {
+      "title": "ContextBudget",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_sources",
+        "max_files",
+        "max_total_bytes",
+        "max_single_source_bytes",
+        "max_tokens",
+        "context_window_known",
+        "reserved_output_tokens"
+      ],
+      "properties": {
+        "max_sources": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "max_files": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "max_total_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4194304
+        },
+        "max_single_source_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000000
+        },
+        "context_window_known": {
+          "type": "boolean"
+        },
+        "reserved_output_tokens": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200000
+        }
+      },
+      "description": "The hard budget actually applied."
+    },
+    "ContextBundleView": {
+      "title": "ContextBundleView",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "bundle_digest",
+        "items",
+        "omitted",
+        "instruction_trust_class",
+        "total_bytes",
+        "estimated_tokens",
+        "budget",
+        "truncated"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "bundle_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/ContextItem"
+          }
+        },
+        "omitted": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 512,
+          "items": {
+            "$ref": "#/$defs/OmittedItem"
+          }
+        },
+        "instruction_trust_class": {
+          "const": "DIRECT_USER_INSTRUCTION"
+        },
+        "total_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4194304
+        },
+        "estimated_tokens": {
+          "$ref": "#/$defs/TokenEstimate"
+        },
+        "budget": {
+          "$ref": "#/$defs/ContextBudget"
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      },
+      "description": "Metadata of a deterministic context bundle. Content stays in the host."
+    },
+    "ProviderOutcomeCode": {
+      "title": "ProviderOutcomeCode",
+      "type": "string",
+      "enum": [
+        "PROVIDER_UNREACHABLE",
+        "PROVIDER_TIMEOUT",
+        "AUTH_REQUIRED",
+        "AUTH_FAILED",
+        "MODEL_NOT_FOUND",
+        "MODEL_UNAVAILABLE",
+        "RATE_LIMITED",
+        "INVALID_REQUEST",
+        "UNSUPPORTED_CAPABILITY",
+        "PROVIDER_RESPONSE_INVALID",
+        "PROVIDER_INTERNAL_ERROR",
+        "CANCELLED",
+        "EGRESS_DENIED",
+        "CREDENTIAL_STORE_UNAVAILABLE",
+        "ENDPOINT_NOT_CONFIGURED",
+        "PROVIDER_DISABLED"
+      ],
+      "description": "Normalised provider outcome. Raw provider bodies never cross."
+    },
+    "ProviderOutcome": {
+      "title": "ProviderOutcome",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "retryable"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ProviderOutcomeCode"
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ReasoningEffortLevel": {
+      "title": "ReasoningEffortLevel",
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "MAX"
+      ],
+      "description": "How much hidden reasoning the user asks every provider for. MAX is the provider's highest level; a compatible interface that stops at high receives high."
+    }
+  }
+}

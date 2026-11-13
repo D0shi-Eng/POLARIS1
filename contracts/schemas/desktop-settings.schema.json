@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolarisDesktopSettingsPrimitives",
+  "description": "An honest structural description of the settings surface, and display-safe resolved values. The host stays the single settings resolver; this contract lets the shell describe and read, never resolve and never see a secret.",
+  "$comment": "الواجهة عميل للمُحلِّل الموثوق ولا تصير محلِّلًا ثانيًا. الواصف يصف البنية والوضع، والقراءة تعيد قيمًا آمنة للعرض فقط.",
+  "$defs": {
+    "SettingSectionId": {
+      "title": "SettingSectionId",
+      "$ref": "./common/ids.schema.json#/$defs/Slug",
+      "description": "Identifier of a settings section. Bounded as a Slug rather than enumerated: the section catalogue is P01-W6's to decide, while its shape is settled here. A free string is still unrepresentable."
+    },
+    "SettingId": {
+      "title": "SettingId",
+      "$ref": "./common/ids.schema.json#/$defs/Slug",
+      "description": "Identifier of one setting inside a section."
+    },
+    "DisplayKey": {
+      "title": "DisplayKey",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "maxLength": 160,
+      "description": "Localization key, not localized prose. The contract carries the key; the renderer resolves the text. A translated string never crosses this boundary."
+    },
+    "SettingMode": {
+      "title": "SettingMode",
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "READ_ONLY",
+        "UNAVAILABLE_THIS_PHASE"
+      ],
+      "description": "What the user may actually do with the setting. A control that looks editable while doing nothing is the failure this enum exists to prevent."
+    },
+    "SettingValueKind": {
+      "title": "SettingValueKind",
+      "type": "string",
+      "enum": [
+        "BOOLEAN",
+        "INTEGER",
+        "TEXT",
+        "ENUM",
+        "LOCALE",
+        "APPEARANCE"
+      ],
+      "description": "The shape of the value the setting holds. Closed: an unknown kind is a contract change, not a rendering fallback."
+    },
+    "SettingDescriptor": {
+      "title": "SettingDescriptor",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setting_id",
+        "value_kind",
+        "mode",
+        "label_key"
+      ],
+      "properties": {
+        "setting_id": {
+          "$ref": "#/$defs/SettingId"
+        },
+        "value_kind": {
+          "$ref": "#/$defs/SettingValueKind"
+        },
+        "mode": {
+          "$ref": "#/$defs/SettingMode"
+        },
+        "label_key": {
+          "$ref": "#/$defs/DisplayKey"
+        },
+        "description_key": {
+          "$ref": "#/$defs/DisplayKey"
+        },
+        "availability_reason": {
+          "$ref": "./desktop-availability.schema.json#/$defs/AvailabilityReason",
+          "description": "Required whenever the mode is not ACTIVE."
+        },
+        "allowed_values": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "description": "Permitted members for an ENUM-kind setting. Bounded tokens, never localized labels."
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "وضعٌ غير ACTIVE يوجب سببًا مصنّفًا، وإلا صار «معطّل» بلا تفسير.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "enum": [
+                  "READ_ONLY",
+                  "UNAVAILABLE_THIS_PHASE"
+                ]
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "availability_reason"
+            ]
+          }
+        },
+        {
+          "$comment": "قائمة القيم المسموح بها تخصّ ENUM وحدها.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "value_kind": {
+                "const": "ENUM"
+              }
+            },
+            "required": [
+              "value_kind"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "allowed_values"
+            ]
+          }
+        }
+      ],
+      "description": "One setting, described structurally. No value is carried here — describing is not reading."
+    },
+    "SettingSectionDescriptor": {
+      "title": "SettingSectionDescriptor",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_id",
+        "label_key",
+        "mode",
+        "settings"
+      ],
+      "properties": {
+        "section_id": {
+          "$ref": "#/$defs/SettingSectionId"
+        },
+        "label_key": {
+          "$ref": "#/$defs/DisplayKey"
+        },
+        "mode": {
+          "$ref": "#/$defs/SettingMode"
+        },
+        "availability_reason": {
+          "$ref": "./desktop-availability.schema.json#/$defs/AvailabilityReason"
+        },
+        "settings": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/SettingDescriptor"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "نفس قاعدة الوضع على مستوى القسم.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "enum": [
+                  "READ_ONLY",
+                  "UNAVAILABLE_THIS_PHASE"
+                ]
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "availability_reason"
+            ]
+          }
+        }
+      ]
+    },
+    "DisplaySafeValue": {
+      "title": "DisplaySafeValue",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/SettingValueKind"
+        },
+        "boolean_value": {
+          "type": "boolean"
+        },
+        "integer_value": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "text_value": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Display-safe text only. Secret-bearing settings are never resolved through this path; the secret-hygiene rules reject credential shapes here."
+        },
+        "code_value": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "A bounded token for ENUM, LOCALE and APPEARANCE kinds. Named code_value, not value, so that nothing free-form can be smuggled under a generic name."
+        }
+      },
+      "description": "A resolved value in display-safe form. One field per kind rather than an untyped `value`, so an unexpected shape cannot pass validation."
+    },
+    "ResolvedSetting": {
+      "title": "ResolvedSetting",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setting_id",
+        "mode"
+      ],
+      "properties": {
+        "setting_id": {
+          "$ref": "#/$defs/SettingId"
+        },
+        "mode": {
+          "$ref": "#/$defs/SettingMode"
+        },
+        "value": {
+          "$ref": "#/$defs/DisplaySafeValue",
+          "description": "Absent whenever the host will not disclose a value — a secret-bearing setting, or one unavailable in this phase. Absence is the honest answer; a placeholder is not."
+        },
+        "availability_reason": {
+          "$ref": "./desktop-availability.schema.json#/$defs/AvailabilityReason"
+        },
+        "value_withheld": {
+          "type": "boolean",
+          "description": "True when the host holds a value and will not disclose it — a credential-backed setting above all. The value member is then always absent. The field states the observable fact rather than classifying the data behind it, and its name deliberately avoids credential vocabulary: the secret detector matches on key names, so a contract field called secret_* or *_token would be rejected by the project's own hygiene rule."
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "إعداد يحمل سرًّا لا يُصاحبه قيمة أبدًا. معرفة أن السرّ مضبوط شيء، وتسليمه شيء آخر.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "value_withheld": {
+                "const": true
+              }
+            },
+            "required": [
+              "value_withheld"
+            ]
+          },
+          "then": {
+            "not": {
+              "type": "object",
+              "required": [
+                "value"
+              ]
+            }
+          }
+        },
+        {
+          "$comment": "وضعٌ غير ACTIVE يوجب سببًا.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "enum": [
+                  "READ_ONLY",
+                  "UNAVAILABLE_THIS_PHASE"
+                ]
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "availability_reason"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

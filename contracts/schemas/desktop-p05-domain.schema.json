@@ -1,0 +1,882 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase05Domain",
+  "description": "The closed vocabularies and shared shapes of Phase-05: memory entries with provenance, browser sessions and their actions, computer sessions, window grants and screen observations. Memory is never truth, web content is WEB_UNTRUSTED, and screen content is UNTRUSTED_CONTENT.",
+  "$comment": "مفردات مغلقة. الذاكرة ليست مرساة ثقة، ولا حالة VERIFIED لها. محتوى الويب والشاشة بيانات، ولا حقل هنا يحمل بكسلات أو جسم صفحة أو تفكيرًا مخفيًا.",
+  "$defs": {
+    "MemoryType": {
+      "title": "MemoryType",
+      "type": "string",
+      "enum": [
+        "WORKING",
+        "EPISODIC",
+        "SEMANTIC",
+        "PREFERENCE",
+        "PROJECT"
+      ],
+      "description": "The kind of memory."
+    },
+    "MemoryScope": {
+      "title": "MemoryScope",
+      "type": "string",
+      "enum": [
+        "MISSION",
+        "PROJECT",
+        "USER",
+        "SYSTEM"
+      ],
+      "description": "Where a memory is visible. A mission memory reaches no other mission unless explicitly promoted to a wider scope."
+    },
+    "MemoryStatus": {
+      "title": "MemoryStatus",
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "EXPIRED",
+        "DELETED"
+      ],
+      "description": "Lifecycle of a memory entry. A DELETED entry carries no subject, summary or content."
+    },
+    "MemoryTrustClass": {
+      "title": "MemoryTrustClass",
+      "type": "string",
+      "enum": [
+        "SYSTEM_GENERATED",
+        "MODEL_GENERATED",
+        "USER_DERIVED"
+      ],
+      "description": "Who wrote the content. Approval of a write does not change who wrote it."
+    },
+    "MemoryVerification": {
+      "title": "MemoryVerification",
+      "type": "string",
+      "enum": [
+        "UNVERIFIED",
+        "EVIDENCE_LINKED",
+        "CONFLICTED"
+      ],
+      "description": "Whether the entry was linked to measured evidence when it was written. There is no VERIFIED state: memory is never truth, and retrieval never re-verifies."
+    },
+    "ConfidenceSource": {
+      "title": "ConfidenceSource",
+      "type": "string",
+      "enum": [
+        "RUNTIME_EVIDENCE",
+        "RUNTIME_OBSERVATION",
+        "MODEL_SELF_REPORT",
+        "USER_APPROVED_WRITE",
+        "NONE"
+      ],
+      "description": "Where the stated confidence came from. A model reporting its own confidence never raises trust."
+    },
+    "ConflictState": {
+      "title": "ConflictState",
+      "type": "string",
+      "enum": [
+        "NO_CONFLICT",
+        "CONFLICT",
+        "SUPERSEDED_BY_VERIFIED_SOURCE",
+        "INSUFFICIENT_EVIDENCE",
+        "SUPERSEDED_BY_USER"
+      ],
+      "description": "How two entries about one subject relate. The newer entry is never chosen as truth automatically."
+    },
+    "SourceKind": {
+      "title": "SourceKind",
+      "type": "string",
+      "enum": [
+        "MISSION",
+        "TASK",
+        "CLAIM",
+        "EVIDENCE",
+        "TOOL_INVOCATION",
+        "AGENT",
+        "USER"
+      ],
+      "description": "The kind of a memory source reference."
+    },
+    "TaintFlag": {
+      "title": "TaintFlag",
+      "type": "string",
+      "enum": [
+        "UNTRUSTED_CONTENT",
+        "MODEL_GENERATED",
+        "AGENT_RELAYED",
+        "UNVERIFIED_CLAIM"
+      ],
+      "description": "Taint carried by a memory entry. Union only; nothing removes a flag."
+    },
+    "SessionState": {
+      "title": "SessionState",
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "ACTIVE",
+        "WAITING",
+        "CLOSED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "description": "State of a browser or computer session. A terminal session is never reused."
+    },
+    "BrowserAction": {
+      "title": "BrowserAction",
+      "type": "string",
+      "enum": [
+        "NAVIGATE",
+        "READ",
+        "CLICK",
+        "TYPE",
+        "BACK",
+        "FORWARD",
+        "RELOAD",
+        "DOWNLOAD",
+        "UPLOAD"
+      ],
+      "description": "A browser action recorded in a session history."
+    },
+    "ComputerAction": {
+      "title": "ComputerAction",
+      "type": "string",
+      "enum": [
+        "WINDOW_LIST",
+        "OBSERVE",
+        "FOCUS",
+        "POINTER_MOVE",
+        "CLICK",
+        "KEY",
+        "TYPE",
+        "SCROLL"
+      ],
+      "description": "A computer action recorded in a session history."
+    },
+    "ActionStatus": {
+      "title": "ActionStatus",
+      "type": "string",
+      "enum": [
+        "EXECUTED",
+        "DENIED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "description": "Whether the action happened. A denial is recorded like an execution, with its reason."
+    },
+    "ActionOutcome": {
+      "title": "ActionOutcome",
+      "type": "string",
+      "enum": [
+        "ACTION_EXECUTED",
+        "NOT_EXECUTED"
+      ],
+      "description": "The action-level outcome. Execution is not verification: whether the outcome was achieved is decided by the truth layer against observed evidence, never here."
+    },
+    "ReasonCode": {
+      "title": "ReasonCode",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_:.-]{1,80}$",
+      "description": "A closed-vocabulary reason code, never free prose."
+    },
+    "WindowHandle": {
+      "title": "WindowHandle",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{1,16}$",
+      "description": "A window handle as a lowercase 0x-prefixed hexadecimal literal. A handle alone is not an identity; a grant binds the handle, the process id, the process creation time and the executable."
+    },
+    "BoundedUrl": {
+      "title": "BoundedUrl",
+      "type": "string",
+      "maxLength": 2048,
+      "description": "A web address as observed. Data, not a destination the renderer may request."
+    },
+    "MemoryViewV1": {
+      "title": "MemoryViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id",
+        "memory_type",
+        "scope",
+        "subject",
+        "summary",
+        "trust_class",
+        "verification",
+        "taint",
+        "confidence_source",
+        "importance",
+        "status",
+        "version",
+        "source",
+        "source_ref_count",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "memory_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "memory_type": {
+          "$ref": "#/$defs/MemoryType"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "trust_class": {
+          "$ref": "#/$defs/MemoryTrustClass"
+        },
+        "verification": {
+          "$ref": "#/$defs/MemoryVerification"
+        },
+        "taint": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/TaintFlag"
+          }
+        },
+        "confidence_source": {
+          "$ref": "#/$defs/ConfidenceSource"
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "status": {
+          "$ref": "#/$defs/MemoryStatus"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+        },
+        "source_ref_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_accessed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A memory entry as listed: its type, scope, subject, bounded summary, origin, verification link, taint and provenance counts. Never hidden reasoning."
+    },
+    "SourceRefViewV1": {
+      "title": "SourceRefViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/SourceKind"
+        },
+        "reference": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+        }
+      },
+      "description": "One source reference: its kind and identifier, never the source text."
+    },
+    "MemoryDetailViewV1": {
+      "title": "MemoryDetailViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id",
+        "memory_type",
+        "scope",
+        "subject",
+        "summary",
+        "trust_class",
+        "verification",
+        "taint",
+        "confidence_source",
+        "importance",
+        "status",
+        "version",
+        "source",
+        "source_ref_count",
+        "created_at",
+        "updated_at",
+        "content",
+        "label",
+        "source_refs",
+        "lineage"
+      ],
+      "properties": {
+        "memory_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "memory_type": {
+          "$ref": "#/$defs/MemoryType"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "trust_class": {
+          "$ref": "#/$defs/MemoryTrustClass"
+        },
+        "verification": {
+          "$ref": "#/$defs/MemoryVerification"
+        },
+        "taint": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/TaintFlag"
+          }
+        },
+        "confidence_source": {
+          "$ref": "#/$defs/ConfidenceSource"
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "status": {
+          "$ref": "#/$defs/MemoryStatus"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source": {
+          "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+        },
+        "source_ref_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "updated_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_accessed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "label": {
+          "const": "MEMORY — UNTRUSTED / NON-AUTHORITATIVE"
+        },
+        "source_refs": {
+          "type": "array",
+          "maxItems": 24,
+          "items": {
+            "$ref": "#/$defs/SourceRefViewV1"
+          }
+        },
+        "lineage": {
+          "type": "array",
+          "maxItems": 24,
+          "items": {
+            "$ref": "./desktop-p04-domain.schema.json#/$defs/BoundedLabel"
+          }
+        }
+      },
+      "description": "One memory entry with its content, its constant untrusted label and its source lineage. The user owns this content and may delete it."
+    },
+    "MemoryConflictViewV1": {
+      "title": "MemoryConflictViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "memory_a",
+        "memory_b",
+        "subject",
+        "state",
+        "detected_at"
+      ],
+      "properties": {
+        "conflict_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "memory_a": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "memory_b": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "state": {
+          "$ref": "#/$defs/ConflictState"
+        },
+        "detected_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A recorded conflict between two entries. It is shown, never resolved by recency."
+    },
+    "BrowserSessionViewV1": {
+      "title": "BrowserSessionViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id",
+        "mission_id",
+        "owner_agent_id",
+        "state",
+        "navigation_count",
+        "action_count",
+        "download_count",
+        "upload_count",
+        "trust",
+        "created_at",
+        "last_activity_at"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "owner_agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "#/$defs/SessionState"
+        },
+        "current_origin": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "current_url": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "current_title": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "navigation_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "action_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "download_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "upload_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "trust": {
+          "const": "WEB_UNTRUSTED"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_activity_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "closed_reason": {
+          "$ref": "#/$defs/ReasonCode"
+        }
+      },
+      "description": "A mission-bound browser session. Its page content is WEB_UNTRUSTED; only addresses, titles and counts cross here."
+    },
+    "BrowserActionViewV1": {
+      "title": "BrowserActionViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_id",
+        "task_id",
+        "action",
+        "target",
+        "status",
+        "outcome",
+        "occurred_at",
+        "duration_ms"
+      ],
+      "properties": {
+        "action_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "action": {
+          "$ref": "#/$defs/BrowserAction"
+        },
+        "target": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "status": {
+          "$ref": "#/$defs/ActionStatus"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "url": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "http_status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "content_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "outcome": {
+          "$ref": "#/$defs/ActionOutcome"
+        },
+        "occurred_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "description": "One browser action, executed or refused, with its reason and digest."
+    },
+    "DownloadViewV1": {
+      "title": "DownloadViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "download_id",
+        "file_name",
+        "byte_count",
+        "sha256",
+        "content_type",
+        "executable",
+        "trust",
+        "downloaded_at"
+      ],
+      "properties": {
+        "download_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "file_name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "content_type": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "executable": {
+          "type": "boolean"
+        },
+        "trust": {
+          "const": "UNTRUSTED_CONTENT"
+        },
+        "downloaded_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A quarantined download. It is never opened or run, and carries no path."
+    },
+    "TargetViewV1": {
+      "title": "TargetViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "mission_id",
+        "title",
+        "executable",
+        "pid",
+        "hwnd",
+        "process_created_at",
+        "granted_at"
+      ],
+      "properties": {
+        "grant_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "executable": {
+          "type": "string",
+          "maxLength": 260
+        },
+        "pid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hwnd": {
+          "$ref": "#/$defs/WindowHandle"
+        },
+        "process_created_at": {
+          "type": "string",
+          "pattern": "^[0-9]{1,20}$"
+        },
+        "granted_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "revoked_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        }
+      },
+      "description": "A window granted to one mission, bound to its full identity: handle, process id, process creation time and executable."
+    },
+    "ObservationViewV1": {
+      "title": "ObservationViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "observed_at",
+        "width",
+        "height",
+        "frame_digest",
+        "layout_digest",
+        "element_count",
+        "capture_scope",
+        "trust"
+      ],
+      "properties": {
+        "observation_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "observed_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "frame_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "layout_digest": {
+          "$ref": "./common/ids.schema.json#/$defs/Sha256Hex"
+        },
+        "element_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capture_scope": {
+          "const": "WINDOW"
+        },
+        "trust": {
+          "const": "UNTRUSTED_CONTENT"
+        }
+      },
+      "description": "A screen observation by its digests and dimensions. No pixels and no element text cross here."
+    },
+    "ComputerActionViewV1": {
+      "title": "ComputerActionViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_id",
+        "task_id",
+        "action",
+        "target",
+        "status",
+        "occurred_at",
+        "duration_ms"
+      ],
+      "properties": {
+        "action_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "task_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "action": {
+          "$ref": "#/$defs/ComputerAction"
+        },
+        "target": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "status": {
+          "$ref": "#/$defs/ActionStatus"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "observation_digest": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "occurred_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "description": "One computer action, executed or refused, bound to the observation digest it was proposed against."
+    },
+    "ComputerSessionViewV1": {
+      "title": "ComputerSessionViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_id",
+        "mission_id",
+        "agent_id",
+        "state",
+        "created_at",
+        "action_count",
+        "click_count",
+        "keyboard_count",
+        "capture_count"
+      ],
+      "properties": {
+        "session_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "agent_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "state": {
+          "$ref": "#/$defs/SessionState"
+        },
+        "target": {
+          "$ref": "#/$defs/TargetViewV1"
+        },
+        "created_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "last_action_at": {
+          "$ref": "./common/ids.schema.json#/$defs/Timestamp"
+        },
+        "action_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "click_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "keyboard_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capture_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "closed_reason": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "last_observation": {
+          "$ref": "#/$defs/ObservationViewV1"
+        },
+        "last_action": {
+          "$ref": "#/$defs/ComputerActionViewV1"
+        }
+      },
+      "description": "A mission-bound computer session with its target window, counters, last observation and last action."
+    },
+    "DesktopWindowViewV1": {
+      "title": "DesktopWindowViewV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hwnd",
+        "title",
+        "executable",
+        "pid",
+        "grantable"
+      ],
+      "properties": {
+        "hwnd": {
+          "$ref": "#/$defs/WindowHandle"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "executable": {
+          "type": "string",
+          "maxLength": 260
+        },
+        "pid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "grantable": {
+          "type": "boolean"
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        }
+      },
+      "description": "A window shown to the user so they can grant it to a mission. This inventory never reaches a model."
+    }
+  }
+}

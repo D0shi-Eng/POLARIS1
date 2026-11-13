@@ -1,0 +1,6 @@
+{
+  "capability_ids": [
+    "polaris.desktop.missions",
+    "polaris.desktop.settings"
+  ]
+}

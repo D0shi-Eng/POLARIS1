@@ -1,0 +1,703 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopPhase06RequestPayloadV1",
+  "description": "The closed set of request payloads the thirty Phase-06 operations accept. No payload can execute a connector operation, name a free URL for an agent, or carry a credential value.",
+  "$comment": "لا نداء موصل من العارض، ولا سرّ في حمولة، ولا عنوان حرّ. عملية الموصل تبدأ من زمن تشغيل المهمّة عبر البوابتين.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/ConnectorListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorGetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorRegisterRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorConfigureRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorRemoveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorTestRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorCredentialSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorCredentialClearRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorOpenapiImportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorOpenapiApproveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorPresetListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConnectorPresetRegisterRequestV1"
+    },
+    {
+      "$ref": "#/$defs/UsageSummaryRequestV1"
+    },
+    {
+      "$ref": "#/$defs/UsageListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/BudgetRemoveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PricingListRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PricingSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/PricingRemoveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityHealthRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityEventsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityMetricsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityErrorsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ObservabilityAlertsRequestV1"
+    },
+    {
+      "$ref": "#/$defs/DiagnosticsExportRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigDescribeRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigEffectiveRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigSetRequestV1"
+    },
+    {
+      "$ref": "#/$defs/ConfigResetRequestV1"
+    }
+  ],
+  "$defs": {
+    "RestInputV1": {
+      "title": "RestInputV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_url",
+        "egress_class",
+        "allowed_paths",
+        "allowed_methods",
+        "auth_mode",
+        "key_source",
+        "timeout_ms",
+        "max_response_bytes"
+      ],
+      "properties": {
+        "base_url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "egress_class": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/EgressClass"
+        },
+        "allowed_paths": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "pattern": "^/[A-Za-z0-9._~{}/-]{0,199}$"
+          }
+        },
+        "allowed_methods": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/HttpMethod"
+          }
+        },
+        "auth_mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/AuthMode"
+        },
+        "key_source": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/KeySource"
+        },
+        "environment_variable": {
+          "type": "string",
+          "pattern": "^POLARIS_CONNECTOR_[A-Z0-9_]{1,40}$"
+        },
+        "key_header": {
+          "type": "string",
+          "enum": [
+            "X-API-Key",
+            "Api-Key",
+            "X-Auth-Token",
+            "X-Access-Token",
+            "Ocp-Apim-Subscription-Key"
+          ]
+        },
+        "basic_username": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 60000
+        },
+        "max_response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 4194304
+        },
+        "requests_per_minute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "max_concurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "description": "A REST connector as the user registers it from the settings surface. The base URL, paths and methods are fixed here; an agent can only choose among the operations."
+    },
+    "ConnectorListRequestV1": {
+      "title": "ConnectorListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Lists registered connectors. No side effect."
+    },
+    "ConnectorGetRequestV1": {
+      "title": "ConnectorGetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        }
+      }
+    },
+    "ConnectorRegisterRequestV1": {
+      "title": "ConnectorRegisterRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "category",
+        "display_name"
+      ],
+      "properties": {
+        "provider": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorProvider"
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCategory"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "rest": {
+          "$ref": "#/$defs/RestInputV1"
+        },
+        "workspace": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/WorkspaceConfigV1"
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorOperationV1"
+          }
+        }
+      },
+      "description": "Registers a connector, disabled. Enabling is a separate decision the user sees."
+    },
+    "ConnectorConfigureRequestV1": {
+      "title": "ConnectorConfigureRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "requests_per_minute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "max_concurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "description": "Enables, disables, renames or re-rates a connector. The destination, paths and operations cannot be edited here."
+    },
+    "ConnectorRemoveRequestV1": {
+      "title": "ConnectorRemoveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        }
+      }
+    },
+    "ConnectorTestRequestV1": {
+      "title": "ConnectorTestRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        }
+      },
+      "description": "Measures health with one read operation through the connector gateway."
+    },
+    "ConnectorCredentialSetRequestV1": {
+      "title": "ConnectorCredentialSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        }
+      },
+      "description": "Opens the host's own credential prompt. The value is typed into a system window, never into the renderer."
+    },
+    "ConnectorCredentialClearRequestV1": {
+      "title": "ConnectorCredentialClearRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector_id"
+      ],
+      "properties": {
+        "connector_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorId"
+        }
+      }
+    },
+    "ConnectorOpenapiImportRequestV1": {
+      "title": "ConnectorOpenapiImportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec"
+      ],
+      "properties": {
+        "spec": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 524288
+        }
+      },
+      "description": "Parses an OpenAPI 3 document into proposed operations. Nothing is registered."
+    },
+    "ConnectorOpenapiApproveRequestV1": {
+      "title": "ConnectorOpenapiApproveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "import_id",
+        "operation_ids",
+        "display_name",
+        "category",
+        "rest"
+      ],
+      "properties": {
+        "import_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "operation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "./desktop-p06-domain.schema.json#/$defs/OperationId"
+          }
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConnectorCategory"
+        },
+        "rest": {
+          "$ref": "#/$defs/RestInputV1"
+        }
+      },
+      "description": "Registers only the operations the user approved, at a base URL the user confirmed, disabled."
+    },
+    "UsageSummaryRequestV1": {
+      "title": "UsageSummaryRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "UsageListRequestV1": {
+      "title": "UsageListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "category": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/UsageCategory"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        }
+      }
+    },
+    "BudgetListRequestV1": {
+      "title": "BudgetListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "BudgetSetRequestV1": {
+      "title": "BudgetSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "dimension",
+        "limit"
+      ],
+      "properties": {
+        "scope": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetScope"
+        },
+        "scope_key": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^[^\\s]*$"
+        },
+        "dimension": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetDimension"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "$ref": "./desktop-p06-domain.schema.json#/$defs/DecimalText"
+            }
+          ]
+        },
+        "currency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+        },
+        "mode": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/BudgetMode"
+        },
+        "warn_ratio_pct": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "BudgetRemoveRequestV1": {
+      "title": "BudgetRemoveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget_id"
+      ],
+      "properties": {
+        "budget_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "PricingListRequestV1": {
+      "title": "PricingListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "PricingSetRequestV1": {
+      "title": "PricingSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_kind",
+        "target_id",
+        "unit",
+        "amount",
+        "currency",
+        "source_note"
+      ],
+      "properties": {
+        "target_kind": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingTarget"
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^\\s]+$"
+        },
+        "unit": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PricingUnit"
+        },
+        "amount": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/DecimalText"
+        },
+        "currency": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Currency"
+        },
+        "source_note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "description": "A price the user entered, with where it came from. POLARIS ships no price of its own."
+    },
+    "PricingRemoveRequestV1": {
+      "title": "PricingRemoveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pricing_id"
+      ],
+      "properties": {
+        "pricing_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ObservabilityHealthRequestV1": {
+      "title": "ObservabilityHealthRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "ObservabilityEventsRequestV1": {
+      "title": "ObservabilityEventsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "component": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Component"
+        },
+        "min_severity": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/Severity"
+        }
+      }
+    },
+    "ObservabilityMetricsRequestV1": {
+      "title": "ObservabilityMetricsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "ObservabilityErrorsRequestV1": {
+      "title": "ObservabilityErrorsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "ObservabilityAlertsRequestV1": {
+      "title": "ObservabilityAlertsRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "include_resolved": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DiagnosticsExportRequestV1": {
+      "title": "DiagnosticsExportRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Writes a bounded, redacted local diagnostics document."
+    },
+    "ConfigDescribeRequestV1": {
+      "title": "ConfigDescribeRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "ConfigEffectiveRequestV1": {
+      "title": "ConfigEffectiveRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "project_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "mission_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        }
+      }
+    },
+    "ConfigSetRequestV1": {
+      "title": "ConfigSetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "layer",
+        "key",
+        "value"
+      ],
+      "properties": {
+        "layer": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+        },
+        "scope_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        },
+        "value": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingValue"
+        }
+      },
+      "description": "Writes one typed value into one layer. The host validates, clamps and refuses widening."
+    },
+    "ConfigResetRequestV1": {
+      "title": "ConfigResetRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "layer",
+        "key"
+      ],
+      "properties": {
+        "layer": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/ConfigLayer"
+        },
+        "scope_id": {
+          "$ref": "./common/ids.schema.json#/$defs/Uuid"
+        },
+        "key": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/SettingKey"
+        }
+      }
+    },
+    "ConnectorPresetListRequestV1": {
+      "title": "ConnectorPresetListRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {},
+      "description": "Lists the built-in connector presets. No side effect."
+    },
+    "ConnectorPresetRegisterRequestV1": {
+      "title": "ConnectorPresetRegisterRequestV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset_id"
+      ],
+      "properties": {
+        "preset_id": {
+          "$ref": "./desktop-p06-domain.schema.json#/$defs/PresetId"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      },
+      "description": "Registers a built-in preset as a disabled connector without a credential. Its URL, paths, methods and headers come from the host, not from this payload."
+    }
+  }
+}

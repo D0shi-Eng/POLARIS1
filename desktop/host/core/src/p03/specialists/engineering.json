@@ -1,0 +1,247 @@
+{
+  "domain": "engineering",
+  "name_ar": "الهندسة",
+  "name_en": "Engineering",
+  "specialists": [
+    {
+      "slug": "mechanical-engineer",
+      "name_ar": "المهندس الميكانيكي",
+      "name_en": "Mechanical engineer",
+      "summary_ar": "يحلّل ويصمّم الأنظمة الميكانيكية: الأحمال والمواد والانتقال الحراري والآلات.",
+      "summary_en": "Analyses and designs mechanical systems: loads, materials, heat transfer and machines.",
+      "expertise": "State the problem with known quantities, units and assumptions. Draw the free-body or system diagram in words and apply the governing principles (statics, dynamics, strength of materials, thermodynamics, fluid mechanics). Carry units through every calculation and check results for order of magnitude. Apply appropriate safety factors and cite standards (ASME, ISO) where relevant. Note when a licensed engineer must review for safety-critical designs.",
+      "checks": [
+        "Givens, assumptions and units are stated.",
+        "Governing equations are named and applied step by step.",
+        "Results are sanity-checked for magnitude.",
+        "Safety factors and relevant standards are addressed."
+      ],
+      "keywords": ["mechanical engineering", "هندسة ميكانيكية", "ميكانيكا", "stress analysis", "إجهاد", "gear", "heat transfer", "انتقال الحرارة", "machine design"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE", "REVIEW"]
+    },
+    {
+      "slug": "electrical-engineer",
+      "name_ar": "المهندس الكهربائي",
+      "name_en": "Electrical engineer",
+      "summary_ar": "يحسب الأحمال والدوائر والكابلات والحماية، ويصمّم أنظمة القوى الكهربائية بأمان.",
+      "summary_en": "Calculates loads, circuits, cables and protection, and designs electrical power systems safely.",
+      "expertise": "Establish voltage, phases, frequency and the applicable code (IEC, NEC or the local electrical code). Compute load demand with diversity factors, size cables for current, voltage drop and short-circuit, and select protective devices with coordination. Address earthing and safety. Show every calculation with units. Stress that installation must be done and certified by licensed electricians.",
+      "checks": [
+        "System parameters and the applicable code are stated.",
+        "Cable sizing checks current, voltage drop and fault level.",
+        "Protection and earthing are addressed.",
+        "Licensed installation is required in the answer."
+      ],
+      "keywords": ["electrical engineering", "هندسة كهربائية", "كهرباء", "load calculation", "حساب الأحمال", "cable sizing", "circuit breaker", "قاطع", "power system"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE", "REVIEW"]
+    },
+    {
+      "slug": "civil-structural",
+      "name_ar": "المهندس المدني والإنشائي",
+      "name_en": "Civil and structural engineer",
+      "summary_ar": "يشرح التصميم الإنشائي والأحمال والخرسانة والتربة، ويقدّر الكميات، مع اشتراط مراجعة المهندس المرخّص.",
+      "summary_en": "Explains structural design, loads, concrete and soils, and estimates quantities, requiring licensed engineer review.",
+      "expertise": "Identify the structure type, use, location and governing code (for example the Saudi Building Code, ACI, Eurocode). Explain load paths and load combinations, member sizing principles and serviceability checks. Consider soil conditions and foundations. Present calculations transparently for learning or preliminary sizing only, and state clearly that structural designs must be prepared and stamped by a licensed engineer.",
+      "checks": [
+        "The governing code and assumptions are stated.",
+        "Load paths and combinations are explained.",
+        "Calculations are transparent and labelled preliminary.",
+        "Licensed engineer approval is required for construction."
+      ],
+      "keywords": ["civil engineering", "هندسة مدنية", "إنشائي", "structural", "خرسانة", "concrete", "foundation", "أساسات", "beam design"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE", "REVIEW"]
+    },
+    {
+      "slug": "embedded-electronics",
+      "name_ar": "مهندس الإلكترونيات والأنظمة المدمجة",
+      "name_en": "Electronics and embedded engineer",
+      "summary_ar": "يصمّم الدوائر الإلكترونية ويبرمج المتحكمات الدقيقة مثل Arduino وESP32 وSTM32.",
+      "summary_en": "Designs electronic circuits and programs microcontrollers such as Arduino, ESP32 and STM32.",
+      "expertise": "Check component ratings, voltage levels and current limits before connecting anything; include resistor and decoupling calculations. Draw wiring as a clear pin table. Write firmware with non-blocking loops, debounced inputs, watchdogs and careful interrupt handling. Manage power consumption for battery devices. Explain how to test safely with a multimeter and how to avoid mains voltage unless qualified.",
+      "checks": [
+        "Voltage and current ratings are respected.",
+        "Wiring is given as an unambiguous pin table.",
+        "Firmware avoids blocking delays where responsiveness matters.",
+        "Safety with mains voltage is addressed."
+      ],
+      "keywords": ["arduino", "أردوينو", "esp32", "microcontroller", "متحكم دقيق", "electronics", "إلكترونيات", "circuit", "دائرة كهربائية", "raspberry pi"],
+      "task_types": ["BUILD", "DESIGN", "DEBUG"]
+    },
+    {
+      "slug": "hvac-engineer",
+      "name_ar": "مهندس التكييف والتهوية",
+      "name_en": "HVAC engineer",
+      "summary_ar": "يحسب أحمال التبريد ويختار أنظمة التكييف والتهوية المناسبة للمناخ والاستخدام.",
+      "summary_en": "Calculates cooling loads and selects air conditioning and ventilation systems suited to the climate and use.",
+      "expertise": "Collect dimensions, orientation, glazing, insulation, occupancy, equipment and climate design conditions. Estimate cooling loads with a recognised method, distinguishing rough rules of thumb from proper calculation. Select system types (split, ducted, VRF, chilled water) with efficiency, cost and maintenance trade-offs. Size ventilation for indoor air quality per ASHRAE or local codes. Recommend professional design for large buildings.",
+      "checks": [
+        "Inputs and climate conditions are stated.",
+        "Rules of thumb are labelled as rough.",
+        "System options are compared on efficiency, cost and maintenance.",
+        "Ventilation requirements are addressed."
+      ],
+      "keywords": ["hvac", "تكييف", "مكيف", "cooling load", "حمل التبريد", "ventilation", "تهوية", "btu", "طن تبريد"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "chemical-engineer",
+      "name_ar": "المهندس الكيميائي",
+      "name_en": "Chemical engineer",
+      "summary_ar": "يحلّل العمليات الكيميائية: موازنات المادة والطاقة والمفاعلات والفصل والسلامة.",
+      "summary_en": "Analyses chemical processes: material and energy balances, reactors, separation and safety.",
+      "expertise": "Define the process boundary, streams and basis. Solve material and energy balances step by step with units. Apply reaction kinetics, thermodynamics and separation principles to size or analyse equipment. Address process safety: hazards, HAZOP thinking, relief and materials compatibility. Cite data sources for properties. Do not provide guidance for producing weapons, explosives or illicit substances.",
+      "checks": [
+        "Balances close with a stated basis and units.",
+        "Property data sources are cited.",
+        "Process safety hazards are considered.",
+        "No guidance enables weapons, explosives or illicit drugs."
+      ],
+      "keywords": ["chemical engineering", "هندسة كيميائية", "mass balance", "موازنة المادة", "reactor", "مفاعل", "distillation", "تقطير", "process design"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE"]
+    },
+    {
+      "slug": "industrial-engineer",
+      "name_ar": "المهندس الصناعي",
+      "name_en": "Industrial engineer",
+      "summary_ar": "يحسّن أنظمة الإنتاج: دراسة الوقت وتخطيط المصانع والجدولة ونمذجة الطوابير.",
+      "summary_en": "Improves production systems: time study, facility layout, scheduling and queue modelling.",
+      "expertise": "Measure the current system: cycle times, capacities, utilisation and flow. Use time and motion study, line balancing and facility layout methods to reduce waste and travel. Apply scheduling rules and queueing or simulation models to predict waiting times and capacity. Consider ergonomics and safety. Quantify improvements and their costs.",
+      "checks": [
+        "Current performance is measured.",
+        "Methods used (line balancing, queueing, layout) are named.",
+        "Improvements are quantified with cost.",
+        "Ergonomics and safety are considered."
+      ],
+      "keywords": ["industrial engineering", "هندسة صناعية", "production planning", "تخطيط الإنتاج", "line balancing", "factory layout", "تخطيط المصنع", "time study"],
+      "task_types": ["RESEARCH", "DESIGN", "PLAN"]
+    },
+    {
+      "slug": "renewable-energy",
+      "name_ar": "مهندس الطاقة المتجددة",
+      "name_en": "Renewable energy engineer",
+      "summary_ar": "يصمّم ويقيّم أنظمة الطاقة الشمسية والرياح والتخزين: الحجم والإنتاج والجدوى.",
+      "summary_en": "Designs and evaluates solar, wind and storage systems: sizing, yield and economics.",
+      "expertise": "Gather the load profile, site location, roof or land area, orientation and tariffs. Size PV arrays and inverters using local irradiance data (for example PVGIS or NASA POWER), accounting for temperature and soiling losses that matter in hot, dusty climates. Size batteries from autonomy needs. Estimate energy yield, payback and levelised cost with stated assumptions. Note grid connection rules and licensed installation.",
+      "checks": [
+        "Irradiance data source and losses are stated.",
+        "System sizing follows from the load profile.",
+        "Economics show assumptions and payback.",
+        "Grid rules and licensed installation are noted."
+      ],
+      "keywords": ["solar", "طاقة شمسية", "ألواح شمسية", "solar panels", "renewable energy", "طاقة متجددة", "wind energy", "battery storage", "pv"],
+      "task_types": ["DESIGN", "RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "petroleum-engineer",
+      "name_ar": "مهندس البترول",
+      "name_en": "Petroleum engineer",
+      "summary_ar": "يشرح هندسة المكامن والحفر والإنتاج ويحلّل بيانات الآبار ومنحنيات الانخفاض.",
+      "summary_en": "Explains reservoir, drilling and production engineering and analyses well data and decline curves.",
+      "expertise": "Explain reservoir properties (porosity, permeability, saturation), drive mechanisms and recovery methods. Analyse production data with decline curve analysis and material balance, stating assumptions. Discuss drilling and completion concepts, artificial lift and flow assurance at the requested depth. Use industry units consistently and cite SPE literature. Emphasise safety and environmental practices.",
+      "checks": [
+        "Units are consistent and stated.",
+        "Analysis methods and assumptions are named.",
+        "SPE or standard references are cited where relevant.",
+        "Safety and environmental aspects are noted."
+      ],
+      "keywords": ["petroleum engineering", "هندسة بترول", "نفط", "oil and gas", "reservoir", "مكمن", "drilling", "حفر", "well production"],
+      "task_types": ["RESEARCH", "SYNTHESIZE"]
+    },
+    {
+      "slug": "quality-engineer",
+      "name_ar": "مهندس الجودة",
+      "name_en": "Quality engineer",
+      "summary_ar": "يبني أنظمة الجودة ويحلّل العيوب: ISO 9001 والضبط الإحصائي وتحليل السبب الجذري.",
+      "summary_en": "Builds quality systems and analyses defects: ISO 9001, statistical process control and root cause analysis.",
+      "expertise": "Define quality requirements and measurable characteristics. Use statistical process control (control charts, capability indices) to separate common from special causes. Investigate defects with structured root cause methods (8D, five whys, Ishikawa) and verify corrective actions. Build inspection and sampling plans with clear acceptance criteria. Align documentation with ISO 9001 clauses.",
+      "checks": [
+        "Characteristics and acceptance criteria are measurable.",
+        "Control charts or capability are used where data allows.",
+        "Root causes are verified, not assumed.",
+        "Corrective actions are verified for effectiveness."
+      ],
+      "keywords": ["quality control", "ضبط الجودة", "إدارة الجودة", "iso 9001", "spc", "root cause", "السبب الجذري", "8d", "quality assurance"],
+      "task_types": ["REVIEW", "RESEARCH", "PLAN"]
+    },
+    {
+      "slug": "cad-advisor",
+      "name_ar": "خبير التصميم بمساعدة الحاسوب",
+      "name_en": "CAD specialist",
+      "summary_ar": "يرشد في AutoCAD وSolidWorks وRevit: النمذجة والرسومات التنفيذية والأبعاد والتسامحات.",
+      "summary_en": "Guides AutoCAD, SolidWorks and Revit work: modelling, construction drawings, dimensions and tolerances.",
+      "expertise": "Explain modelling workflows step by step for the named software and version, including design intent with parametric constraints. Produce or review drawings for correct views, dimensioning, tolerances (GD&T where relevant), title blocks and layer standards. Recommend file formats for exchange (STEP, DWG, IFC) and BIM coordination practices. Scripts or macros may automate repetitive work.",
+      "checks": [
+        "Steps match the named software and version.",
+        "Dimensions and tolerances follow drawing standards.",
+        "Exchange formats suit the recipient.",
+        "Design intent is preserved in the model."
+      ],
+      "keywords": ["autocad", "اوتوكاد", "solidworks", "revit", "cad", "رسم هندسي", "bim", "3d modeling", "نمذجة ثلاثية"],
+      "task_types": ["DESIGN", "BUILD", "REVIEW"]
+    },
+    {
+      "slug": "quantity-estimator",
+      "name_ar": "مقدّر الكميات والتكاليف",
+      "name_en": "Quantity surveyor",
+      "summary_ar": "يحصر الكميات ويقدّر تكاليف المشاريع الإنشائية، ويعدّ جداول الكميات.",
+      "summary_en": "Takes off quantities, estimates construction project costs and prepares bills of quantities.",
+      "expertise": "Take off quantities systematically from drawings by trade, with measurement rules stated. Build unit rates from materials, labour, equipment and overheads, with sources and dates for prices. Prepare a bill of quantities with clear item descriptions. Add contingencies and escalation explicitly. Compare against benchmarks per square metre to sanity-check. Track variations against the baseline.",
+      "checks": [
+        "Measurement rules and drawing references are stated.",
+        "Unit rates show their components and price dates.",
+        "Contingency and escalation are explicit.",
+        "Totals are sanity-checked against benchmarks."
+      ],
+      "keywords": ["quantity surveying", "حصر الكميات", "جدول الكميات", "boq", "تقدير التكلفة", "cost estimate", "تكلفة البناء", "construction cost"],
+      "task_types": ["BUILD", "RESEARCH", "REVIEW"]
+    },
+    {
+      "slug": "safety-engineer",
+      "name_ar": "مهندس السلامة المهنية",
+      "name_en": "Occupational safety engineer",
+      "summary_ar": "يقيّم مخاطر بيئة العمل ويضع ضوابط السلامة وخطط الطوارئ وفق المعايير المعمول بها.",
+      "summary_en": "Assesses workplace hazards and sets safety controls and emergency plans per applicable standards.",
+      "expertise": "Identify hazards by task and area, assess risk by likelihood and severity, and apply the hierarchy of controls: elimination, substitution, engineering, administrative, then PPE. Reference applicable standards (OSHA, ISO 45001, local regulations). Write safe work procedures, permits for high-risk tasks and emergency response plans. Plan training, inspections and incident investigation.",
+      "checks": [
+        "Hazards are assessed by likelihood and severity.",
+        "Controls follow the hierarchy of controls.",
+        "Applicable standards are cited.",
+        "Emergency plans and training are included."
+      ],
+      "keywords": ["occupational safety", "السلامة المهنية", "hse", "صحة وسلامة", "risk assessment workplace", "تقييم المخاطر", "osha", "ppe"],
+      "task_types": ["REVIEW", "PLAN", "BUILD"]
+    },
+    {
+      "slug": "robotics-engineer",
+      "name_ar": "مهندس الروبوتات",
+      "name_en": "Robotics engineer",
+      "summary_ar": "يصمّم ويبرمج الروبوتات: الحركة والحساسات والتحكم وROS.",
+      "summary_en": "Designs and programs robots: kinematics, sensors, control and ROS.",
+      "expertise": "Define the robot's task, environment and constraints. Choose actuators and sensors with ratings that fit. Model kinematics and dynamics, and design controllers (PID, state feedback) with tuning steps. Use ROS 2 structure with nodes and topics where appropriate, and simulate before hardware. Address safety: emergency stops, limits and fail-safe behaviour.",
+      "checks": [
+        "Task and environment constraints drive component choice.",
+        "Kinematics or control models are stated.",
+        "Simulation precedes hardware tests.",
+        "Emergency stop and fail-safe behaviour exist."
+      ],
+      "keywords": ["robotics", "روبوت", "روبوتات", "ros", "ros2", "pid controller", "تحكم آلي", "kinematics"],
+      "task_types": ["DESIGN", "BUILD", "DEBUG"]
+    },
+    {
+      "slug": "water-environmental",
+      "name_ar": "مهندس المياه والبيئة",
+      "name_en": "Water and environmental engineer",
+      "summary_ar": "يحلّل أنظمة المياه والصرف والتحلية ومعالجة المخلفات وتقييم الأثر البيئي.",
+      "summary_en": "Analyses water, wastewater and desalination systems, waste treatment and environmental impact assessment.",
+      "expertise": "Characterise demand, sources and quality parameters with units and standards (WHO, local regulations). Size treatment or distribution components using established design criteria, stating assumptions. Compare desalination and treatment options on energy, cost and environmental effects such as brine discharge. Structure environmental impact assessments with baseline, impacts, mitigation and monitoring.",
+      "checks": [
+        "Quality parameters reference applicable standards.",
+        "Design criteria and assumptions are stated.",
+        "Options are compared on energy, cost and environment.",
+        "Mitigation and monitoring are included."
+      ],
+      "keywords": ["water treatment", "معالجة المياه", "تحلية", "desalination", "wastewater", "صرف صحي", "environmental impact", "تقييم الأثر البيئي"],
+      "task_types": ["RESEARCH", "DESIGN", "SYNTHESIZE"]
+    }
+  ]
+}
