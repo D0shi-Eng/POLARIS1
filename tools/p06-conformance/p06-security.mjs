@@ -89,7 +89,8 @@ export function staticChecks(root) {
       const actors = names.filter((name) => /invoke|execute|call|request|raw|reveal|secret\.get|credential\.get/i.test(name));
       const forbidden = /FORBIDDEN_OPERATIONS[^=]*=\s*\[(.*?)\];/s.exec(source)?.[1] ?? "";
       const guarded = ["connector.invoke", "connector.execute", "connector.call", "connector.secret.get", "connector.credential.get", "http.request"].filter((name) => forbidden.includes(`"${name}"`));
-      checks.push(judge("P06-SEC-NO-INVOKE-OPERATION", title, names.length === 28 && actors.length === 0 && guarded.length === 6, `operations ${names.length}; action-shaped ${actors.length}; forbidden by name ${guarded.length}/6`));
+      // 30 = الـ28 الأصلية + connector.preset.list وconnector.preset.register (PHASE-05). العدد يُحدَّث مع كل عملية تُضاف عمدًا.
+      checks.push(judge("P06-SEC-NO-INVOKE-OPERATION", title, names.length === 30 && actors.length === 0 && guarded.length === 6, `operations ${names.length}; action-shaped ${actors.length}; forbidden by name ${guarded.length}/6`));
     }
   }
 
@@ -228,7 +229,15 @@ export function staticChecks(root) {
     if (p06Files.length === 0) checks.push(absent("P06-SEC-NO-TELEMETRY-ENDPOINT", title, "core/src/p06"));
     else {
       const offenders = [];
+      // كتالوج الإعدادات الجاهزة للموصلات (PHASE-05، ثم 2026-11-13): عناوين خدمات يضيفها المستخدم بنفسه، تُسجَّل معطّلة وبلا
+      // اعتماد ولا تُستدعى قبل أن يضع مفتاحه (اختبار cp05_presets_register_disabled_without_a_credential…). ليست قياسًا ولا
+      // مزامنة، فتُستثنى بالاسم وحده؛ كل ملف آخر في Phase-06 يبقى تحت القاعدة. وعناوينها كلها https.
+      const catalogs = new Set(["desktop/host/core/src/p06/connector/presets.rs", "desktop/host/core/src/p06/connector/preset_table.rs"]);
       for (const file of p06Files) {
+        if (catalogs.has(rel(root, file))) {
+          for (const match of code(withoutTests(readFileSync(file, "utf8"))).matchAll(/"(http:\/\/[^"]+)"/g)) offenders.push(`${rel(root, file)}: ${match[1]} (a preset must be https)`);
+          continue;
+        }
         for (const match of code(withoutTests(readFileSync(file, "utf8"))).matchAll(/"(https?:\/\/[^"]+)"/g)) {
           if (!/^https?:\/\/(127\.0\.0\.1|localhost)/.test(match[1])) offenders.push(`${rel(root, file)}: ${match[1]}`);
         }
@@ -265,7 +274,7 @@ export function staticChecks(root) {
       const methods = [...code(client).matchAll(/^\s{2}([a-zA-Z]+)\(/gm)].map((m) => m[1]).filter((name) => name !== "constructor" && name !== "call");
       const actors = methods.filter((name) => /invoke|execute|reveal|secret|password/i.test(name));
       const fields = screens.filter((file) => /type="password"|autoComplete="current-password"/.test(readFileSync(file, "utf8"))).map((file) => rel(root, file));
-      checks.push(judge("P06-SEC-RENDERER-NO-KEY-PATH", title, methods.length === 28 && actors.length === 0 && fields.length === 0, `client methods ${methods.length}; action- or secret-shaped ${actors.join(", ") || "none"}; key input fields ${fields.join(", ") || "none"}`));
+      checks.push(judge("P06-SEC-RENDERER-NO-KEY-PATH", title, methods.length === 30 && actors.length === 0 && fields.length === 0, `client methods ${methods.length}; action- or secret-shaped ${actors.join(", ") || "none"}; key input fields ${fields.join(", ") || "none"}`));
     }
   }
 

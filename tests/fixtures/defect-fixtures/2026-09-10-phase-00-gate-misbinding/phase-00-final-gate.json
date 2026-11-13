@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0.0",
+  "tool": "polaris.phase-00.final-gate",
+  "phase": "PHASE-00",
+  "platform": "win32",
+  "native": true,
+  "decided_at": "2026-09-10T04:21:48Z",
+  "derived_from": [
+    "evidence/w1-results.json",
+    "evidence/w4-windows-conformance.json",
+    "evidence/w5-run.json",
+    "evidence/w6-run.json",
+    "evidence/w6-test-groups.json",
+    "evidence/w6-dogfood.json",
+    "evidence/w6-skip-classification.json",
+    "evidence/w6-evidence-bytes.json",
+    "evidence/w6-repeatability.json",
+    "evidence/w6-cleanup.json"
+  ],
+  "rules": [
+    "BLOCKED, INCONCLUSIVE and NOT_TESTED are never promoted to PASS",
+    "a condition whose evidence is incomplete is not a satisfied condition",
+    "a condition not measured in this run says so, and is never read as a fresh measurement",
+    "PHASE-00 = PASS only when every condition is PASS with complete evidence"
+  ],
+  "conditions": [
+    {
+      "claim_id": "PH00-W1",
+      "description": "the W1 confinement spike result remains valid for the current architecture",
+      "evidence_reference": "evidence/w1-results.json",
+      "measured_in_this_run": false,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "W1 is PASS_PARTIAL and frozen. It is carried forward, not re-measured here: its mechanism claims are re-observed natively by W-11 and W-12 in this run."
+    },
+    {
+      "claim_id": "PH00-W2",
+      "description": "the six core contracts verify",
+      "evidence_reference": "",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "NOT_TESTED",
+      "reason_code": "STEP_NOT_IN_RUN_RECORD",
+      "detail": ""
+    },
+    {
+      "claim_id": "PH00-W3",
+      "description": "config service and local PDP behave as specified",
+      "evidence_reference": "evidence/w6-run.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "FAIL",
+      "reason_code": "RUNTIME_SUITE_FAILED",
+      "detail": "W3 is carried by the config and policy groups inside the runtime suite, re-run here"
+    },
+    {
+      "claim_id": "PH00-W4",
+      "description": "W-01..W-12 native confinement regression is clean",
+      "evidence_reference": "evidence/w4-windows-conformance.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "12/12 probes"
+    },
+    {
+      "claim_id": "PH00-W5",
+      "description": "the W5 canonical run is PASS with no blockers",
+      "evidence_reference": "evidence/w5-run.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "groups 11 pass, probe PASS"
+    },
+    {
+      "claim_id": "PH00-W6-GROUPS",
+      "description": "the W6 test groups are clean",
+      "evidence_reference": "evidence/w6-test-groups.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "9 groups pass, 50 tests"
+    },
+    {
+      "claim_id": "PH00-W6-DOGFOOD",
+      "description": "every dogfood scenario D01..D12 is PASS",
+      "evidence_reference": "evidence/w6-dogfood.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "12/12 scenarios"
+    },
+    {
+      "claim_id": "PH00-W6-SKIPS",
+      "description": "every skipped test is classified and none is security-critical",
+      "evidence_reference": "evidence/w6-skip-classification.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "3 skips: {\"A\":1,\"B\":2,\"C\":0,\"D\":0,\"UNCLASSIFIED\":0}"
+    },
+    {
+      "claim_id": "PH00-W6-BYTES",
+      "description": "every canonical evidence document satisfies the byte contract",
+      "evidence_reference": "evidence/w6-evidence-bytes.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "43 checked, 0 defective"
+    },
+    {
+      "claim_id": "PH00-W6-REPEAT",
+      "description": "a second run from a clean workspace reaches the same verdict",
+      "evidence_reference": "evidence/w6-repeatability.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "6 tests compared, 0 differences, 0 leaked workspaces"
+    },
+    {
+      "claim_id": "PH00-W6-CLEANUP",
+      "description": "cleanup is proven: no survivor, no leftover profile, no leftover workspace",
+      "evidence_reference": "evidence/w6-cleanup.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "survivors 0, profiles 0, workspaces 0"
+    },
+    {
+      "claim_id": "PH00-W6-RUN",
+      "description": "the W6 run record itself carries no blocker",
+      "evidence_reference": "evidence/w6-run.json",
+      "measured_in_this_run": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "",
+      "detail": "platform win32, native true"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 10,
+    "failed": 1,
+    "blocked": 0,
+    "unmeasured": 1,
+    "incomplete_evidence": 0
+  },
+  "canonical": true,
+  "verdict": "FAIL",
+  "reason_code": "PH00-W3",
+  "phase_01_gate": "NOT_ALLOWED"
+}

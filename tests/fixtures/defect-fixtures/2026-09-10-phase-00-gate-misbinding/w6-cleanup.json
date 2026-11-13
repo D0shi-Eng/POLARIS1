@@ -1,0 +1,24 @@
+{
+    "schema_version":  "1.0.0",
+    "tool":  "polaris.w6.cleanup",
+    "claim_id":  "W6-CLEANUP",
+    "description":  "after the whole W6 run no owned execution survives, no AppContainer profile is left behind, and no temporary workspace remains",
+    "platform":  "win32",
+    "native":  true,
+    "measurement_started":  "2026-09-10T04:19:23Z",
+    "measurement_completed":  "2026-09-10T04:21:48Z",
+    "evidence_complete":  true,
+    "clean":  true,
+    "surviving_execution_hosts":  [
+
+                                  ],
+    "leftover_appcontainer_profiles":  [
+
+                                       ],
+    "leftover_workspaces":  [
+
+                            ],
+    "verdict":  "PASS",
+    "reason_code":  "",
+    "evidence_reference":  "evidence\\w6-cleanup.json"
+}

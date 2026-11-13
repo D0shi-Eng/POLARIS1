@@ -37,7 +37,7 @@ import { runtimeSrcPath } from "./helpers.js";
 
 const REPOSITORY = join(runtimeSrcPath(), "..", "..");
 const GATE = join(REPOSITORY, "tools", "w6-conformance", "phase-00-gate.mjs");
-const FIXTURE = join(REPOSITORY, "evidence", "defect-fixtures", "2026-09-10-phase-00-gate-misbinding");
+const FIXTURE = join(REPOSITORY, "tests", "fixtures", "defect-fixtures", "2026-09-10-phase-00-gate-misbinding");
 
 /** الوثائق العشر التي تشتق منها البوابة حكمها، بأسمائها القانونية. */
 const SOURCES = [

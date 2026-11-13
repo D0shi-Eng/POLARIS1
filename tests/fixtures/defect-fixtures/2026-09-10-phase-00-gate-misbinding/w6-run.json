@@ -1,0 +1,119 @@
+{
+    "harness":  "polaris.w6.conformance.runner",
+    "harness_version":  "1.0.0",
+    "ran_at":  "2026-09-10T04:21:48Z",
+    "repository_root":  "D:\\POLARIS",
+    "platform":  "win32",
+    "native":  true,
+    "powershell":  "5.1.26100.9168",
+    "node":  "v24.14.1",
+    "steps":  [
+                  {
+                      "name":  "W5 verification run (the frozen W5 runner, unmodified)",
+                      "exit_code":  0,
+                      "duration_ms":  107246
+                  },
+                  {
+                      "name":  "W6 test groups",
+                      "exit_code":  0,
+                      "duration_ms":  4857
+                  },
+                  {
+                      "name":  "W6 dogfood scenarios (derived from measurements that already ran)",
+                      "exit_code":  0,
+                      "duration_ms":  43
+                  },
+                  {
+                      "name":  "W6 skip inventory (the whole suite, every skip classified)",
+                      "exit_code":  0,
+                      "duration_ms":  29358
+                  },
+                  {
+                      "name":  "W6 repeatability (the scenario twice, from clean workspaces)",
+                      "exit_code":  0,
+                      "duration_ms":  2606
+                  },
+                  {
+                      "name":  "W6 evidence byte gate (every canonical document, discovered by pattern)",
+                      "exit_code":  0,
+                      "duration_ms":  72
+                  }
+              ],
+    "bootstrap":  {
+                      "root_resolution_method":  "EXPLICIT_PARAMETER",
+                      "bootstrap_started":  "2026-09-10T04:19:23Z",
+                      "bootstrap_completed":  "2026-09-10T04:19:23Z",
+                      "bootstrap_ok":  true,
+                      "canonical_run_started":  true,
+                      "record":  "evidence\\w6-runner-bootstrap.json"
+                  },
+    "w5_regression":  {
+                          "skipped":  false,
+                          "exit_code":  0,
+                          "runner":  "tools\\w5-conformance\\run.ps1",
+                          "frozen":  true,
+                          "verdict":  "PASS",
+                          "run_reference":  "evidence\\w5-run.json",
+                          "interpretation":  "W6 does not re-implement the W4 or W5 chain. It runs the frozen W5 runner, which itself runs the frozen W4 runner, and reads their canonical evidence."
+                      },
+    "w6_test_groups":  {
+                           "passed":  9,
+                           "failed":  0,
+                           "blocked":  0,
+                           "inconclusive":  0,
+                           "not_tested":  0,
+                           "total_tests":  50,
+                           "total_failed":  0,
+                           "total_skipped":  0,
+                           "groups_with_incomplete_evidence":  0
+                       },
+    "w6_dogfood":  {
+                       "total":  12,
+                       "passed":  12,
+                       "failed":  0,
+                       "blocked":  0,
+                       "inconclusive":  0,
+                       "not_tested":  0,
+                       "scenarios_with_incomplete_evidence":  0
+                   },
+    "w6_skips":  {
+                     "verdict":  "PASS",
+                     "total":  3,
+                     "by_class":  {
+                                      "A":  1,
+                                      "B":  2,
+                                      "C":  0,
+                                      "D":  0,
+                                      "UNCLASSIFIED":  0
+                                  },
+                     "reference":  "evidence\\w6-skip-classification.json"
+                 },
+    "w6_repeatability":  {
+                             "verdict":  "PASS",
+                             "reference":  "evidence\\w6-repeatability.json"
+                         },
+    "evidence_bytes":  {
+                           "contract":  "UTF-8 without BOM, LF newlines, valid JSON document, exactly one trailing LF",
+                           "verdict":  "PASS",
+                           "checked":  43,
+                           "reference":  "evidence\\w6-evidence-bytes.json",
+                           "note":  "w6-run.json and w6-evidence-bytes.json are written through the byte contract\u0027s own writers, so they satisfy it by construction rather than by this gate."
+                       },
+    "cleanup":  {
+                    "clean":  true,
+                    "surviving_execution_hosts":  [
+
+                                                  ],
+                    "leftover_appcontainer_profiles":  [
+
+                                                       ],
+                    "leftover_workspaces":  [
+
+                                            ],
+                    "reference":  "evidence\\w6-cleanup.json"
+                },
+    "verdict":  "PASS",
+    "reason_codes":  [
+
+                     ]
+}

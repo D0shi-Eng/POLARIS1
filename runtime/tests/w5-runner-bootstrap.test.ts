@@ -55,7 +55,7 @@ const shellSkip = SHELL === undefined ? "no PowerShell interpreter on this host"
 const MARKERS: ReadonlyArray<{ readonly key: string; readonly path: readonly string[]; readonly directory: boolean }> = [
   { key: "contracts", path: ["contracts", "package.json"], directory: false },
   { key: "runtime", path: ["runtime", "package.json"], directory: false },
-  { key: "docs", path: ["docs", "phases", "PHASE-00"], directory: true },
+  { key: "docs", path: ["desktop", "host"], directory: true },
   { key: "w4runner", path: ["tools", "w4-windows-conformance", "run.ps1"], directory: false },
   { key: "groups", path: ["tools", "w5-conformance", "w5-test-groups.mjs"], directory: false },
   { key: "adapter", path: ["tools", "w5-windows-adapter", "build.ps1"], directory: false },
@@ -264,7 +264,7 @@ test(
     try {
       const run = runSelfCheck(repo.runner, ["-RepositoryRoot", repo.root, "-SelfCheck"]);
       assert.equal(run.combined.includes("PropertyNotFoundStrict"), false, run.combined);
-      for (const fragment of ["PHASE-00", "w5-test-groups.mjs", "build.ps1"]) {
+      for (const fragment of ["desktop", "w5-test-groups.mjs", "build.ps1"]) {
         assert.ok(run.stdout.includes(fragment), `the failure did not name ${fragment}`);
       }
       assert.equal(run.status, 2);

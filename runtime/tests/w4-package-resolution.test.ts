@@ -143,7 +143,7 @@ const FIXTURE_RUNTIME_LOCK = JSON.stringify(
 function makeFixture(options: { readonly materializeDist: boolean } = { materializeDist: true }): string {
   const root = mkdtempSync(join(tmpdir(), "polaris-pkg-fixture-"));
 
-  write(join(root, "docs", "phases", "PHASE-00", "README.md"), "marker\n");
+  write(join(root, "desktop", "host", "README.md"), "marker\n");
   write(join(root, "tools", "w4-windows-conformance", "windows-probes.mjs"), "// marker\n");
 
   write(join(root, "contracts", "package.json"), FIXTURE_CONTRACTS_MANIFEST);

@@ -425,7 +425,7 @@ test("P16: the fixed construction never reaches Test-Path with an illegal path",
 const MARKERS: ReadonlyArray<{ readonly path: readonly string[]; readonly directory: boolean }> = [
   { path: ["contracts", "package.json"], directory: false },
   { path: ["runtime", "package.json"], directory: false },
-  { path: ["docs", "phases", "PHASE-00"], directory: true },
+  { path: ["desktop", "host"], directory: true },
   { path: ["tools", "w4-windows-conformance", "run.ps1"], directory: false },
   { path: ["tools", "w5-conformance", "w5-test-groups.mjs"], directory: false },
   { path: ["tools", "w5-windows-adapter", "build.ps1"], directory: false },

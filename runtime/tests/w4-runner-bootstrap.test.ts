@@ -91,7 +91,7 @@ test("the runner validates a candidate against POLARIS markers before accepting 
   for (const marker of [
     "contracts\\\\package.json",
     "runtime\\\\package.json",
-    "docs\\\\phases\\\\PHASE-00",
+    "desktop\\\\host",
     "tools\\\\w4-windows-conformance\\\\windows-probes.mjs",
   ]) {
     assert.ok(source.includes(marker.replace(/\\\\/g, "\\")), `marker ${marker} is not checked`);

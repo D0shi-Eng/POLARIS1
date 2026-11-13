@@ -1,0 +1,14 @@
+﻿{
+    "tool":  "polaris.w5.windows-adapter.build",
+    "built_at":  "2026-09-08T16:36:55Z",
+    "compiler":  "C:\\WINDOWS\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "source_count":  35,
+    "output":  "D:\\POLARIS\\tools\\w5-windows-adapter\\bin\\polaris-w5-windows-adapter.exe",
+    "exit_code":  0,
+    "compiler_output":  [
+
+                        ],
+    "binary_present":  true,
+    "binary_sha256":  "2E0639D6B17180E751F4595038DDA6C59EA237B737035BAE1C5FFE1785B10CE1",
+    "error_code":  ""
+}

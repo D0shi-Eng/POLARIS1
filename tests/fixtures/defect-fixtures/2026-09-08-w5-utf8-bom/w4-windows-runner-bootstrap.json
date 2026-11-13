@@ -1,0 +1,31 @@
+﻿{
+    "harness":  "polaris.w4.windows-conformance.runner",
+    "harness_version":  "1.1.0",
+    "checked_at":  "2026-09-08T16:38:09Z",
+    "powershell":  "5.1.26100.9168",
+    "host":  "ConsoleHost",
+    "platform":  "Microsoft Windows NT 10.0.26200.0",
+    "script_root_variable_populated":  true,
+    "explicit_argument":  "Q:\\no\\such\\place",
+    "resolved_root":  null,
+    "resolved_from":  null,
+    "required_markers":  [
+                             "contracts\\package.json",
+                             "contracts\\schemas",
+                             "runtime\\package.json",
+                             "docs\\phases\\PHASE-00",
+                             "tools\\w4-windows-conformance\\windows-probes.mjs"
+                         ],
+    "attempts":  [
+                     {
+                         "source":  "RepositoryRoot parameter",
+                         "candidate":  "Q:\\no\\such\\place",
+                         "status":  "NOT_A_DIRECTORY",
+                         "missing_markers":  [
+
+                                             ]
+                     }
+                 ],
+    "status":  "FAILED",
+    "error_code":  "WINDOWS_RUNNER_BOOTSTRAP_DEFECT"
+}

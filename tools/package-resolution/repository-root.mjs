@@ -14,7 +14,7 @@ export const REPOSITORY_MARKERS = [
   join("contracts", "package.json"),
   join("contracts", "schemas"),
   join("runtime", "package.json"),
-  join("docs", "phases", "PHASE-00"),
+  join("desktop", "host"),
   join("tools", "w4-windows-conformance", "windows-probes.mjs"),
 ];
 

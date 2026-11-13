@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0.0",
+  "tool": "polaris.w6.repeatability",
+  "canonical": true,
+  "claim_id": "W6-D12-RUNNER",
+  "description": "the primary scenario, run twice in separate processes from clean workspaces, reaches identical outcomes and leaves nothing behind",
+  "platform": "win32",
+  "native": true,
+  "node_version": "v24.14.1",
+  "measurement_started": "2026-09-10T04:21:45Z",
+  "measurement_completed": "2026-09-10T04:21:47Z",
+  "evidence_complete": true,
+  "runs": [
+    {
+      "label": "FIRST",
+      "measurement_started": "2026-09-10T04:21:45Z",
+      "measurement_completed": "2026-09-10T04:21:46Z",
+      "exit_code": 0,
+      "summary_format": "TAP",
+      "counts": {
+        "tests": 6,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "results": [
+        {
+          "name": "W6-D01 the integrated path runs end to end and the three sources agree",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D01 every effect is preceded by a policy decision and an execution grant",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D01 the system states the confinement it actually had, and never claims more",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 two runs from fresh workspaces decide identically and share no identity",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 disposing a run removes its workspace and its artefact",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 the artefact of a previous run cannot satisfy a later proof",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        }
+      ]
+    },
+    {
+      "label": "SECOND",
+      "measurement_started": "2026-09-10T04:21:46Z",
+      "measurement_completed": "2026-09-10T04:21:47Z",
+      "exit_code": 0,
+      "summary_format": "TAP",
+      "counts": {
+        "tests": 6,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "results": [
+        {
+          "name": "W6-D01 the integrated path runs end to end and the three sources agree",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D01 every effect is preceded by a policy decision and an execution grant",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D01 the system states the confinement it actually had, and never claims more",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 two runs from fresh workspaces decide identically and share no identity",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 disposing a run removes its workspace and its artefact",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        },
+        {
+          "name": "W6-D12 the artefact of a previous run cannot satisfy a later proof",
+          "ok": true,
+          "failed": false,
+          "skipped": false
+        }
+      ]
+    }
+  ],
+  "workspace_snapshots": {
+    "before": [],
+    "between": [],
+    "after": [],
+    "leaked": []
+  },
+  "differences": [],
+  "verdict": "PASS",
+  "reason_code": "",
+  "detail": "6 tests compared, 0 differences, 0 leaked workspaces",
+  "evidence_reference": "evidence\\w6-repeatability.json"
+}

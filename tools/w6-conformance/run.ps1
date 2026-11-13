@@ -71,7 +71,7 @@ $script:LastSoftStepCode = 0
 $script:RepositoryMarkers = @(
   "contracts\package.json",
   "runtime\package.json",
-  "docs\phases\PHASE-00",
+  "desktop\host",
   "tools\w4-windows-conformance\run.ps1",
   "tools\w5-conformance\run.ps1",
   "tools\w6-conformance\w6-test-groups.mjs"

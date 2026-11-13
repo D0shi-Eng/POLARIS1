@@ -362,7 +362,7 @@ test("the canonical writer declares its encoder explicitly and verifies what it 
 
 // عيّنات مجمَّدة من التشغيل الأصلي المعطوب. تبقى حاملةً للعيب عمدًا: كاشفٌ
 // بلا ضبط موجب حارسٌ بلا قيمة.
-const DEFECT_FIXTURES = join(REPOSITORY, "evidence", "defect-fixtures", "2026-09-08-w5-utf8-bom");
+const DEFECT_FIXTURES = join(REPOSITORY, "tests", "fixtures", "defect-fixtures", "2026-09-08-w5-utf8-bom");
 
 // الملفات التي كتبها مشغّل PowerShell قبل الإصلاح وما زالت في مكانها. تُسمّى
 // واحدًا واحدًا، ويسقط الاختبار على أي ملف آخر يحمل العيب. أول تشغيل أصلي بعد

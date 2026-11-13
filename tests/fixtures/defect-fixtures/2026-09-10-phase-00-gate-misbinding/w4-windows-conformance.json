@@ -1,0 +1,190 @@
+{
+  "harness": "polaris.w4.windows-conformance",
+  "harness_version": "1.0.0",
+  "platform": "win32",
+  "node": "v24.14.1",
+  "ran_at": "2026-09-10T04:21:38.153Z",
+  "repository_root": "D:\\POLARIS",
+  "repository_root_resolution": [
+    {
+      "source": "--root argument",
+      "candidate": "D:\\POLARIS",
+      "status": "ACCEPTED",
+      "missing_markers": []
+    }
+  ],
+  "executed_natively_on_windows": true,
+  "summary": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "blocked": 0,
+    "inconclusive": 0,
+    "not_tested": 0,
+    "total": 12
+  },
+  "verdict_classification": {
+    "PASS": "the measurement ran and the evidence proves the requirement met",
+    "FAIL": "the measurement ran and the evidence proves the requirement violated",
+    "BLOCKED": "the required measurement did not happen: a prerequisite, tool or environment was unavailable",
+    "INCONCLUSIVE": "the measurement ran, but the quality or completeness of its evidence does not support a valid verdict",
+    "SKIPPED": "the probe does not apply on this host and claims nothing",
+    "NOT_TESTED": "the probe was not exercised in this run"
+  },
+  "verdict_rules": [
+    "a missing binary, adapter or prerequisite before the measurement starts is BLOCKED, never FAIL",
+    "a failed positive control is INCONCLUSIVE, never PASS and never FAIL for the targeted security claim",
+    "a proven leak or escape is FAIL",
+    "BLOCKED, INCONCLUSIVE and NOT_TESTED are never promoted to PASS",
+    "W1 or Linux/POSIX evidence never substitutes for a Windows measurement required by W4",
+    "where the report and the raw evidence disagree, the raw evidence is the reference and the report is defective",
+    "a final W4 PASS requires no FAIL, no BLOCKED, no INCONCLUSIVE and no security-critical NOT_TESTED"
+  ],
+  "probes": [
+    {
+      "probe_id": "W-01",
+      "title": "the path authority reports native Windows semantics",
+      "status": "PASS",
+      "detail": "canonicalisation runs with real Windows semantics",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-02",
+      "title": "a reserved device name is refused against the real filesystem",
+      "status": "PASS",
+      "detail": "RESERVED_DEVICE_NAME",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-03",
+      "title": "an alternate data stream is refused",
+      "status": "PASS",
+      "detail": "ALTERNATE_DATA_STREAM",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-04",
+      "title": "a trailing dot or space is refused",
+      "status": "PASS",
+      "detail": "both trailing forms refused",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-05",
+      "title": "an 8.3 short-name form is refused",
+      "status": "PASS",
+      "detail": "SHORT_NAME_FORM",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-06",
+      "title": "containment is case-insensitive, as Windows paths really are",
+      "status": "PASS",
+      "detail": "case-folded containment holds",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-07",
+      "title": "a directory junction that leaves the root is caught after real resolution",
+      "status": "PASS",
+      "detail": "junction escape detected as SYMLINK_ESCAPE",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-08",
+      "title": "the walking skeleton completes natively on Windows with real effects",
+      "status": "PASS",
+      "detail": "2 tool calls, summary written",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-09",
+      "title": "every tool parameter was declassified before the effect",
+      "status": "PASS",
+      "detail": "3 declassifications, all bound to their effect",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-10",
+      "title": "an out-of-scope read is denied for the filesystem scope",
+      "status": "PASS",
+      "detail": "ok",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "PASS",
+      "evidence_reference": "evidence/w4-windows-conformance.json"
+    },
+    {
+      "probe_id": "W-11",
+      "title": "Windows HANDLE inheritance regression (X03) with a positive control",
+      "status": "PASS",
+      "detail": "A deliberately leaked inheritable handle WAS detected under ambient inheritance - by the child and by a complete parent enumeration of the handle table - and was NOT present once an explicit handle list was used, for the adapter child and for the real W4 executor.",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "POSITIVE_CONTROL_DETECTED_AND_BOTH_CLEAN_PATHS_HELD_UNDER_A_COMPLETE_ENUMERATION",
+      "evidence_reference": "evidence/w4-windows-x03.json"
+    },
+    {
+      "probe_id": "W-12",
+      "title": "AppContainer + Job Object integration of the real W4 executor",
+      "status": "PASS",
+      "detail": "The real W4 executor ran inside a zero-capability AppContainer, inside a kill-on-close Job, with an explicit handle list, a completely enumerated handle table and a constructed environment. The PEP refused the out-of-scope read for the correct logical reason, the OS boundary itself refused the denied fixture while a byte-identical granted fixture was readable, no child outlived the Job, and every ACL grant, profile and temporary tree was removed and verified.",
+      "measurement_started": true,
+      "measurement_completed": true,
+      "evidence_complete": true,
+      "verdict": "PASS",
+      "reason_code": "ALL_CONFINEMENT_REQUIREMENTS_MET",
+      "evidence_reference": "evidence/w4-windows-confined-exec.json"
+    }
+  ],
+  "provenance": "POLARIS_W4_NATIVE_RUN: produced by tools/w4-windows-conformance/run.ps1"
+}

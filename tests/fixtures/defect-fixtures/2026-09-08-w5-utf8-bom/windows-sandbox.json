@@ -1,0 +1,13 @@
+﻿{
+    "captured_utc":  "2026-09-01T06:05:11.9534306Z",
+    "binary_present":  false,
+    "optional_feature_state":  "Disabled",
+    "boot_test":  {
+                      "status":  "NOT_TESTED",
+                      "seconds":  null,
+                      "reason":  "boot test not requested",
+                      "network":  null,
+                      "hostDisk":  null
+                  },
+    "scope_note":  "This spike never enables or disables Windows optional features, Defender, the firewall, or UAC."
+}

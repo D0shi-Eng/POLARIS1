@@ -92,7 +92,7 @@ does not tie the document to the current run reads an old success and writes it 
   presented as a fresh measurement.
 * Twelve regression classes now cover the gate (`runtime/tests/w6-phase-00-gate.test.ts`), driven by
   the owner-run evidence itself, kept unmodified under
-  `evidence/defect-fixtures/2026-09-10-phase-00-gate-misbinding/`.
+  `tests/fixtures/defect-fixtures/2026-09-10-phase-00-gate-misbinding/`.
 
 ## Alternatives rejected
 

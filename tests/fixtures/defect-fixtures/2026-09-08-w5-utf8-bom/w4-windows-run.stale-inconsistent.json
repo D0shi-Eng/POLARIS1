@@ -1,0 +1,66 @@
+﻿{
+    "harness":  "polaris.w4.windows-conformance.runner",
+    "harness_version":  "1.4.0",
+    "ran_at":  "2026-09-03T22:35:42Z",
+    "repository_root":  "D:\\POLARIS",
+    "powershell":  "5.1.26100.9168",
+    "node":  "v24.14.1",
+    "npm":  "C:\\Program Files\\nodejs\\npm.cmd",
+    "steps":  [
+                  {
+                      "name":  "contracts: verify",
+                      "exit_code":  0,
+                      "duration_ms":  2158
+                  },
+                  {
+                      "name":  "package resolution gate",
+                      "exit_code":  0,
+                      "duration_ms":  290
+                  },
+                  {
+                      "name":  "runtime: verify",
+                      "exit_code":  0,
+                      "duration_ms":  2420
+                  },
+                  {
+                      "name":  "windows probes",
+                      "exit_code":  1,
+                      "duration_ms":  347
+                  }
+              ],
+    "dependency_state":  [
+                             {
+                                 "package":  "contracts",
+                                 "lockfile_sha256":  "EA1622157FFE312A386E602988377B71F60856FE2D27C46F96546B785B734BB7",
+                                 "installed":  false,
+                                 "forced":  false
+                             },
+                             {
+                                 "package":  "runtime",
+                                 "lockfile_sha256":  "C50721EA632DF43DA3DFC2CD88565978E51EE8B120920914C4328ED24A40DA55",
+                                 "installed":  false,
+                                 "forced":  false
+                             }
+                         ],
+    "transcript":  "D:\\POLARIS\\evidence\\w4-windows-run-transcript.log",
+    "package_resolution":  {
+                               "status":  "PASS",
+                               "repaired":  false,
+                               "materialization":  "PACKED_PACKAGE",
+                               "evidence":  "D:\\POLARIS\\evidence\\w4-package-resolution.json",
+                               "strategy":  "npm local file: dependency with install-links=true - npm packs ../contracts and installs it as an ordinary node_modules package; no symlink, no junction, no cross-OS link"
+                           },
+    "probe_summary":  {
+                          "passed":  10,
+                          "failed":  1,
+                          "skipped":  0,
+                          "blocked":  1,
+                          "total":  12
+                      },
+    "surviving_execution_hosts":  [
+
+                                  ],
+    "leftover_appcontainer_profiles":  [
+
+                                       ]
+}

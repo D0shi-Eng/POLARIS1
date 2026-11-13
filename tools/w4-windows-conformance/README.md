@@ -96,7 +96,7 @@ its export surface is byte-identical to the contracts build, **Node** imports it
 from inside `runtime`, and **TypeScript** resolves the declarations with the
 runtime's own `NodeNext` settings. A `tsconfig` alias would satisfy only the
 last. The regression guard is `runtime/tests/w4-package-resolution.test.ts`
-(REG-PKG-001 … REG-PKG-012), and `docs/phases/PHASE-00/W4-PACKAGE-RESOLUTION.md`
+(REG-PKG-001 … REG-PKG-012), and the Phase-00 records
 records the root cause.
 
 ## Bootstrap contract

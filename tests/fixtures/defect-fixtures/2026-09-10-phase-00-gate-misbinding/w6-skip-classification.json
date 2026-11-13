@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "tool": "polaris.w6.skip-inventory",
+  "canonical": true,
+  "claim_id": "W6-SKIP",
+  "description": "every skipped test in the runtime suite, named and classified against the declared registry",
+  "platform": "win32",
+  "native": true,
+  "node_version": "v24.14.1",
+  "reporter": "tap",
+  "summary_format": "TAP",
+  "measurement_started": "2026-09-10T04:21:15Z",
+  "measurement_completed": "2026-09-10T04:21:45Z",
+  "evidence_complete": true,
+  "suite_summary": {
+    "tests": 480,
+    "passed": 477,
+    "failed": 0,
+    "skipped": 3,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "observed_results": 480,
+  "skipped_total": 3,
+  "by_class": {
+    "A": 1,
+    "B": 2,
+    "C": 0,
+    "D": 0,
+    "UNCLASSIFIED": 0
+  },
+  "skips": [
+    {
+      "test": "X03 regression: a leaked handle IS detected, and the POLARIS launcher leaks none",
+      "reason": "the /proc handle probe is a Linux-native check",
+      "skip_class": "A",
+      "rationale": "the probe reads /proc/self/fd to enumerate descriptors. That filesystem does not exist on Windows, so the instrument is platform-wrong there rather than the claim being unmeasured.",
+      "windows_claim_carried_by": "W-11 (X03 handle inheritance, native, with a positive control)",
+      "blocks_closure": false
+    },
+    {
+      "test": "a symbolic link that leaves the anchored root is caught after real resolution",
+      "reason": "junction creation needs a native Windows run",
+      "skip_class": "B",
+      "rationale": "the fixture builds a POSIX symlink to make a link that leaves the anchored root. On Windows the equivalent object is a directory junction, which the native runner creates and measures for real; the POSIX fixture would measure nothing there.",
+      "windows_claim_carried_by": "W-07 (junction escape detected as SYMLINK_ESCAPE) and W-06 (case-insensitive containment)",
+      "blocks_closure": false
+    },
+    {
+      "test": "containment is proven after link resolution, not before",
+      "reason": "junction creation needs a native Windows run",
+      "skip_class": "B",
+      "rationale": "the fixture builds a POSIX symlink to make a link that leaves the anchored root. On Windows the equivalent object is a directory junction, which the native runner creates and measures for real; the POSIX fixture would measure nothing there.",
+      "windows_claim_carried_by": "W-07 (junction escape detected as SYMLINK_ESCAPE) and W-06 (case-insensitive containment)",
+      "blocks_closure": false
+    }
+  ],
+  "unclassified": [],
+  "verdict": "PASS",
+  "reason_code": "",
+  "evidence_reference": "evidence\\w6-skip-classification.json",
+  "interpretation": "class A is a platform-wrong instrument, B a case that does not exist on this platform, C an environment refusal of a measurable claim, D a security-critical claim left unmeasured. D and C block Phase-00 closure; an unclassified skip blocks it too, because an unnamed skip is indistinguishable from a hole."
+}

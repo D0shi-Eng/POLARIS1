@@ -1,0 +1,430 @@
+{
+  "schema_version": "1.0.0",
+  "tool": "polaris.w6.evidence-bytes",
+  "canonical": true,
+  "claim_id": "W6-BYTES",
+  "description": "every canonical evidence document is UTF-8 without a BOM, LF-only, valid JSON, and ends with exactly one newline",
+  "contract": "UTF-8 no BOM · LF only · valid JSON document · exactly one trailing LF",
+  "discovery_note": "W5's gate carried a hand-kept list of seventeen names and reached sixteen files. Discovery here is by pattern, so a new producer of canonical evidence cannot be forgotten.",
+  "platform": "win32",
+  "native": true,
+  "measurement_started": "2026-09-10T04:21:48Z",
+  "measurement_completed": "2026-09-10T04:21:48Z",
+  "evidence_complete": true,
+  "files_seen": 80,
+  "checked": 43,
+  "excluded": [
+    {
+      "file": "phase-00-final-gate.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w4-package-cross-os-link.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w4-package-resolution.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w4-runner-exit-code-defect.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w4-windows-conformance.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w4-windows-conformance.invalid-provenance.json",
+      "reason": "a deliberate defect fixture: its provenance is the defect"
+    },
+    {
+      "file": "w4-windows-run.stale-inconsistent.json",
+      "reason": "a deliberate defect fixture: a stale, BOM-prefixed document"
+    },
+    {
+      "file": "w5-approval.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-architecture.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-audit-chain.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-completion-proof.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-e9-cli-forensics.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w5-evidence-encoding.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-native-panic-stop.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-package-refresh-path-defect.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w5-panic-stop-host.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-panic-stop.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-run.local.json",
+      "reason": "a local, non-native record that claims no measured result"
+    },
+    {
+      "file": "w5-runner-bootstrap-regression.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-runner-package-refresh.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-scenarios.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-test-group-contract.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w5-test-groups.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-approval.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-budgets.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-denial.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-dogfood-group.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-dogfood.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-evidence-bytes.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-invariants.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-model-output.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-panic-stop.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-repeatability.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-skip-classification.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-skip-contract.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "w6-test-groups.adhoc.json",
+      "reason": "a run without the runner's marker declares itself non-canonical"
+    },
+    {
+      "file": "windows-sandbox.json",
+      "reason": "a frozen W1 environment record, written before the byte contract"
+    }
+  ],
+  "defects": [],
+  "results": [
+    {
+      "file": "environment.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 478
+    },
+    {
+      "file": "phase-00-final-gate.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 745
+    },
+    {
+      "file": "w1-results.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 124119
+    },
+    {
+      "file": "w4-corpus-results.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 27931
+    },
+    {
+      "file": "w4-package-resolution.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 3744
+    },
+    {
+      "file": "w4-windows-adapter-build.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 3638
+    },
+    {
+      "file": "w4-windows-classification.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 871
+    },
+    {
+      "file": "w4-windows-confined-exec.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 73159
+    },
+    {
+      "file": "w4-windows-conformance.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 7600
+    },
+    {
+      "file": "w4-windows-conformance.local-dryrun.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 877
+    },
+    {
+      "file": "w4-windows-environment-block-selftest.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1580
+    },
+    {
+      "file": "w4-windows-run.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 3952
+    },
+    {
+      "file": "w4-windows-runner-bootstrap.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1197
+    },
+    {
+      "file": "w4-windows-x03.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 27328
+    },
+    {
+      "file": "w5-approval.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 863
+    },
+    {
+      "file": "w5-architecture.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 881
+    },
+    {
+      "file": "w5-audit-chain.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 820
+    },
+    {
+      "file": "w5-completion-proof.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 891
+    },
+    {
+      "file": "w5-evidence-encoding.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 957
+    },
+    {
+      "file": "w5-native-panic-stop.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1333
+    },
+    {
+      "file": "w5-panic-stop-host.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 896
+    },
+    {
+      "file": "w5-panic-stop.adapter.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 31425
+    },
+    {
+      "file": "w5-panic-stop.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 17125
+    },
+    {
+      "file": "w5-run.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 5769
+    },
+    {
+      "file": "w5-runner-bootstrap-regression.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 924
+    },
+    {
+      "file": "w5-runner-package-refresh.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 939
+    },
+    {
+      "file": "w5-scenarios.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 799
+    },
+    {
+      "file": "w5-test-group-contract.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 970
+    },
+    {
+      "file": "w5-test-groups.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 11947
+    },
+    {
+      "file": "w5-windows-adapter-build.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 510
+    },
+    {
+      "file": "w6-approval.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1875
+    },
+    {
+      "file": "w6-budgets.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 2600
+    },
+    {
+      "file": "w6-cleanup.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 780
+    },
+    {
+      "file": "w6-denial.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 2670
+    },
+    {
+      "file": "w6-dogfood-group.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1653
+    },
+    {
+      "file": "w6-dogfood.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 17623
+    },
+    {
+      "file": "w6-invariants.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 3126
+    },
+    {
+      "file": "w6-model-output.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 2796
+    },
+    {
+      "file": "w6-panic-stop.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 1922
+    },
+    {
+      "file": "w6-repeatability.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 3822
+    },
+    {
+      "file": "w6-skip-classification.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 2971
+    },
+    {
+      "file": "w6-skip-contract.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 2063
+    },
+    {
+      "file": "w6-test-groups.json",
+      "ok": true,
+      "defects": [],
+      "bytes": 23598
+    }
+  ],
+  "verdict": "PASS",
+  "reason_code": "",
+  "evidence_reference": "evidence\\w6-evidence-bytes.json"
+}

@@ -1,0 +1,138 @@
+{
+    "harness":  "polaris.w5.conformance.runner",
+    "harness_version":  "1.0.0",
+    "ran_at":  "2026-09-10T04:21:10Z",
+    "repository_root":  "D:\\POLARIS",
+    "platform":  "win32",
+    "native":  true,
+    "powershell":  "5.1.26100.9168",
+    "node":  "v24.14.1",
+    "steps":  [
+                  {
+                      "name":  "contracts: verify",
+                      "exit_code":  0,
+                      "duration_ms":  4244
+                  },
+                  {
+                      "name":  "packages: refresh the local contracts package inside runtime",
+                      "exit_code":  0,
+                      "duration_ms":  884
+                  },
+                  {
+                      "name":  "package resolution gate",
+                      "exit_code":  0,
+                      "duration_ms":  347
+                  },
+                  {
+                      "name":  "runtime: typecheck and build",
+                      "exit_code":  0,
+                      "duration_ms":  2911
+                  },
+                  {
+                      "name":  "W5 adapter: static check",
+                      "exit_code":  0,
+                      "duration_ms":  49
+                  },
+                  {
+                      "name":  "W5 adapter: build",
+                      "exit_code":  0,
+                      "duration_ms":  971
+                  },
+                  {
+                      "name":  "W5 test groups",
+                      "exit_code":  0,
+                      "duration_ms":  16596
+                  },
+                  {
+                      "name":  "W5 native probe: panic stop on a live confined child",
+                      "exit_code":  0,
+                      "duration_ms":  3822
+                  },
+                  {
+                      "name":  "W4 native regression (the frozen W4 runner, unmodified)",
+                      "exit_code":  0,
+                      "duration_ms":  44462
+                  },
+                  {
+                      "name":  "runtime: final test",
+                      "exit_code":  0,
+                      "duration_ms":  32231
+                  }
+              ],
+    "w5_adapter":  {
+                       "path":  "D:\\POLARIS\\tools\\w5-windows-adapter\\bin\\polaris-w5-windows-adapter.exe",
+                       "built":  true,
+                       "exit_code":  0,
+                       "sha256":  "B5EE4E656350E78C6279E1C3D338C0C44FB015EEB51212F2323EA59BBFDF0CB8"
+                   },
+    "bootstrap":  {
+                      "root_resolution_method":  "EXPLICIT_PARAMETER",
+                      "bootstrap_started":  "2026-09-10T04:19:23Z",
+                      "bootstrap_completed":  "2026-09-10T04:19:24Z",
+                      "bootstrap_ok":  true,
+                      "canonical_run_started":  true,
+                      "record":  "evidence\\w5-runner-bootstrap.json"
+                  },
+    "w5_test_groups":  {
+                           "passed":  11,
+                           "failed":  0,
+                           "blocked":  0,
+                           "inconclusive":  0,
+                           "not_tested":  0,
+                           "total_tests":  166,
+                           "total_failed":  0,
+                           "total_skipped":  0,
+                           "groups_with_incomplete_evidence":  0
+                       },
+    "w5_native_probe":  {
+                            "verdict":  "PASS",
+                            "reason_code":  "",
+                            "survivors":  null,
+                            "cleanup_clean":  null
+                        },
+    "w4_regression":  {
+                          "skipped":  false,
+                          "exit_code":  0,
+                          "classification":  "W4_REGRESSION_PASS",
+                          "native_probes":  "PASS",
+                          "probe_summary":  {
+                                                "passed":  12,
+                                                "failed":  0,
+                                                "skipped":  0,
+                                                "blocked":  0,
+                                                "inconclusive":  0,
+                                                "not_tested":  0,
+                                                "total":  12
+                                            },
+                          "failing_steps":  [
+
+                                            ],
+                          "interpretation":  "native_probes is the W4 confinement result; exit_code is the whole W4 runner. A nonzero aggregate whose only failing step is the runtime suite is not a confinement regression, and it is still a blocker.",
+                          "run_reference":  "evidence\\w4-windows-run.json"
+                      },
+    "evidence_encoding":  {
+                              "contract":  "UTF-8 without BOM, LF newlines, valid JSON document",
+                              "checked":  16,
+                              "defects":  [
+
+                                          ],
+                              "module":  "D:\\POLARIS\\tools\\evidence-contract\\json-evidence.ps1"
+                          },
+    "runtime_test_exit_code":  0,
+    "cleanup":  {
+                    "clean":  true,
+                    "surviving_execution_hosts":  [
+
+                                                  ],
+                    "leftover_appcontainer_profiles":  [
+
+                                                       ],
+                    "leftover_workspaces":  [
+
+                                            ]
+                },
+    "verdict":  "PASS",
+    "reason_codes":  [
+
+                     ]
+}

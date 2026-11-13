@@ -74,7 +74,7 @@ $script:RepositoryMarkers = @(
   "contracts\package.json",
   "contracts\schemas",
   "runtime\package.json",
-  "docs\phases\PHASE-00",
+  "desktop\host",
   "tools\w4-windows-conformance\windows-probes.mjs"
 )
 
